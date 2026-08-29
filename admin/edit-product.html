@@ -3,12 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gas El Volcán — Editar producto</title>
-  <link rel="stylesheet" href="../assets/css/styles.css">
+  <title>El Volcán Market — Editar producto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <!-- TODO: Mismo formulario que nuevo producto, precargado. -->
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
 
+    <main class="flex-grow-1 p-4">
+      <h1 class="h3 mb-4">Editar producto</h1>
+      <!-- TODO: precarga con datos de ejemplo. En la versión real, estos valores vendrían del backend/BD según el producto seleccionado en el listado. -->
+
+      <section style="max-width: 560px;">
+        <form id="edit-product-form">
+          <div class="mb-3">
+            <label for="product-code" class="form-label">Código producto</label>
+            <input type="text" class="form-control" id="product-code" name="productCode" required minlength="3" value="CIL-11">
+            <!-- TODO: el código normalmente no debería ser editable una vez creado -->
+            <div class="invalid-feedback" id="error-product-code"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="product-name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="product-name" name="productName" required maxlength="100" value="Cilindro de Gas Licuado 11 kg">
+            <div class="invalid-feedback" id="error-product-name"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="product-description" class="form-label">Descripción (opcional)</label>
+            <textarea class="form-control" id="product-description" name="productDescription" rows="3" maxlength="500"></textarea>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="product-price" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="product-price" name="productPrice" min="0" step="0.01" required value="16500">
+              <div class="invalid-feedback" id="error-product-price"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="product-category" class="form-label">Categoría</label>
+              <select class="form-select" id="product-category" name="productCategory" required>
+                <option value="" selected disabled>-- Seleccione --</option>
+                <option value="5kg">5 kg</option>
+                <option value="11kg" selected>11 kg</option>
+                <option value="15kg">15 kg</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="product-stock" class="form-label">Stock</label>
+              <input type="number" class="form-control" id="product-stock" name="productStock" min="0" step="1" required value="3">
+              <div class="invalid-feedback" id="error-product-stock"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="product-critical-stock" class="form-label">Stock crítico (opcional)</label>
+              <input type="number" class="form-control" id="product-critical-stock" name="productCriticalStock" min="0" step="1" value="5">
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="product-image" class="form-label">Imagen (opcional)</label>
+            <input type="file" class="form-control" id="product-image" name="productImage" accept="image/*">
+          </div>
+
+          <div class="d-flex gap-2">
+            <a href="products.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
   <script src="../assets/js/validations.js"></script>
 </body>
 </html>
