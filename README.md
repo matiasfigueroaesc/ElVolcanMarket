@@ -22,9 +22,9 @@ Construir el frontend estático de la tienda + un panel de administración simpl
 ## 2. Estructura del repositorio
 
 ```
-gas-el-volcan-store/
+ElVolcanMarket/
 ├── assets/
-│   ├── css/        → estilos.css (una sola hoja externa, compartida por todas las páginas)
+│   ├── css/        → custom.css (personalización sobre Bootstrap, opcional por sección)
 │   ├── js/          → validations.js (validaciones de formularios, carrito, etc.)
 │   └── img/         → imágenes/logos
 ├── store/           → vistas públicas (la tienda)
@@ -35,6 +35,10 @@ gas-el-volcan-store/
 Cada página HTML ya está creada como esqueleto vacío con un comentario `<!-- TODO -->`
 indicando qué contenido/mockup de las instrucciones (Anexo 1) le corresponde. Así cada
 integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
+
+> **Decisión de equipo (actualizada):** todo el sitio usa **Bootstrap 5.3** (vía CDN), tanto
+> `admin/` como `store/`. No se mantiene un sistema de clases propio en paralelo. Ver
+> convenciones de código en la sección 4.
 
 ## 3. Mapeo página → requisito (Anexo 1 instrucciones)
 
@@ -67,15 +71,36 @@ integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
 > Las reglas de validación de cada campo (Run, correo, precio, stock, etc.) están detalladas
 > en el Anexo 1 de instrucciones, sección "Utilización y validación de JavaScript".
 
-## 4. Flujo de trabajo en Git sugerido
+## 4. Convenciones de código
+
+- **Framework CSS:** Bootstrap 5.3 (CDN) en **todas** las páginas, `store/` y `admin/` por
+  igual. Usar siempre las clases nativas de Bootstrap (`btn btn-primary`, `card`,
+  `form-control`, `form-select`, `table table-striped`, `navbar`, etc.) en vez de crear
+  clases propias equivalentes.
+- **CSS personalizado:** cada sección puede tener un `custom.css` pequeño, cargado
+  *después* del CDN de Bootstrap, para ajustar la identidad visual de la marca
+  (colores, tipografía) sobrescribiendo variables de Bootstrap (`--bs-primary`, etc.)
+  en vez de escribir reglas nuevas desde cero. **No** reemplaza a Bootstrap, lo
+  complementa.
+- El antiguo `assets/css/styles.css` (sistema de clases propio: `btn-primary`,
+  `form-group`, etc.) queda **en desuso** — no usarlo en páginas nuevas ni en las que se
+  reescriban.
+- Un solo `<h1>` por página; `<section>` para bloques de contenido semánticamente
+  distintos.
+- Formularios: cada `<input>`/`<select>`/`<textarea>` con `<label for="...">` asociado,
+  su propio `id`/`name`, y un `<div class="invalid-feedback">` listo para la validación JS.
+- Rutas relativas a `assets/` siempre `../assets/...` (todas las páginas están un nivel
+  bajo la raíz, dentro de `store/` o `admin/`).
+
+## 5. Flujo de trabajo en Git sugerido
 
 - `main` → siempre debe quedar funcionando (no se sube trabajo a medio hacer).
 - Cada integrante trabaja en su propia rama: `feature/<nombre>-<pagina>` (ej: `feature/matias-home`).
 - Commits pequeños y descriptivos (ej: `feat: estructura HTML de home`, `fix: validación correo registro`).
 - Pull Request hacia `main` antes de fusionar, aunque sea autoevaluado por falta de tiempo.
-- Evitar editar el mismo archivo en paralelo sin avisar (sobre todo `styles.css` y `validations.js`).
+- Evitar editar el mismo archivo en paralelo sin avisar (sobre todo `custom.css` y `validations.js`).
 
-## 5. Próximos pasos (pendientes de definir en equipo)
+## 6. Próximos pasos (pendientes de definir en equipo)
 
 - [ ] Repartir páginas entre los integrantes
 - [ ] Definir paleta de colores / estilo visual de la marca
@@ -84,12 +109,12 @@ integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
 - [ ] Definir reglas del carrito de pedido (cantidades, tipos de cilindro, etc.)
 - [ ] Preparar la presentación de 15 minutos + ronda de preguntas
 
-## 6. Cómo subir este repo a GitHub
+## 7. Cómo subir este repo a GitHub
 
 ```bash
 # 1. Crear un repositorio vacío y PÚBLICO en github.com (sin README, sin licencia)
 # 2. Desde esta carpeta:
-git remote add origin https://github.com/<tu-usuario>/gas-el-volcan-store.git
+git remote add origin https://github.com/<tu-usuario>/ElVolcanMarket.git
 git branch -M main
 git push -u origin main
 ```
