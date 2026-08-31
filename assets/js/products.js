@@ -18,7 +18,7 @@ const productos = [
     precio: 8500,
     stock: 20,
     categoria: "Gas licuado",
-    imagen: "../assets/img/cilindro-5kg.jpg"
+    imagen: "../assets/img/cilindro-5kg.png"
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const productos = [
     precio: 16500,
     stock: 15,
     categoria: "Gas licuado",
-    imagen: "../assets/img/cilindro-11kg.jpg"
+    imagen: "../assets/img/cilindro-11kg.png"
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const productos = [
     precio: 21000,
     stock: 10,
     categoria: "Gas licuado",
-    imagen: "../assets/img/cilindro-15kg.jpg"
+    imagen: "../assets/img/cilindro-15kg.png"
   }
 ];
 
