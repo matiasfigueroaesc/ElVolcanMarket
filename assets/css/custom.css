@@ -13,6 +13,7 @@
   --bs-primary-rgb: 233, 78, 29;
   --bs-dark: #13162a;
   --bs-dark-rgb: 19, 22, 42;
+  
 
   /* Bordes redondeados: a diferencia del color, esta sí la heredan en
      tiempo real botones, cards, inputs, alerts, dropdowns y modals. */
@@ -71,6 +72,7 @@ h1, h2, h3, h4, h5, h6,
 .navbar .nav-link.active {
   background-color: var(--bs-primary);
   color: #fff;
+  border-radius: var(--bs-border-radius-pill);
 }
 
 /* ---------- Navbar de store/: de barra pegada a los bordes a barra "flotante" ---------- */
@@ -81,14 +83,28 @@ h1, h2, h3, h4, h5, h6,
   margin: 1rem 1rem 0;
   border-bottom: 0 !important;
   border-radius: var(--bs-border-radius-lg);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   box-shadow: 0 0.25rem 0.75rem rgba(19, 22, 42, 0.08);
+  background-color: #fde9dd !important;
 }
 
-/* ---------- Cards: efecto "levantar" al pasar el mouse ---------- */
+/* ---------- Cards: efecto "levantar" + fondo de color al pasar el mouse ---------- */
 .card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 1.25rem 2rem rgba(19, 22, 42, 0.35);
+  background-color: #fbd3bb;
+}
+
+
+/* f5a177 es un tono claro: el texto se mantiene oscuro (no blanco) para
+   conservar buen contraste sobre ese fondo. */
+.card:hover .card-body,
+.card:hover .card-title,
+.card:hover .card-text,
+.card:hover p {
+  color: var(--bs-dark);
 }
