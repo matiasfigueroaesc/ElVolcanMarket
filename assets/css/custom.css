@@ -4,17 +4,85 @@
    SIEMPRE después del CDN de Bootstrap.
    ============================================ */
 
-/* ---------- Paleta de marca (PENDIENTE) ---------- */
-/* TODO: reemplazar con los códigos hex de marca cuando se definan.
-   Sobrescribir variables de Bootstrap acá, no escribir reglas nuevas
-   de color sueltas en el resto del sitio.
+/* ---------- Paleta de marca ---------- */
+/* Sobrescribir variables de Bootstrap acá, no escribir reglas nuevas
+   de color sueltas en el resto del sitio. */
 
 :root {
-  --bs-primary: #___;
-  --bs-primary-rgb: ___, ___, ___;
-  --bs-secondary: #___;
+  --bs-primary: #e94e1d;
+  --bs-primary-rgb: 233, 78, 29;
+  --bs-dark: #13162a;
+  --bs-dark-rgb: 19, 22, 42;
+
+  /* Bordes redondeados: a diferencia del color, esta sí la heredan en
+     tiempo real botones, cards, inputs, alerts, dropdowns y modals. */
+  --bs-border-radius-sm: 0.35rem;
+  --bs-border-radius: 0.6rem;
+  --bs-border-radius-lg: 0.85rem;
+  --bs-border-radius-xl: 1.1rem;
+
+  /* Tipografía: SN Pro (cargada vía Google Fonts en el <head> de cada página) */
+  --bs-body-font-family: 'SN Pro', system-ui, -apple-system, sans-serif;
+  --bs-body-font-weight: 600; /* semibold, cuerpo de texto */
 }
-*/
+
+/* ---------- Tipografía: títulos en extra bold ---------- */
+/* --bs-body-font-family/--bs-body-font-weight arriba sí las usa Bootstrap
+   directamente en el selector body{}, pero los títulos traen su propio
+   font-weight compilado (500) que hay que sobrescribir acá. */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 800;
+}
+
+/* ---------- Componentes que Bootstrap NO recalcula solo con --bs-primary ---------- */
+/* .btn-primary, .btn-outline-primary y .nav-pills/.nav-link.active traen sus propios
+   colores "horneados" en el CSS compilado del CDN (--bs-btn-bg, etc., ya vienen en hex
+   azul). Sobrescribirlos acá para que sí reflejen el naranjo/azul de marca. */
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c64218;
+  --bs-btn-hover-border-color: #c64218;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #ae3a15;
+  --bs-btn-active-border-color: #ae3a15;
+  --bs-btn-disabled-bg: var(--bs-primary);
+  --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--bs-primary);
+  --bs-btn-hover-border-color: var(--bs-primary);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--bs-primary);
+  --bs-btn-active-border-color: var(--bs-primary);
+  --bs-btn-disabled-color: var(--bs-primary);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link,
+.navbar .nav-link.active {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
+
+/* ---------- Navbar de store/: de barra pegada a los bordes a barra "flotante" ---------- */
+/* Mismo #store-navbar en las 11 páginas — no requiere tocar el HTML.
+   El border-bottom que trae la clase .border-bottom usa !important, así que
+   hay que anularlo explícitamente acá. */
+#store-navbar {
+  margin: 1rem 1rem 0;
+  border-bottom: 0 !important;
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: 0 0.25rem 0.75rem rgba(19, 22, 42, 0.08);
+}
 
 /* ---------- Cards: efecto "levantar" al pasar el mouse ---------- */
 .card {

@@ -32,7 +32,9 @@ function renderStoreNavbar() {
 
   container.innerHTML = `
     <div class="container-fluid">
-      <a class="navbar-brand fw-semibold" href="index.html">El Volcán Market</a>
+      <a class="navbar-brand" href="index.html">
+        <img src="../assets/img/EVG_Horizontal.svg" alt="El Volcán Market" height="36">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#storeNavCollapse" aria-controls="storeNavCollapse" aria-expanded="false" aria-label="Abrir menú">
         <span class="navbar-toggler-icon"></span>
       </button>
