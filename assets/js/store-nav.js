@@ -40,6 +40,7 @@ function renderStoreNavbar() {
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           ${linksHtml}
         </ul>
+        <a href="login.html" class="btn btn-outline-secondary me-2">Iniciar sesión</a>
         <a href="cart.html" class="btn btn-outline-primary" id="store-cart-link">
           🛒 Carrito <span class="badge text-bg-primary" id="cart-count">0</span>
         </a>

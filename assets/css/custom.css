@@ -1,0 +1,26 @@
+/* ============================================
+   El Volcán Market — custom.css
+   Personalización sobre Bootstrap 5.3. Cargar
+   SIEMPRE después del CDN de Bootstrap.
+   ============================================ */
+
+/* ---------- Paleta de marca (PENDIENTE) ---------- */
+/* TODO: reemplazar con los códigos hex de marca cuando se definan.
+   Sobrescribir variables de Bootstrap acá, no escribir reglas nuevas
+   de color sueltas en el resto del sitio.
+
+:root {
+  --bs-primary: #___;
+  --bs-primary-rgb: ___, ___, ___;
+  --bs-secondary: #___;
+}
+*/
+
+/* ---------- Cards: efecto "levantar" al pasar el mouse ---------- */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
