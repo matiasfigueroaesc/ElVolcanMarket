@@ -3,12 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gas El Volcán — Blogs</title>
-  <link rel="stylesheet" href="../assets/css/styles.css">
+  <title>El Volcán Market — Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <!-- TODO: Ver Figura 6. 2 tarjetas de noticias/casos curiosos con imagen, título y descripción corta. -->
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
 
-  <script src="../assets/js/validations.js"></script>
+  <main class="container py-5">
+    <h1 class="mb-3">Blog de noticias y consejos</h1>
+    <p class="text-muted mb-4">
+      Descubre consejos de seguridad, uso eficiente de cilindros de gas licuado y novedades
+      de Distribuidora El Volcán.
+    </p>
+
+    <section class="row g-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <img src="../assets/img/blog-1.jpg" class="card-img-top" alt="Consejos de seguridad con cilindros de gas">
+          <div class="card-body">
+            <span class="text-muted small">15 de agosto, 2026</span>
+            <h2 class="h5 mt-2">Medidas clave para el uso seguro de cilindros en el hogar</h2>
+            <p class="card-text text-muted">
+              Aprende a revisar conexiones, reguladores y mangueras para garantizar la
+              máxima seguridad de tu familia.
+            </p>
+            <a href="blog-detail-1.html" class="btn btn-primary btn-sm">Leer artículo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card h-100">
+          <img src="../assets/img/blog-2.jpg" class="card-img-top" alt="Optimización de consumo de gas en invierno">
+          <div class="card-body">
+            <span class="text-muted small">2 de agosto, 2026</span>
+            <h2 class="h5 mt-2">Cómo optimizar el consumo de gas durante los meses fríos</h2>
+            <p class="card-text text-muted">
+              Recomendaciones prácticas para calefaccionar tus ambientes de manera eficiente
+              sin descuidar tu presupuesto.
+            </p>
+            <a href="blog-detail-2.html" class="btn btn-primary btn-sm">Leer artículo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
 </body>
 </html>
