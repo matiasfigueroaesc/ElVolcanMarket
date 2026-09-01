@@ -108,3 +108,44 @@ h1, h2, h3, h4, h5, h6,
 .card:hover p {
   color: var(--bs-dark);
 }
+
+/* ---------- Carrusel del inicio: degradado oscuro + texto grande estilo "hero" ---------- */
+/* Sin esto el texto vive en una cajita chica en la esquina; con esto el fondo
+   se oscurece parejo y el texto flota directo sobre la imagen, como un banner
+   de landing page (referencia: gasdelcarmen.cl). */
+.carousel-item {
+  position: relative;
+}
+.carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(19, 22, 42, 0.75) 0%, rgba(19, 22, 42, 0.35) 45%, rgba(19, 22, 42, 0.05) 75%);
+  pointer-events: none;
+}
+.hero-caption {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: auto;
+  bottom: auto;
+  transform: translateY(-50%);
+  text-align: left;
+  max-width: 520px;
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-caption h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.hero-caption p {
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+/* Sin esto el texto (aunque transparente en esas zonas) igual "atrapa" el
+   clic y las flechas prev/next del carrusel dejan de responder. Se lo
+   devolvemos solo al botón, que sí debe seguir siendo clickeable. */
+.hero-caption a.btn {
+  pointer-events: auto;
+}
