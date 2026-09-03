@@ -143,6 +143,70 @@ function evgInicializarRegistro() {
 // TODO: validación formulario de login (correo + contraseña)
 
 
+// --------------------------------------------
+// LOGIN (store/login.html)
+// --------------------------------------------
+function evgInicializarLogin() {
+  const form = document.getElementById("login-form");
+  if (!form) return; // este script se comparte entre páginas: si no hay form, no hace nada
+ 
+  const inputEmail = document.getElementById("login-email");
+  const inputPassword = document.getElementById("login-password");
+  const alertaBox = evgCrearAlertaLogin(form);
+ 
+  // Validación en tiempo real mientras el usuario escribe
+  inputEmail.addEventListener("input", () => evgValidarEmail(inputEmail));
+  inputPassword.addEventListener("input", () => evgValidarPassword(inputPassword));
+ 
+  form.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    alertaBox.classList.add("d-none");
+ 
+    const emailOk = evgValidarEmail(inputEmail);
+    const passwordOk = evgValidarPassword(inputPassword);
+    if (!emailOk || !passwordOk) return;
+ 
+    const email = inputEmail.value.trim().toLowerCase();
+    const password = inputPassword.value;
+    const usuarios = evgGetUsuarios();
+    const usuario = usuarios.find((u) => u.email.toLowerCase() === email);
+ 
+    if (!usuario) {
+      evgMostrarAlertaLogin(alertaBox, "No existe una cuenta con ese correo. ¿Ya te registraste?");
+      return;
+    }
+    if (usuario.password !== password) {
+      evgMostrarError(inputPassword, "Contraseña incorrecta.");
+      return;
+    }
+ 
+    // Login correcto: se guarda la sesión y se redirige a la tienda.
+    localStorage.setItem(
+      EVG_SESSION_KEY,
+      JSON.stringify({ email: usuario.email, name: usuario.name, lastname: usuario.lastname })
+    );
+    window.location.href = "index.html";
+  });
+}
+ 
+// Crea (una sola vez) el contenedor de alerta general del login,
+// para errores que no pertenecen a un campo específico (ej: correo no registrado).
+function evgCrearAlertaLogin(form) {
+  let alertaBox = document.getElementById("login-alert");
+  if (!alertaBox) {
+    alertaBox = document.createElement("div");
+    alertaBox.id = "login-alert";
+    alertaBox.className = "alert alert-danger d-none";
+    alertaBox.setAttribute("role", "alert");
+    form.prepend(alertaBox);
+  }
+  return alertaBox;
+}
+ 
+function evgMostrarAlertaLogin(alertaBox, mensaje) {
+  alertaBox.textContent = mensaje;
+  alertaBox.classList.remove("d-none");
+}
 
 
 // TODO: validación formulario de contacto (nombre, correo, comentario)
