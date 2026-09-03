@@ -8,6 +8,110 @@
 
 
 // --------------------------------------------
+// "Base de datos" de usuarios en localStorage.
+// Como la Evaluación 1 es solo HTML+CSS+JS (sin backend),
+// el registro guarda usuarios acá y el login valida contra
+// esta misma lista. Cuando el proyecto pase a tener backend
+// real (evaluaciones futuras), esto se reemplaza por fetch().
+// --------------------------------------------
+const EVG_USERS_KEY = "evgUsers";
+const EVG_SESSION_KEY = "evgSession";
+const EVG_EMAIL_DOMINIOS = ["duoc.cl", "profesor.duoc.cl", "gmail.com"];
+ 
+function evgGetUsuarios() {
+  const data = localStorage.getItem(EVG_USERS_KEY);
+  return data ? JSON.parse(data) : [];
+}
+ 
+function evgGuardarUsuarios(usuarios) {
+  localStorage.setItem(EVG_USERS_KEY, JSON.stringify(usuarios));
+}
+ 
+// Usuario de prueba, solo para poder probar login.html sin depender
+// de que register.html ya esté 100% terminado por el compañero a cargo.
+// Se crea una sola vez (si ya existe, no se duplica).
+// TODO equipo: se puede quitar cuando el registro esté probado en todas las páginas.
+(function evgSembrarUsuarioDemo() {
+  const usuarios = evgGetUsuarios();
+  const yaExisteDemo = usuarios.some((u) => u.email === "demo@gmail.com");
+  if (!yaExisteDemo) {
+    usuarios.push({
+      run: "111111111",
+      name: "Usuario",
+      lastname: "Demo",
+      email: "demo@gmail.com",
+      password: "1234",
+      phone: "",
+      region: "nuble",
+      comuna: "chillan",
+      address: "Calle Demo 123, Chillán"
+    });
+    evgGuardarUsuarios(usuarios);
+  }
+})();
+ 
+// --------------------------------------------
+// Helpers genéricos de feedback visual (Bootstrap .is-valid / .is-invalid).
+// Buscan el <div class="invalid-feedback" id="error-<id-del-input>">
+// que ya viene armado en el HTML de cada campo.
+// --------------------------------------------
+function evgMostrarError(input, mensaje) {
+  input.classList.add("is-invalid");
+  input.classList.remove("is-valid");
+  const feedback = document.getElementById(`error-${input.id}`);
+  if (feedback) feedback.textContent = mensaje;
+}
+ 
+function evgMostrarValido(input) {
+  input.classList.remove("is-invalid");
+  input.classList.add("is-valid");
+  const feedback = document.getElementById(`error-${input.id}`);
+  if (feedback) feedback.textContent = "";
+}
+ 
+// --------------------------------------------
+// Validadores reutilizables (los usan login Y registro)
+// --------------------------------------------
+function evgValidarEmail(input) {
+  const valor = input.value.trim();
+ 
+  if (!valor) {
+    evgMostrarError(input, "El correo es obligatorio.");
+    return false;
+  }
+  const formatoOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+  if (!formatoOk) {
+    evgMostrarError(input, "Ingresa un correo con formato válido (ej: nombre@dominio.cl).");
+    return false;
+  }
+  const dominio = valor.split("@")[1]?.toLowerCase();
+  if (!EVG_EMAIL_DOMINIOS.includes(dominio)) {
+    evgMostrarError(
+      input,
+      `Solo se aceptan correos ${EVG_EMAIL_DOMINIOS.map((d) => "@" + d).join(", ")}.`
+    );
+    return false;
+  }
+  evgMostrarValido(input);
+  return true;
+}
+ 
+function evgValidarPassword(input, { min = 4, max = 10 } = {}) {
+  const valor = input.value;
+ 
+  if (!valor) {
+    evgMostrarError(input, "La contraseña es obligatoria.");
+    return false;
+  }
+  if (valor.length < min || valor.length > max) {
+    evgMostrarError(input, `La contraseña debe tener entre ${min} y ${max} caracteres.`);
+    return false;
+  }
+  evgMostrarValido(input);
+  return true;
+}
+
+// --------------------------------------------
 // REGISTRO (store/register.html)
 // Se incluye porque el login necesita usuarios reales para
 // funcionar: sin esto no habría contra qué validar el login.
@@ -208,6 +312,16 @@ function evgMostrarAlertaLogin(alertaBox, mensaje) {
   alertaBox.classList.remove("d-none");
 }
 
+
+// --------------------------------------------
+// Inicialización general.
+// Cada función revisa primero si su formulario existe en la página
+// actual, así este mismo archivo se puede cargar en todo el sitio.
+// --------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  evgInicializarLogin();
+  evgInicializarRegistro();
+});
 
 // TODO: validación formulario de contacto (nombre, correo, comentario)
 
