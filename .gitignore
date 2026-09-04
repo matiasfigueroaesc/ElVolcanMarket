@@ -11,3 +11,6 @@ npm-debug.log
 # Archivos temporales
 *.tmp
 *.log
+
+repomix-output.txt
+
