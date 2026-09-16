@@ -18,35 +18,42 @@
 
     <main class="flex-grow-1 p-4">
       <h1 class="h3 mb-4">Editar usuario</h1>
-      <!-- TODO: precarga con datos de ejemplo. En la versión real, vendrían del backend/BD según el usuario seleccionado en el listado. -->
+      <!-- Los campos se precargan dinámicamente según ?id=N en la URL, vía assets/js/admin-users.js -->
 
       <section style="max-width: 640px;">
         <form id="edit-user-form">
           <div class="mb-3">
             <label for="user-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
-            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9" value="178945672">
-            <!-- TODO: el Run normalmente no debería ser editable una vez creado -->
+            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9">
+            <div class="form-text">El Run no se puede editar una vez creado el usuario.</div>
             <div class="invalid-feedback" id="error-user-run"></div>
           </div>
 
           <div class="row g-3 mb-3">
             <div class="col-sm-6">
               <label for="user-name" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50" value="Pedro">
+              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50">
               <div class="invalid-feedback" id="error-user-name"></div>
             </div>
             <div class="col-sm-6">
               <label for="user-lastname" class="form-label">Apellidos</label>
-              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100" value="Salinas Rojas">
+              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100">
               <div class="invalid-feedback" id="error-user-lastname"></div>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="user-email" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100" value="pedro.salinas@duoc.cl">
+            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100">
             <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
             <div class="invalid-feedback" id="error-user-email"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="user-password" name="userPassword" minlength="4" maxlength="10">
+            <div class="form-text">Déjala en blanco para no cambiarla.</div>
+            <div class="invalid-feedback" id="error-user-password"></div>
           </div>
 
           <div class="row g-3 mb-3">
@@ -59,7 +66,7 @@
               <select class="form-select" id="user-type" name="userType" required>
                 <option value="" selected disabled>-- Seleccione --</option>
                 <option value="administrador">Administrador</option>
-                <option value="vendedor" selected>Vendedor</option>
+                <option value="vendedor">Vendedor</option>
                 <option value="cliente">Cliente</option>
               </select>
             </div>
@@ -73,7 +80,7 @@
                 <option value="" selected disabled>-- Seleccione región --</option>
                 <option value="metropolitana">Región Metropolitana de Santiago</option>
                 <option value="araucania">Región de la Araucanía</option>
-                <option value="nuble" selected>Región de Ñuble</option>
+                <option value="nuble">Región de Ñuble</option>
               </select>
             </div>
             <div class="col-sm-6">
@@ -81,7 +88,7 @@
               <!-- TODO: comunas deberían filtrarse en JS según la región seleccionada -->
               <select class="form-select" id="user-comuna" name="userComuna" required>
                 <option value="" selected disabled>-- Seleccione comuna --</option>
-                <option value="chillan" selected>Chillán</option>
+                <option value="chillan">Chillán</option>
                 <option value="chillan-viejo">Chillán Viejo</option>
               </select>
             </div>
@@ -89,7 +96,7 @@
 
           <div class="mb-4">
             <label for="user-address" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300" value="Av. O'Higgins 456, Chillán">
+            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300">
             <div class="invalid-feedback" id="error-user-address"></div>
           </div>
 
@@ -104,6 +111,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-users.js"></script>
   <script src="../assets/js/validations.js"></script>
 </body>
 </html>

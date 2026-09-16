@@ -47,6 +47,13 @@
             <div class="invalid-feedback" id="error-user-email"></div>
           </div>
 
+          <div class="mb-3">
+            <label for="user-password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="user-password" name="userPassword" required minlength="4" maxlength="10">
+            <div class="form-text">La usará esta persona para iniciar sesión.</div>
+            <div class="invalid-feedback" id="error-user-password"></div>
+          </div>
+
           <div class="row g-3 mb-3">
             <div class="col-sm-6">
               <label for="user-birthdate" class="form-label">Fecha de nacimiento (opcional)</label>
@@ -102,6 +109,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-users.js"></script>
   <script src="../assets/js/validations.js"></script>
 </body>
 </html>
