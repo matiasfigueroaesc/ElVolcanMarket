@@ -36,7 +36,10 @@ function renderStoreNavbar() {
       <span class="navbar-text me-2">Hola, ${sesion.nombre}</span>
       <button type="button" class="btn btn-outline-secondary me-2" id="store-logout-button">Cerrar sesión</button>
       `
-    : `<a href="login.html" class="btn btn-outline-secondary me-2">Iniciar sesión</a>`;
+    : `
+      <a href="register.html" class="btn btn-outline-primary me-2">Registrarse</a>
+      <a href="login.html" class="btn btn-outline-secondary me-2">Iniciar sesión</a>
+    `;
 
   container.innerHTML = `
     <div class="container-fluid">
