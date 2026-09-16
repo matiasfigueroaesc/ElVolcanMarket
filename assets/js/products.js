@@ -18,7 +18,8 @@ const productos = [
     precio: 8500,
     stock: 20,
     categoria: "Gas licuado",
-    imagen: "../assets/img/cilindro-5kg.png"
+    imagen: "../assets/img/cilindro-5kg.png",
+    descripcion: "Formato compacto, ideal para cocinas pequeñas, calefont auxiliar o uso ocasional."
   },
   {
     id: 2,
@@ -26,7 +27,8 @@ const productos = [
     precio: 16500,
     stock: 15,
     categoria: "Gas licuado",
-    imagen: "../assets/img/cilindro-11kg.png"
+    imagen: "../assets/img/cilindro-11kg.png",
+    descripcion: "El formato más solicitado para uso doméstico: cocina, calefont y estufas. Despacho a domicilio en Chillán y comunas aledañas."
   },
   {
     id: 3,
@@ -34,7 +36,8 @@ const productos = [
     precio: 21000,
     stock: 10,
     categoria: "Gas licuado",
-    imagen: "../assets/img/cilindro-15kg.png"
+    imagen: "../assets/img/cilindro-15kg.png",
+    descripcion: "Mayor autonomía para hogares con alto consumo o uso comercial (locales, negocios pequeños)."
   }
 ];
 
@@ -60,7 +63,7 @@ function renderProductos(lista) {
             <p class="fs-5 fw-bold">$${producto.precio.toLocaleString("es-CL")}</p>
             <p>Stock: ${producto.stock}</p>
             <div class="mt-auto d-flex gap-2">
-              <a href="product-detail.html" class="btn btn-outline-primary btn-sm">Ver detalle</a>
+              <a href="product-detail.html?id=${producto.id}" class="btn btn-outline-primary btn-sm">Ver detalle</a>
               <button class="btn btn-primary btn-sm btn-agregar"
                       data-id="${producto.id}"
                       ${producto.stock === 0 ? "disabled" : ""}>
