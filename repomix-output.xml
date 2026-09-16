@@ -1,0 +1,4417 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+admin/
+  edit-product.html
+  edit-user.html
+  home.html
+  new-product.html
+  new-user.html
+  orders.html
+  products.html
+  users.html
+assets/
+  css/
+    custom.css
+  img/
+    .gitkeep
+    banner-1.jpg
+    banner-2.jpg
+    banner-3.jpg
+    blog-1.svg
+    blog-2.svg
+    cilindro-11kg.png
+    cilindro-15kg.png
+    cilindro-5kg.png
+    cilindro-placeholder.svg
+    EVG_Horizontal.svg
+  js/
+    admin-guard.js
+    admin-home.js
+    admin-nav.js
+    admin-orders.js
+    admin-products.js
+    admin-users.js
+    cart.js
+    login.js
+    orders.js
+    product-detail.js
+    products.js
+    regiones.js
+    register.js
+    store-nav.js
+    users.js
+    validations.js
+docs/
+  README.md
+store/
+  about.html
+  blog-detail-1.html
+  blog-detail-2.html
+  blog.html
+  cart.html
+  contact.html
+  index.html
+  login.html
+  product-detail.html
+  products.html
+  register.html
+.gitignore
+README.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="admin/orders.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Pedidos (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Pedidos</h1>
+      </div>
+
+      <section>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table-body">
+              <!-- Se llena dinámicamente desde assets/js/admin-orders.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/admin-orders.js"></script>
+</body>
+</html>
+</file>
+
+<file path="assets/img/.gitkeep">
+
+</file>
+
+<file path="assets/img/EVG_Horizontal.svg">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 333.53 88.04">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e94e1d;
+      }
+
+      .cls-2 {
+        fill: #13162a;
+      }
+    </style>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M95.66,74.47c-1.74,0-3.07-.46-4-1.39-.93-.93-1.39-2.26-1.39-4v-28.07c0-1.74,.46-3.07,1.39-4,.93-.93,2.26-1.39,4-1.39h19.66c1.31,0,2.33,.34,3.05,1.02,.71,.68,1.07,1.65,1.07,2.93s-.36,2.31-1.07,2.99c-.72,.68-1.73,1.01-3.05,1.01h-15.37v6.84h14.04c1.31,0,2.34,.33,3.07,.99,.73,.66,1.1,1.64,1.1,2.96s-.37,2.31-1.1,2.99c-.73,.68-1.76,1.01-3.07,1.01h-14.04v8.18h15.37c1.31,0,2.33,.34,3.05,1.02,.71,.68,1.07,1.67,1.07,2.99s-.36,2.25-1.07,2.93c-.72,.68-1.73,1.01-3.05,1.01h-19.66Z"/>
+        <path class="cls-1" d="M139.39,70.58c0,.5-.11,1.01-.32,1.54-.21,.52-.54,.99-.99,1.39-.45,.41-1.04,.75-1.8,1.01-.75,.27-1.67,.41-2.75,.41s-2.14-.13-3.04-.38c-.91-.25-1.71-.63-2.41-1.13-.7-.5-1.3-1.18-1.8-2.03-.5-.85-.88-1.88-1.13-3.1-.25-1.22-.38-2.62-.38-4.21v-23.84c0-1.62,.42-2.89,1.28-3.8,.85-.91,2.07-1.36,3.65-1.36s2.85,.46,3.68,1.36c.83,.91,1.25,2.17,1.25,3.8v25.11c0,.43,.1,.77,.29,1.04,.19,.27,.52,.41,.99,.41,1,0,1.75,.24,2.23,.73,.48,.48,.81,1.02,.99,1.62,.17,.6,.26,1.07,.26,1.42Z"/>
+        <path class="cls-1" d="M173.57,74.99c-1.51,0-2.76-.36-3.77-1.07-1.01-.71-1.82-1.79-2.44-3.22l-11.54-28.71c-.54-1.35-.72-2.55-.52-3.6,.19-1.04,.72-1.86,1.57-2.44,.85-.58,1.86-.87,3.02-.87,1.58,0,2.78,.39,3.6,1.16s1.49,1.82,2.03,3.13l9.86,26.1h-3.19l9.86-26.1c.54-1.31,1.23-2.36,2.06-3.13,.83-.77,1.96-1.16,3.39-1.16,1.16,0,2.12,.3,2.87,.9,.75,.6,1.24,1.4,1.45,2.41,.21,1.01,.03,2.2-.55,3.6l-11.48,28.71c-.62,1.43-1.4,2.5-2.35,3.22-.95,.71-2.23,1.07-3.86,1.07Z"/>
+        <path class="cls-1" d="M204.6,75.11c-2.98,0-5.65-.66-8-1.97-2.36-1.31-4.21-3.09-5.57-5.34-1.35-2.24-2.03-4.78-2.03-7.6,0-2.13,.4-4.09,1.19-5.89,.79-1.8,1.88-3.37,3.28-4.73s3.04-2.41,4.96-3.16,3.97-1.13,6.18-1.13c3.02,0,5.7,.66,8.06,1.97,2.36,1.32,4.21,3.09,5.54,5.34,1.33,2.24,2,4.78,2,7.6,0,2.13-.39,4.09-1.16,5.89s-1.87,3.38-3.28,4.76c-1.41,1.37-3.06,2.43-4.96,3.16s-3.96,1.1-6.21,1.1Zm0-7.37c1.12,0,2.14-.31,3.05-.93,.91-.62,1.63-1.49,2.18-2.61,.54-1.12,.81-2.46,.81-4s-.27-2.83-.81-3.97c-.54-1.14-1.27-2.02-2.18-2.64-.91-.62-1.92-.93-3.05-.93s-2.09,.31-3.02,.93c-.93,.62-1.66,1.5-2.2,2.64-.54,1.14-.81,2.46-.81,3.97s.27,2.88,.81,4c.54,1.12,1.28,1.99,2.2,2.61,.93,.62,1.93,.93,3.02,.93Z"/>
+        <path class="cls-1" d="M239.34,70.58c0,.5-.11,1.01-.32,1.54-.21,.52-.54,.99-.99,1.39-.45,.41-1.04,.75-1.8,1.01-.75,.27-1.67,.41-2.75,.41s-2.14-.13-3.04-.38c-.91-.25-1.71-.63-2.41-1.13-.7-.5-1.3-1.18-1.8-2.03-.5-.85-.88-1.88-1.13-3.1-.25-1.22-.38-2.62-.38-4.21v-23.84c0-1.62,.42-2.89,1.28-3.8,.85-.91,2.07-1.36,3.65-1.36s2.85,.46,3.68,1.36c.83,.91,1.25,2.17,1.25,3.8v25.11c0,.43,.1,.77,.29,1.04,.19,.27,.52,.41,.99,.41,1,0,1.75,.24,2.23,.73,.48,.48,.81,1.02,.99,1.62,.17,.6,.26,1.07,.26,1.42Z"/>
+        <path class="cls-1" d="M258.19,75.11c-3.17,0-5.96-.6-8.38-1.8-2.42-1.2-4.3-2.93-5.66-5.19-1.35-2.26-2.03-4.92-2.03-7.98,0-2.28,.38-4.34,1.13-6.18,.75-1.84,1.85-3.4,3.28-4.7,1.43-1.29,3.14-2.28,5.13-2.96,1.99-.68,4.17-1.01,6.53-1.01,1.16,0,2.42,.14,3.77,.43,1.35,.29,2.63,.78,3.83,1.48,.97,.54,1.63,1.18,2,1.91s.47,1.49,.32,2.26-.48,1.43-.99,1.97c-.5,.54-1.15,.88-1.94,1.02-.79,.14-1.62-.05-2.46-.55-.66-.35-1.29-.58-1.89-.7s-1.21-.17-1.83-.17c-1.01,0-1.94,.16-2.81,.49-.87,.33-1.65,.81-2.35,1.45-.7,.64-1.23,1.4-1.59,2.29-.37,.89-.55,1.9-.55,3.02,0,1.47,.32,2.74,.96,3.8s1.52,1.89,2.64,2.49c1.12,.6,2.36,.9,3.71,.9,.62,0,1.26-.1,1.91-.29,.66-.19,1.33-.46,2.03-.81,.89-.43,1.7-.53,2.44-.32,.73,.21,1.34,.6,1.83,1.16,.48,.56,.77,1.21,.87,1.94,.1,.73-.03,1.46-.38,2.17-.35,.72-.98,1.34-1.91,1.88-1.28,.74-2.57,1.25-3.88,1.54s-2.55,.43-3.71,.43Z"/>
+        <path class="cls-1" d="M282.03,75.11c-2.2,0-4.12-.42-5.74-1.25s-2.87-1.97-3.74-3.42-1.3-3.06-1.3-4.84c0-1.66,.46-3.12,1.39-4.38,.93-1.26,2.17-2.26,3.71-3.02,1.55-.75,3.29-1.17,5.22-1.25s3.91,.25,5.92,.99l3.07,1.16v3.83l-3.19-.58c-1.08-.27-2.06-.38-2.93-.32-.87,.06-1.62,.26-2.26,.61s-1.11,.75-1.42,1.22c-.31,.46-.46,.95-.46,1.45,0,.97,.34,1.75,1.01,2.35,.68,.6,1.67,.9,2.99,.9,.73,0,1.42-.12,2.06-.38,.64-.25,1.2-.6,1.68-1.04,.48-.44,.85-.99,1.1-1.62,.25-.64,.38-1.34,.38-2.12v-6.9c0-1.51-.32-2.68-.96-3.51-.64-.83-1.81-1.25-3.51-1.25-.46,0-1.01,.06-1.62,.17-.62,.12-1.3,.34-2.06,.67s-1.58,.78-2.47,1.36c-.73,.46-1.45,.65-2.15,.55-.7-.1-1.28-.39-1.74-.87s-.78-1.06-.96-1.74c-.17-.68-.13-1.36,.15-2.06,.27-.7,.81-1.29,1.62-1.8,1.12-.73,2.26-1.3,3.42-1.71s2.26-.69,3.31-.84c1.04-.15,1.89-.23,2.55-.23,3.05-.12,5.6,.29,7.63,1.22,2.03,.93,3.57,2.35,4.61,4.26s1.57,4.32,1.57,7.22v12.01c0,1.59-.39,2.82-1.16,3.71-.77,.89-1.91,1.33-3.42,1.33-.81,0-1.58-.14-2.29-.41-.72-.27-1.29-.71-1.71-1.33-.43-.62-.64-1.43-.64-2.44v-1.28l.35,.7c-.19,1.2-.65,2.16-1.36,2.87s-1.62,1.23-2.73,1.54c-1.1,.31-2.41,.46-3.92,.46Zm4.97-32.47c-.76,.39-1.48,.48-2.17,.27-.69-.21-1.27-.6-1.74-1.16-.48-.56-.7-1.21-.69-1.93,.02-.73,.36-1.39,1.04-1.98l6.65-5.67c.74-.65,1.52-.95,2.34-.89,.82,.06,1.54,.33,2.17,.83,.63,.5,1.09,1.13,1.4,1.89,.3,.76,.36,1.52,.16,2.28-.2,.76-.72,1.38-1.55,1.86l-7.61,4.5Z"/>
+        <path class="cls-1" d="M309.58,74.99c-1.59,0-2.82-.46-3.71-1.39-.89-.93-1.33-2.17-1.33-3.71v-19.43c0-1.66,.43-2.92,1.3-3.77,.87-.85,2.08-1.28,3.62-1.28s2.78,.43,3.6,1.28c.81,.85,1.22,2.11,1.22,3.77v2.84l-.64-2.32c.93-1.82,2.25-3.22,3.97-4.21,1.72-.99,3.68-1.48,5.89-1.48s4.16,.44,5.63,1.33c1.47,.89,2.57,2.24,3.31,4.06,.73,1.82,1.1,4.1,1.1,6.84v12.35c0,1.55-.44,2.78-1.31,3.71-.87,.93-2.08,1.39-3.62,1.39-1.62,0-2.87-.46-3.74-1.39s-1.31-2.17-1.31-3.71v-11.95c0-1.78-.31-3.05-.93-3.83-.62-.77-1.55-1.16-2.78-1.16-1.59,0-2.87,.51-3.86,1.54-.99,1.03-1.48,2.39-1.48,4.09v11.31c0,1.55-.42,2.78-1.25,3.71-.83,.93-2.06,1.39-3.68,1.39Z"/>
+      </g>
+      <g>
+        <path class="cls-2" d="M92.22,28.38c-.48,0-.85-.13-1.11-.38-.26-.26-.38-.63-.38-1.11V15.13c0-.48,.13-.85,.38-1.11,.26-.26,.63-.38,1.11-.38h3.83c1.73,0,3.19,.32,4.37,.96,1.18,.64,2.07,1.51,2.67,2.62s.9,2.37,.9,3.77c0,1.25-.17,2.33-.51,3.26s-.84,1.69-1.52,2.31-1.5,1.08-2.49,1.38c-.98,.3-2.13,.45-3.43,.45h-3.83Zm1.25-2.33h2.4c.91,0,1.7-.09,2.36-.29,.67-.19,1.22-.49,1.67-.89,.45-.4,.78-.92,1-1.56,.22-.64,.33-1.41,.33-2.32,0-.95-.2-1.81-.59-2.56-.4-.75-.99-1.35-1.78-1.79s-1.79-.66-2.99-.66h-2.4v10.08Z"/>
+        <path class="cls-2" d="M107.45,15.88c-.4,0-.74-.14-1.03-.42-.29-.28-.44-.63-.44-1.06s.15-.78,.44-1.06c.29-.28,.64-.42,1.03-.42s.74,.14,1.03,.42c.29,.28,.44,.63,.44,1.06s-.15,.78-.44,1.06c-.29,.28-.64,.42-1.03,.42Zm0,12.65c-.41,0-.73-.13-.96-.4-.23-.26-.34-.63-.34-1.1v-8.07c0-.48,.11-.85,.34-1.11,.23-.26,.55-.38,.96-.38s.73,.13,.97,.38c.23,.26,.35,.63,.35,1.11v8.07c0,.47-.11,.84-.34,1.1-.23,.26-.55,.4-.98,.4Z"/>
+        <path class="cls-2" d="M115.19,28.6c-.37-.01-.78-.07-1.25-.15-.47-.09-.93-.23-1.38-.44-.45-.21-.84-.48-1.18-.81-.21-.21-.32-.42-.35-.65-.03-.23,0-.44,.09-.63s.21-.34,.37-.46c.16-.12,.35-.17,.56-.17,.21,0,.41,.1,.6,.27,.51,.46,.98,.74,1.4,.86s.8,.18,1.15,.18c.7,0,1.21-.11,1.51-.33,.3-.22,.45-.53,.45-.92,0-.34-.09-.59-.27-.75-.18-.16-.5-.29-.96-.37l-2.2-.42c-.91-.18-1.6-.53-2.08-1.06-.48-.53-.72-1.18-.72-1.96,0-.69,.19-1.29,.58-1.79s.93-.9,1.62-1.18c.69-.28,1.48-.42,2.38-.42,.65,0,1.27,.11,1.88,.32,.61,.21,1.14,.59,1.6,1.13,.16,.19,.25,.39,.25,.61s-.04,.41-.14,.58-.24,.32-.41,.42c-.17,.1-.36,.14-.56,.12-.21-.02-.41-.13-.62-.32-.35-.35-.7-.59-1.03-.7-.34-.12-.65-.18-.95-.18-.59,0-1.06,.12-1.43,.35-.37,.24-.55,.56-.55,.97,0,.23,.08,.46,.24,.68,.16,.22,.45,.37,.88,.44l2.2,.42c.95,.18,1.68,.55,2.17,1.12,.49,.57,.74,1.2,.74,1.89s-.19,1.29-.57,1.8c-.38,.51-.92,.91-1.61,1.18-.69,.27-1.5,.39-2.42,.36Z"/>
+        <path class="cls-2" d="M126.01,28.6c-.94,0-1.65-.16-2.15-.48-.49-.32-.83-.8-1.01-1.42-.18-.62-.27-1.4-.27-2.32v-4.6h-.88c-.35,0-.62-.1-.81-.3-.19-.2-.29-.46-.29-.78s.1-.6,.29-.79,.46-.29,.81-.29h.88v-2c0-.46,.12-.8,.35-1.03,.23-.23,.56-.35,.97-.35s.73,.12,.96,.35c.23,.23,.34,.58,.34,1.03v2h1.17c.35,0,.62,.1,.81,.29s.29,.45,.29,.79-.1,.58-.29,.78c-.19,.2-.46,.3-.81,.3h-1.17v4.44c0,.47,.01,.86,.03,1.18,.02,.32,.11,.55,.27,.7,.16,.15,.43,.23,.81,.23,.16,0,.29-.02,.37-.05,.09-.04,.21-.06,.35-.06,.16,0,.31,.03,.45,.1,.14,.07,.26,.17,.36,.3s.17,.29,.2,.48c.04,.24,0,.47-.12,.7-.12,.24-.33,.41-.6,.53-.19,.07-.42,.14-.69,.19-.27,.05-.48,.08-.63,.08Z"/>
+        <path class="cls-2" d="M130.5,28.55c-.37,0-.66-.12-.89-.36-.23-.24-.34-.59-.34-1.05v-8.32c0-.45,.12-.8,.37-1.03,.25-.23,.54-.35,.86-.35,.43,0,.76,.15,1.01,.46,.25,.31,.37,.69,.37,1.14v1.39h-.24c.13-.47,.29-.92,.47-1.36,.18-.44,.45-.81,.79-1.11,.34-.3,.81-.47,1.4-.52,.25-.03,.48,0,.69,.07,.21,.07,.4,.19,.55,.34,.15,.15,.25,.36,.27,.63,.03,.21,0,.41-.08,.61-.08,.2-.21,.37-.4,.51-.18,.14-.41,.22-.67,.25l-.42,.04c-.72,.07-1.25,.23-1.58,.47-.34,.24-.55,.57-.65,.98-.1,.41-.14,.89-.14,1.45v4.36c0,.46-.12,.8-.35,1.05-.23,.24-.58,.36-1.03,.36Z"/>
+        <path class="cls-2" d="M138.75,15.88c-.4,0-.74-.14-1.03-.42-.29-.28-.44-.63-.44-1.06s.15-.78,.44-1.06c.29-.28,.64-.42,1.03-.42s.74,.14,1.03,.42c.29,.28,.44,.63,.44,1.06s-.15,.78-.44,1.06c-.29,.28-.64,.42-1.03,.42Zm0,12.65c-.41,0-.73-.13-.96-.4-.23-.26-.34-.63-.34-1.1v-8.07c0-.48,.11-.85,.34-1.11,.23-.26,.55-.38,.96-.38s.73,.13,.97,.38c.23,.26,.35,.63,.35,1.11v8.07c0,.47-.11,.84-.34,1.1-.23,.26-.55,.4-.98,.4Z"/>
+        <path class="cls-2" d="M148.83,28.6c-.91,0-1.71-.19-2.39-.57-.68-.38-1.13-.95-1.35-1.72l.24-.55v1.39c0,.46-.11,.8-.32,1.05-.21,.24-.53,.36-.96,.36s-.77-.12-1-.36c-.23-.24-.34-.59-.34-1.05V14.85c0-.35,.11-.67,.34-.96,.23-.29,.56-.43,1-.43s.77,.14,.99,.43c.22,.29,.33,.61,.33,.96v4.99h-.26c.23-.72,.69-1.3,1.36-1.76,.67-.45,1.46-.68,2.35-.68,.95,0,1.77,.23,2.45,.68,.68,.46,1.21,1.1,1.57,1.92,.37,.83,.55,1.82,.55,2.98s-.19,2.14-.56,2.98c-.37,.84-.9,1.49-1.58,1.95-.68,.46-1.49,.68-2.43,.68Zm-.77-2.09c.54,0,1.02-.13,1.43-.4,.41-.26,.73-.66,.96-1.18,.23-.52,.34-1.17,.34-1.95,0-1.17-.25-2.05-.75-2.63-.5-.58-1.16-.87-1.98-.87-.54,0-1.02,.13-1.43,.38s-.73,.65-.96,1.17c-.23,.52-.34,1.17-.34,1.95,0,.13,0,.26,.01,.38,0,.12,.01,.25,.02,.36,0,.12,.02,.23,.04,.33s.05,.21,.08,.31c.12,.47,.3,.86,.54,1.18,.24,.32,.54,.55,.88,.71,.34,.16,.73,.24,1.15,.24Z"/>
+        <path class="cls-2" d="M156.84,15.88c-.4,0-.74-.14-1.03-.42-.29-.28-.44-.63-.44-1.06s.15-.78,.44-1.06c.29-.28,.64-.42,1.03-.42s.74,.14,1.03,.42c.29,.28,.44,.63,.44,1.06s-.15,.78-.44,1.06c-.29,.28-.64,.42-1.03,.42Zm0,12.65c-.41,0-.73-.13-.96-.4-.23-.26-.34-.63-.34-1.1v-8.07c0-.48,.11-.85,.34-1.11,.23-.26,.55-.38,.96-.38s.73,.13,.97,.38c.23,.26,.35,.63,.35,1.11v8.07c0,.47-.11,.84-.34,1.1-.23,.26-.55,.4-.98,.4Z"/>
+        <path class="cls-2" d="M164.6,28.6c-.89,0-1.62-.17-2.19-.5-.56-.33-.98-.82-1.24-1.48-.26-.66-.4-1.48-.4-2.46v-5.32c0-.45,.12-.8,.37-1.03s.56-.35,.92-.35c.44,0,.77,.12,.99,.35,.22,.23,.33,.58,.33,1.03v5.37c0,.76,.15,1.33,.46,1.69,.31,.37,.8,.55,1.47,.55,.73,0,1.33-.25,1.8-.76,.47-.51,.7-1.18,.7-2.01v-4.84c0-.45,.11-.8,.32-1.03,.21-.23,.54-.35,.98-.35,.38,0,.7,.12,.95,.35s.37,.58,.37,1.03v8.32c0,.46-.11,.8-.32,1.05-.21,.24-.51,.36-.89,.36-.43,0-.76-.12-.99-.36-.23-.24-.35-.59-.35-1.05v-1.67l.31,.66c-.31,.79-.77,1.4-1.4,1.83s-1.36,.64-2.21,.64Z"/>
+        <path class="cls-2" d="M177.38,28.6c-.94,0-1.76-.23-2.46-.68-.7-.45-1.25-1.1-1.65-1.95-.4-.84-.59-1.84-.59-2.98s.19-2.15,.58-2.98c.39-.83,.94-1.47,1.65-1.92,.71-.45,1.54-.68,2.48-.68s1.68,.22,2.34,.66c.67,.44,1.12,1.02,1.35,1.74h-.24v-4.95c0-.45,.12-.8,.35-1.03,.23-.23,.57-.35,1.01-.35s.78,.12,1.02,.35c.24,.24,.36,.58,.36,1.03v12.3c0,.46-.12,.8-.35,1.05-.23,.24-.57,.36-1.01,.36s-.78-.12-1.01-.36c-.23-.24-.35-.59-.35-1.05v-1.72l.24,.66c-.22,.76-.67,1.37-1.34,1.83-.67,.46-1.47,.68-2.38,.68Zm.77-2.09c.54,0,1.02-.13,1.43-.4,.41-.26,.73-.66,.96-1.18,.23-.52,.34-1.17,.34-1.95,0-1.17-.25-2.05-.75-2.63-.5-.58-1.16-.87-1.98-.87-.54,0-1.02,.13-1.43,.38s-.73,.65-.96,1.17c-.23,.52-.34,1.17-.34,1.95,0,1.16,.25,2.03,.75,2.63,.5,.59,1.16,.89,1.98,.89Z"/>
+        <path class="cls-2" d="M191.35,28.6c-1.07,0-2.02-.24-2.85-.73-.83-.48-1.48-1.15-1.95-2-.47-.85-.7-1.81-.7-2.88,0-.81,.14-1.55,.41-2.22,.27-.67,.65-1.26,1.14-1.77,.49-.51,1.07-.9,1.74-1.18,.67-.28,1.4-.42,2.21-.42,1.07,0,2.02,.24,2.85,.73s1.48,1.15,1.95,1.99,.7,1.8,.7,2.87c0,.81-.14,1.55-.41,2.23-.27,.68-.65,1.28-1.14,1.78-.49,.51-1.07,.9-1.74,1.18s-1.4,.42-2.21,.42Zm0-2.09c.51,0,.98-.15,1.41-.44,.43-.29,.77-.7,1.03-1.23,.26-.53,.4-1.14,.4-1.85s-.13-1.32-.4-1.84c-.26-.52-.61-.93-1.03-1.22-.43-.29-.9-.44-1.41-.44s-.97,.15-1.41,.44c-.44,.29-.79,.7-1.06,1.22s-.4,1.13-.4,1.84,.13,1.32,.4,1.85,.62,.94,1.06,1.23c.44,.29,.91,.44,1.41,.44Z"/>
+        <path class="cls-2" d="M200.02,28.55c-.37,0-.66-.12-.89-.36-.23-.24-.34-.59-.34-1.05v-8.32c0-.45,.12-.8,.37-1.03,.25-.23,.54-.35,.86-.35,.43,0,.76,.15,1.01,.46,.25,.31,.37,.69,.37,1.14v1.39h-.24c.13-.47,.29-.92,.47-1.36,.18-.44,.45-.81,.79-1.11,.34-.3,.81-.47,1.4-.52,.25-.03,.48,0,.69,.07,.21,.07,.4,.19,.55,.34,.15,.15,.25,.36,.27,.63,.03,.21,0,.41-.08,.61-.08,.2-.21,.37-.4,.51-.18,.14-.41,.22-.67,.25l-.42,.04c-.72,.07-1.25,.23-1.58,.47-.34,.24-.55,.57-.65,.98-.1,.41-.14,.89-.14,1.45v4.36c0,.46-.12,.8-.35,1.05-.23,.24-.58,.36-1.03,.36Z"/>
+        <path class="cls-2" d="M210.25,28.6c-.78,0-1.44-.16-1.99-.48-.55-.32-.97-.75-1.26-1.29-.29-.54-.44-1.13-.44-1.77,0-.6,.18-1.15,.55-1.64,.37-.49,.85-.88,1.44-1.18,.59-.29,1.25-.45,1.97-.47,.72-.02,1.43,.14,2.13,.47l1.01,.48v1.47l-1.08-.46c-.59-.25-1.11-.37-1.56-.37s-.84,.08-1.16,.24c-.32,.16-.55,.37-.71,.64-.16,.26-.24,.54-.24,.81,0,.48,.17,.88,.51,1.19,.34,.31,.81,.46,1.41,.46,.35,0,.68-.06,.99-.19,.31-.12,.58-.3,.8-.53s.4-.5,.53-.81c.12-.32,.19-.66,.19-1.04v-2.64c0-.73-.18-1.27-.54-1.62-.36-.34-.88-.52-1.57-.52-.15,0-.33,.03-.55,.09-.22,.06-.47,.15-.76,.29-.29,.13-.59,.32-.91,.55-.26,.19-.51,.28-.74,.26s-.42-.09-.58-.23c-.16-.14-.27-.31-.33-.52-.06-.21-.05-.42,.02-.65,.07-.23,.23-.43,.46-.61,.4-.31,.81-.55,1.23-.73,.43-.18,.84-.3,1.23-.37s.73-.11,1.01-.11c1.06,0,1.92,.17,2.61,.5,.68,.33,1.19,.83,1.53,1.5,.34,.67,.51,1.51,.51,2.54v5.43c0,.38-.11,.69-.33,.91-.22,.23-.54,.34-.95,.34-.28,0-.51-.05-.7-.14-.19-.1-.34-.24-.44-.43-.1-.19-.15-.41-.15-.66v-.79h.18c-.1,.51-.3,.92-.59,1.22-.29,.3-.66,.52-1.11,.65-.45,.13-.98,.2-1.59,.2Z"/>
+        <path class="cls-2" d="M228.64,28.6c-.94,0-1.76-.23-2.46-.68-.7-.45-1.25-1.1-1.65-1.95-.4-.84-.59-1.84-.59-2.98s.19-2.15,.58-2.98c.39-.83,.94-1.47,1.65-1.92,.71-.45,1.54-.68,2.47-.68s1.68,.22,2.34,.66c.67,.44,1.12,1.02,1.35,1.74h-.24v-4.95c0-.45,.12-.8,.35-1.03s.57-.35,1.01-.35,.78,.12,1.02,.35c.24,.24,.36,.58,.36,1.03v12.3c0,.46-.12,.8-.35,1.05-.24,.24-.57,.36-1.01,.36s-.78-.12-1.01-.36c-.23-.24-.35-.59-.35-1.05v-1.72l.24,.66c-.22,.76-.67,1.37-1.34,1.83-.67,.46-1.47,.68-2.38,.68Zm.77-2.09c.54,0,1.02-.13,1.43-.4,.41-.26,.73-.66,.96-1.18,.23-.52,.34-1.17,.34-1.95,0-1.17-.25-2.05-.75-2.63-.5-.58-1.16-.87-1.98-.87-.54,0-1.02,.13-1.43,.38-.41,.26-.73,.65-.96,1.17-.23,.52-.34,1.17-.34,1.95,0,1.16,.25,2.03,.75,2.63,.5,.59,1.16,.89,1.98,.89Z"/>
+        <path class="cls-2" d="M242.68,28.6c-1.22,0-2.25-.23-3.11-.68-.86-.45-1.51-1.1-1.96-1.94-.45-.84-.67-1.83-.67-2.97,0-.84,.14-1.59,.41-2.28,.27-.68,.66-1.27,1.16-1.77s1.08-.88,1.74-1.16c.66-.27,1.39-.41,2.18-.41,1.03,0,1.92,.23,2.67,.68,.75,.46,1.34,1.04,1.76,1.76s.63,1.48,.63,2.29c0,.37-.08,.66-.25,.87-.17,.21-.41,.37-.71,.47-.31,.1-.67,.2-1.08,.29-.46,.09-.95,.15-1.47,.2-.53,.04-1.17,.08-1.93,.1-.75,.02-1.71,.04-2.87,.06l.04-1.96h2.22c.76,0,1.49-.04,2.18-.12,.69-.08,1.27-.22,1.74-.43l-.35,.31c.04-.69-.19-1.25-.69-1.69-.51-.44-1.13-.66-1.88-.66-.62,0-1.13,.12-1.55,.36s-.74,.6-.96,1.08c-.22,.48-.33,1.07-.33,1.79v.24c0,.88,.14,1.57,.41,2.08,.27,.51,.64,.87,1.11,1.08,.47,.21,1.01,.32,1.63,.32,.38,0,.76-.05,1.14-.14,.38-.1,.79-.26,1.21-.5,.25-.13,.48-.18,.69-.15s.4,.11,.55,.25c.15,.14,.25,.31,.3,.51,.04,.2,.02,.4-.07,.61s-.26,.4-.53,.57c-.44,.28-.96,.51-1.57,.68s-1.2,.26-1.77,.26Z"/>
+        <path class="cls-2" d="M260.39,32.56c-.79,0-1.56-.08-2.3-.24-.74-.16-1.4-.42-1.97-.77-.26-.16-.44-.36-.53-.58s-.11-.46-.07-.68c.04-.23,.14-.42,.29-.58,.15-.16,.33-.26,.55-.3,.22-.04,.46,.02,.7,.17,.62,.35,1.18,.58,1.71,.67,.52,.09,.99,.14,1.4,.14,.98,0,1.72-.22,2.21-.67,.49-.45,.74-1.14,.74-2.08v-1.98h.2c-.22,.75-.68,1.35-1.38,1.79s-1.49,.67-2.37,.67c-.97,0-1.8-.22-2.49-.67-.69-.45-1.22-1.07-1.6-1.88-.37-.81-.56-1.75-.56-2.82,0-.81,.11-1.54,.32-2.19,.21-.65,.52-1.21,.91-1.68,.4-.47,.88-.83,1.46-1.09,.58-.26,1.23-.38,1.95-.38,.91,0,1.71,.22,2.39,.67,.68,.45,1.12,1.04,1.33,1.77l-.22,.55v-1.56c0-.45,.12-.8,.35-1.03,.23-.23,.56-.35,.99-.35,.38,0,.69,.12,.92,.35,.23,.23,.35,.58,.35,1.03v8.47c0,1.75-.44,3.06-1.33,3.94s-2.21,1.32-3.97,1.32Zm-.07-6.53c.57,0,1.06-.13,1.47-.4,.41-.26,.73-.64,.96-1.13,.23-.49,.34-1.07,.34-1.75,0-1.01-.25-1.81-.75-2.39-.5-.58-1.17-.87-2.02-.87-.57,0-1.06,.13-1.47,.4-.41,.26-.73,.64-.96,1.12-.23,.48-.34,1.06-.34,1.74s.11,1.26,.34,1.75,.55,.87,.96,1.13c.41,.26,.9,.4,1.47,.4Z"/>
+        <path class="cls-2" d="M271.76,28.6c-.78,0-1.44-.16-1.99-.48-.55-.32-.97-.75-1.26-1.29-.29-.54-.44-1.13-.44-1.77,0-.6,.18-1.15,.55-1.64s.85-.88,1.44-1.18c.59-.29,1.25-.45,1.97-.47,.72-.02,1.43,.14,2.13,.47l1.01,.48v1.47l-1.08-.46c-.59-.25-1.11-.37-1.56-.37s-.84,.08-1.15,.24c-.31,.16-.55,.37-.71,.64-.16,.26-.24,.54-.24,.81,0,.48,.17,.88,.51,1.19,.34,.31,.81,.46,1.41,.46,.35,0,.68-.06,.99-.19,.31-.12,.58-.3,.8-.53s.4-.5,.53-.81c.12-.32,.19-.66,.19-1.04v-2.64c0-.73-.18-1.27-.54-1.62s-.88-.52-1.57-.52c-.15,0-.33,.03-.55,.09-.22,.06-.47,.15-.76,.29-.29,.13-.59,.32-.91,.55-.26,.19-.51,.28-.74,.26-.23-.01-.42-.09-.58-.23-.16-.14-.27-.31-.33-.52-.06-.21-.05-.42,.02-.65,.07-.23,.23-.43,.46-.61,.4-.31,.81-.55,1.23-.73,.43-.18,.84-.3,1.23-.37,.39-.07,.73-.11,1.01-.11,1.06,0,1.92,.17,2.61,.5,.68,.33,1.19,.83,1.53,1.5,.34,.67,.51,1.51,.51,2.54v5.43c0,.38-.11,.69-.33,.91-.22,.23-.54,.34-.95,.34-.28,0-.51-.05-.7-.14s-.34-.24-.44-.43c-.1-.19-.15-.41-.15-.66v-.79h.18c-.1,.51-.3,.92-.59,1.22-.29,.3-.66,.52-1.11,.65-.45,.13-.98,.2-1.6,.2Z"/>
+        <path class="cls-2" d="M283.82,28.6c-.37-.01-.79-.07-1.25-.15-.47-.09-.93-.23-1.38-.44-.45-.21-.84-.48-1.18-.81-.21-.21-.32-.42-.35-.65s0-.44,.09-.63c.09-.19,.21-.34,.37-.46s.35-.17,.56-.17c.21,0,.41,.1,.6,.27,.51,.46,.98,.74,1.4,.86s.8,.18,1.16,.18c.7,0,1.21-.11,1.51-.33,.3-.22,.45-.53,.45-.92,0-.34-.09-.59-.28-.75-.18-.16-.5-.29-.96-.37l-2.2-.42c-.91-.18-1.6-.53-2.08-1.06s-.71-1.18-.71-1.96c0-.69,.19-1.29,.58-1.79s.93-.9,1.62-1.18c.69-.28,1.48-.42,2.38-.42,.65,0,1.27,.11,1.88,.32,.61,.21,1.14,.59,1.59,1.13,.16,.19,.25,.39,.25,.61,0,.21-.04,.41-.14,.58s-.24,.32-.41,.42-.36,.14-.56,.12c-.21-.02-.41-.13-.62-.32-.35-.35-.7-.59-1.03-.7-.34-.12-.65-.18-.95-.18-.59,0-1.06,.12-1.43,.35-.37,.24-.55,.56-.55,.97,0,.23,.08,.46,.24,.68,.16,.22,.45,.37,.88,.44l2.2,.42c.95,.18,1.67,.55,2.17,1.12,.49,.57,.74,1.2,.74,1.89s-.19,1.29-.57,1.8c-.38,.51-.92,.91-1.61,1.18-.69,.27-1.5,.39-2.42,.36Z"/>
+      </g>
+    </g>
+    <g>
+      <g>
+        <path class="cls-2" d="M70.83,74.98c-2.24-.03-4.09-.75-5.83-1.64-11.18-5.72-18.03-14.74-20.48-27.07-.24-1.22-.3-2.49-.3-3.74,0-1.54,1.06-2.76,2.49-3.05,1.53-.31,2.98,.4,3.64,1.8,.16,.34,.28,.7,.39,1.06,3.12,10.62,10.35,16.76,20.97,19.17,1.18,.27,2.39,.43,3.54,.81,3.68,1.2,4.93,4.57,2.97,7.91-1.7,2.9-4.13,4.67-7.38,4.76Z"/>
+        <path class="cls-2" d="M39.61,88.03c-1.21-.02-2.12-.03-3.04-.22-3.24-.68-4.72-2.65-4.27-5.96,.61-4.42,1.35-8.83,1.96-13.25,.78-5.67,1.37-11.35,1.65-17.07,.13-2.71,.19-5.43,.33-8.14,.12-2.28,.85-3.36,2.44-3.78,1.89-.49,3.46,.39,3.94,2.28,.43,1.67,.31,3.41,.36,5.11,.36,11.55,1.8,22.96,3.92,34.31,.61,3.26-.8,5.45-3.99,6.33-1.18,.33-2.38,.43-3.31,.38Z"/>
+        <path class="cls-2" d="M8.47,74.98c-4.05-.03-8.12-3.77-8.45-7.47-.19-2.08,.78-3.51,2.5-4.55,1.25-.76,2.67-.92,4.06-1.19,6.96-1.36,12.94-4.42,17.34-10.15,1.85-2.41,3.22-5.08,4.1-7.99,.27-.88,.51-1.77,.97-2.58,.8-1.4,2.19-1.93,3.74-1.45,1.42,.44,2.35,1.76,2.15,3.28-1.46,11.2-6.21,20.56-15.42,27.38-2.95,2.19-6.28,3.64-9.84,4.55-.48,.12-.98,.16-1.16,.18Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M17.08,9.8c1.65,.08,3.81,1.13,5.84,2.35,7.02,4.2,11.44,10.26,12.77,18.42,.22,1.31,.28,2.66,.25,3.99-.02,1.38-.81,2.21-1.98,2.36-1.25,.16-2.28-.43-2.73-1.7-.49-1.38-.92-2.77-1.49-4.12-2.45-5.74-6.9-8.83-12.94-9.85-1.36-.23-2.73-.44-4.05-.8-3.01-.82-4.2-3.35-3.03-6.25,1.09-2.7,3.65-4.42,7.36-4.39Z"/>
+        <path class="cls-1" d="M43.47,33.64c.14-10.62,7.88-20.72,18.14-23.66,3.85-1.1,8.35,2.1,8.56,6.09,.11,2.12-1.19,3.82-3.52,4.39-1.82,.44-3.69,.7-5.52,1.12-6.08,1.37-9.95,5.18-12.02,10.96-.3,.83-.54,1.67-.84,2.49-.51,1.38-1.57,2.12-2.72,1.94-1.34-.21-2.07-1.2-2.08-2.83,0-.17,0-.33,0-.5Z"/>
+        <path class="cls-1" d="M39.51,.01c4.94,.02,6.61,1.98,5.79,6.62-.84,4.77-1.69,9.54-2.3,14.35-.5,3.98-.78,7.98-.92,11.99-.02,.62-.03,1.26-.15,1.87-.3,1.48-.99,2.01-2.43,1.97-1.33-.03-2.12-.72-2.27-2.19-.15-1.45-.2-2.92-.26-4.38-.29-7.66-1.42-15.22-2.92-22.72-.12-.61-.26-1.22-.36-1.84-.48-2.82,.79-4.74,3.56-5.41,.82-.2,1.64-.31,2.27-.27Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
+</file>
+
+<file path="assets/js/admin-guard.js">
+document.addEventListener("DOMContentLoaded", () => {
+  const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+  const paginaActual = window.location.pathname.split("/").pop();
+  const paginasRestringidasVendedor = [
+    "users.html",
+    "new-user.html",
+    "edit-user.html",
+    "new-product.html",
+    "edit-product.html"
+  ];
+
+  if (!sesion || (sesion.tipo !== "administrador" && sesion.tipo !== "vendedor")) {
+    window.location.href = "../store/login.html";
+    return;
+  }
+
+  if (sesion.tipo === "vendedor" && paginasRestringidasVendedor.includes(paginaActual)) {
+    window.location.href = "products.html";
+  }
+});
+</file>
+
+<file path="assets/js/admin-home.js">
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof productos === "undefined" || typeof usuarios === "undefined") {
+    console.error("admin-home.js: faltan los catálogos 'productos' o 'usuarios'. ¿Falta cargar products.js/users.js antes de este script?");
+    return;
+  }
+
+  const totalProductosEl = document.getElementById("stat-total-productos");
+  const totalUsuariosEl = document.getElementById("stat-total-usuarios");
+  const stockCriticoEl = document.getElementById("stat-stock-critico");
+
+  if (totalProductosEl) totalProductosEl.textContent = String(productos.length);
+  if (totalUsuariosEl) totalUsuariosEl.textContent = String(usuarios.length);
+
+  const totalStockCritico = productos.filter(
+    (producto) => producto.stockCritico != null && producto.stock <= producto.stockCritico
+  ).length;
+
+  if (stockCriticoEl) stockCriticoEl.textContent = String(totalStockCritico);
+});
+</file>
+
+<file path="assets/js/admin-orders.js">
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof pedidos === "undefined") {
+    console.error("admin-orders.js: no se encontró el catálogo 'pedidos'. ¿Falta cargar orders.js antes de este script?");
+    return;
+  }
+
+  const tablaBody = document.getElementById("admin-orders-table-body");
+
+  function crearModalDetalle() {
+    const existente = document.getElementById("order-detail-modal");
+    if (existente) return existente;
+
+    const modalHtml = `
+      <div class="modal fade" id="order-detail-modal" tabindex="-1" aria-labelledby="order-detail-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="order-detail-modal-label">Detalle del pedido</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <p class="mb-1"><strong>ID:</strong> <span id="modal-order-id"></span></p>
+                <p class="mb-1"><strong>Fecha:</strong> <span id="modal-order-date"></span></p>
+                <p class="mb-1"><strong>Estado:</strong> <span id="modal-order-status"></span></p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="fw-bold">Datos del cliente</h6>
+                <p class="mb-1"><strong>Nombre:</strong> <span id="modal-order-customer"></span></p>
+                <p class="mb-1"><strong>Dirección:</strong> <span id="modal-order-address"></span></p>
+                <p class="mb-1"><strong>Teléfono:</strong> <span id="modal-order-phone"></span></p>
+                <p class="mb-1"><strong>Notas:</strong> <span id="modal-order-notes"></span></p>
+              </div>
+
+              <div>
+                <h6 class="fw-bold">Productos</h6>
+                <ul id="modal-order-items" class="mb-0 ps-3"></ul>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    document.body.insertAdjacentHTML("beforeend", modalHtml);
+    return document.getElementById("order-detail-modal");
+  }
+
+  function renderTablaPedidos() {
+    if (!tablaBody) return;
+
+    if (pedidos.length === 0) {
+      tablaBody.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center text-muted py-4">
+            No hay pedidos registrados.
+          </td>
+        </tr>`;
+      return;
+    }
+
+    tablaBody.innerHTML = pedidos
+      .map((pedido) => {
+        const fecha = new Date(pedido.fecha).toLocaleString("es-CL", {
+          dateStyle: "short",
+          timeStyle: "short"
+        });
+
+        return `
+          <tr data-id="${pedido.id}">
+            <td>${fecha}</td>
+            <td>${pedido.clienteNombre || "Invitado"}</td>
+            <td>$${Number(pedido.total || 0).toLocaleString("es-CL")}</td>
+            <td><span class="badge text-bg-warning">${pedido.estado || "pendiente"}</span></td>
+            <td class="text-end">
+              <button type="button" class="btn btn-sm btn-outline-primary btn-ver-pedido" data-id="${pedido.id}">Ver detalle</button>
+            </td>
+          </tr>`;
+      })
+      .join("");
+  }
+
+  function mostrarDetallePedido(id) {
+    const pedido = pedidos.find((item) => item.id === Number(id));
+    if (!pedido) return;
+
+    const modal = crearModalDetalle();
+    const bootstrapModal = new bootstrap.Modal(modal);
+
+    document.getElementById("modal-order-id").textContent = pedido.id;
+    document.getElementById("modal-order-date").textContent = new Date(pedido.fecha).toLocaleString("es-CL", {
+      dateStyle: "short",
+      timeStyle: "short"
+    });
+    document.getElementById("modal-order-status").textContent = pedido.estado || "pendiente";
+    document.getElementById("modal-order-customer").textContent = pedido.clienteNombre || "Invitado";
+    document.getElementById("modal-order-address").textContent = pedido.clienteDireccion || "—";
+    document.getElementById("modal-order-phone").textContent = pedido.clienteTelefono || "—";
+    document.getElementById("modal-order-notes").textContent = pedido.notas || "Sin notas adicionales";
+
+    const itemsContainer = document.getElementById("modal-order-items");
+    itemsContainer.innerHTML = (pedido.items || [])
+      .map((item) => `<li>${item.nombre} — ${item.cantidad} x $${Number(item.precio).toLocaleString("es-CL")} = $${(item.precio * item.cantidad).toLocaleString("es-CL")}</li>`)
+      .join("");
+
+    bootstrapModal.show();
+  }
+
+  if (tablaBody) {
+    renderTablaPedidos();
+
+    tablaBody.addEventListener("click", (e) => {
+      const boton = e.target.closest(".btn-ver-pedido");
+      if (!boton) return;
+
+      mostrarDetallePedido(boton.dataset.id);
+    });
+  }
+});
+</file>
+
+<file path="assets/js/login.js">
+// ============================================
+// El Volcán Market — login.js
+// Lógica de store/login.html: valida las credenciales contra el
+// catálogo compartido de assets/js/users.js y redirige según el
+// tipo de usuario (rol).
+//
+// Requiere cargar users.js ANTES que este script.
+// Usa <form id="login-form"> con #login-email y #login-password.
+// ============================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof usuarios === "undefined") {
+    console.error("login.js: no se encontró el catálogo 'usuarios'. ¿Falta cargar users.js antes de este script?");
+    return;
+  }
+
+  const form = document.getElementById("login-form");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const correo = document.getElementById("login-email").value.trim().toLowerCase();
+    const password = document.getElementById("login-password").value;
+
+    const usuario = usuarios.find(
+      (u) => u.correo.toLowerCase() === correo && u.password === password
+    );
+
+    if (!usuario) {
+      alert("Correo o contraseña incorrectos.");
+      return;
+    }
+
+    guardarSesion(usuario);
+
+    // Cliente se queda en la tienda; Administrador/Vendedor entran al panel.
+    if (usuario.tipo === "cliente") {
+      window.location.href = "index.html";
+    } else {
+      window.location.href = "../admin/home.html";
+    }
+  });
+});
+</file>
+
+<file path="assets/js/orders.js">
+// ============================================
+// El Volcán Market — orders.js
+// Catálogo de órdenes: guarda cada pedido confirmado
+// en localStorage para que el admin pueda listarlos y
+// ver el detalle.
+// ============================================
+
+const ORDERS_STORAGE_KEY = "volcan_orders";
+
+function cargarPedidos() {
+  try {
+    const data = localStorage.getItem(ORDERS_STORAGE_KEY);
+    if (data) return JSON.parse(data);
+  } catch (e) {
+    console.error("orders.js: catálogo de pedidos corrupto en localStorage, se reinicia.", e);
+  }
+
+  localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify([]));
+  return [];
+}
+
+function guardarPedidos(lista) {
+  localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(lista));
+}
+
+let pedidos = cargarPedidos();
+</file>
+
+<file path="assets/js/product-detail.js">
+// ============================================
+// El Volcán Market — product-detail.js
+// Lee el id del producto desde la URL (?id=N) y llena
+// dinámicamente el detalle correspondiente.
+//
+// Requiere en product-detail.html:
+//   - <section id="detalle-producto" class="row g-5"></section>
+//   - <li id="breadcrumb-actual"> (opcional, para el breadcrumb)
+//
+// Requiere cargar products.js ANTES que este script (usa el
+// array global "productos" para buscar el producto por id).
+// ============================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const contenedor = document.getElementById("detalle-producto");
+  if (!contenedor) return;
+
+  if (typeof productos === "undefined") {
+    console.error("product-detail.js: no se encontró el catálogo 'productos'. ¿Falta cargar products.js antes de este script?");
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const id = Number(params.get("id"));
+  const producto = productos.find((p) => p.id === id);
+  const breadcrumbActual = document.getElementById("breadcrumb-actual");
+
+  if (!producto) {
+    contenedor.innerHTML = `
+      <div class="col-12">
+        <p class="text-muted">
+          Producto no encontrado. <a href="products.html">Volver al listado</a>.
+        </p>
+      </div>`;
+    if (breadcrumbActual) breadcrumbActual.textContent = "Producto no encontrado";
+    return;
+  }
+
+  document.title = `El Volcán Market — ${producto.nombre}`;
+  if (breadcrumbActual) breadcrumbActual.textContent = producto.nombre;
+
+  contenedor.innerHTML = `
+    <div class="col-lg-6">
+      <img src="${producto.imagen}" class="img-fluid rounded" alt="${producto.nombre}">
+    </div>
+    <div class="col-lg-6">
+      <h1 class="h3">${producto.nombre}</h1>
+      <p class="fs-4 fw-semibold text-primary">$${producto.precio.toLocaleString("es-CL")}</p>
+      <p class="text-muted">${producto.descripcion || ""}</p>
+      <p>Stock disponible: ${producto.stock}</p>
+
+      <div class="mt-4" style="max-width: 160px;">
+        <label for="product-quantity" class="form-label">Cantidad</label>
+        <input type="number" class="form-control" id="product-quantity" value="1" min="1" max="${producto.stock}">
+      </div>
+
+      <button type="button"
+              class="btn btn-primary btn-lg mt-3 btn-agregar"
+              data-id="${producto.id}"
+              ${producto.stock === 0 ? "disabled" : ""}>
+        Añadir al carrito
+      </button>
+    </div>
+  `;
+});
+</file>
+
+<file path="docs/README.md">
+# Documentos de gestión del proyecto
+
+Aquí van los documentos formales que se entregan junto al código:
+
+- **ERS-v1.docx** → Especificación de Requisitos del Software (versión 1, parcial).
+  Usar la plantilla del Anexo 4 (estándar IEEE 830) entregada por el docente.
+- **planilla-requerimientos.xlsx** → Basada en el Anexo 2, con el ejemplo de referencia del Anexo 3.
+
+Ambos documentos se van completando durante el semestre — no es necesario que estén
+100% terminados para la Evaluación 1, pero sí "parcialmente terminados" según las
+instrucciones (Anexo 1, sección "Instrucciones para la entrega I").
+
+Copia aquí los archivos `.docx` / `.xlsx` reales del equipo a medida que se vayan
+trabajando (no se versionan como binarios pesados si el equipo prefiere usar Google
+Docs/Sheets compartidos — en ese caso, dejar un archivo `enlaces.md` con los links).
+</file>
+
+<file path="assets/js/admin-nav.js">
+// ============================================
+// El Volcán Market — admin-nav.js
+// Genera el sidebar del panel administrador a partir
+// de un array (evita repetir el <nav> en cada página).
+// Requiere un contenedor <nav id="admin-sidebar"></nav>
+// en el HTML de cada página del admin.
+// ============================================
+
+const ADMIN_NAV_ITEMS = [
+  { label: "Inicio", href: "home.html" },
+  { label: "Productos", href: "products.html" },
+  { label: "Usuarios", href: "users.html" },
+  { label: "Pedidos", href: "orders.html" },
+];
+
+function renderAdminSidebar() {
+  const container = document.getElementById("admin-sidebar");
+  if (!container) return;
+
+  const currentPage = window.location.pathname.split("/").pop();
+  const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+  const nombreUsuario = sesion?.nombre || "Usuario";
+
+  const navItemsFiltrados = ADMIN_NAV_ITEMS.filter((item) => {
+    if (!sesion || sesion.tipo === "administrador") return true;
+    if (sesion.tipo === "vendedor") return item.href !== "users.html";
+    return false;
+  });
+
+  const linksHtml = navItemsFiltrados.map((item) => {
+    const isActive = item.href === currentPage;
+    return `
+      <li class="nav-item">
+        <a class="nav-link ${isActive ? "active" : "text-white"}" href="${item.href}" ${isActive ? 'aria-current="page"' : ""}>
+          ${item.label}
+        </a>
+      </li>`;
+  }).join("");
+
+  container.innerHTML = `
+    <a href="home.html" class="d-flex align-items-center mb-2 text-white text-decoration-none">
+      <span class="fs-5 fw-semibold">El Volcán Market</span>
+    </a>
+    <div class="small text-white-50 mb-3">${nombreUsuario}</div>
+    <button type="button" class="btn btn-link btn-sm text-white-50 p-0 mb-3 text-decoration-none" id="admin-logout-button">Cerrar sesión</button>
+    <hr class="text-white-50">
+    <ul class="nav nav-pills flex-column mb-auto">
+      ${linksHtml}
+    </ul>
+    <hr class="text-white-50">
+    <a href="../store/index.html" class="text-white-50 small text-decoration-none">&larr; Volver a la tienda</a>
+  `;
+
+  const logoutButton = document.getElementById("admin-logout-button");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      if (typeof cerrarSesion === "function") {
+        cerrarSesion();
+      }
+      window.location.href = "../store/login.html";
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderAdminSidebar);
+</file>
+
+<file path="assets/js/cart.js">
+// ============================================
+// El Volcán Market — cart.js
+// Lógica del carrito de pedidos: lectura/escritura en
+// localStorage ('volcan_cart'), render de la tabla en
+// cart.html, actualización de totales y contador global,
+// agregar productos desde index.html/products.html, y
+// validación del formulario de despacho.
+//
+// Requiere en cart.html:
+//   - <tbody id="cart-table-body">
+//   - <strong id="cart-total-amount">
+//   - <span id="cart-count"> (renderizado por store-nav.js)
+//   - <form id="checkout-form"> con #client-name,
+//     #client-address, #client-phone y sus spans de error
+//     #error-client-name, #error-client-address, #error-client-phone
+//
+// Requiere en index.html/products.html:
+//   - Cargar products.js ANTES de este script (usa el array
+//     global "productos" para buscar nombre/precio/stock al
+//     agregar desde el botón .btn-agregar).
+// ============================================
+
+const CART_STORAGE_KEY = "volcan_cart";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tablaBody = document.getElementById("cart-table-body");
+  const totalAmountEl = document.getElementById("cart-total-amount");
+  const checkoutForm = document.getElementById("checkout-form");
+
+  // --------------------------------------------
+  // Helpers de localStorage
+  // --------------------------------------------
+  function obtenerCarrito() {
+    const data = localStorage.getItem(CART_STORAGE_KEY);
+    try {
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      console.error("Carrito corrupto en localStorage, se reinicia.", e);
+      return [];
+    }
+  }
+
+  function guardarCarrito(carrito) {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(carrito));
+  }
+
+  function formatearCLP(valor) {
+    return `$${valor.toLocaleString("es-CL")}`;
+  }
+
+  // --------------------------------------------
+  // Contador global del navbar (#cart-count)
+  // Reusable: se puede llamar desde cualquier página que
+  // incluya store-nav.js + cart.js.
+  // --------------------------------------------
+  function actualizarContadorCart() {
+    const carrito = obtenerCarrito();
+    const totalUnidades = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    const contadorEl = document.getElementById("cart-count");
+    if (contadorEl) {
+      contadorEl.textContent = totalUnidades;
+    }
+  }
+
+  // --------------------------------------------
+  // Agregar producto al carrito — botón .btn-agregar
+  // generado por products.js en index.html/products.html.
+  // Delegado en document porque el botón puede no existir
+  // aún al momento de correr este script (depende del orden
+  // de carga respecto a products.js), y porque cart.js se
+  // carga también en páginas sin ese botón (cart.html).
+  // --------------------------------------------
+  function manejarAgregarAlCarrito(e) {
+    if (!e.target.classList.contains("btn-agregar")) return;
+
+    const id = Number(e.target.dataset.id);
+
+    if (typeof productos === "undefined") {
+      console.error("cart.js: no se encontró el catálogo 'productos'. ¿Falta cargar products.js antes de cart.js?");
+      return;
+    }
+
+    const producto = productos.find((p) => p.id === id);
+    if (!producto) {
+      console.error(`cart.js: producto con id ${id} no encontrado en el catálogo.`);
+      return;
+    }
+
+    const inputCantidad = document.getElementById("product-quantity");
+    let cantidadAgregar = 1;
+
+    if (inputCantidad) {
+      const valor = Number.parseInt(inputCantidad.value, 10);
+      if (!Number.isNaN(valor) && valor > 0) {
+        cantidadAgregar = Math.min(valor, producto.stock);
+      }
+    }
+
+    const carrito = obtenerCarrito();
+    const itemExistente = carrito.find((p) => p.id === id);
+
+    if (itemExistente) {
+      const nuevaCantidad = Math.min(itemExistente.cantidad + cantidadAgregar, producto.stock);
+      itemExistente.cantidad = nuevaCantidad;
+    } else {
+      carrito.push({
+        id: producto.id,
+        nombre: producto.nombre,
+        precio: producto.precio,
+        cantidad: cantidadAgregar,
+        stockMaximo: producto.stock
+      });
+    }
+
+    guardarCarrito(carrito);
+    actualizarContadorCart();
+  }
+
+  document.addEventListener("click", manejarAgregarAlCarrito);
+
+  // --------------------------------------------
+  // Render de la tabla del carrito
+  // --------------------------------------------
+  function renderCarrito() {
+    if (!tablaBody) return;
+
+    const carrito = obtenerCarrito();
+
+    if (carrito.length === 0) {
+      tablaBody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center text-muted py-4">
+            Tu carrito está vacío
+          </td>
+        </tr>`;
+      if (totalAmountEl) totalAmountEl.textContent = formatearCLP(0);
+      actualizarContadorCart();
+      return;
+    }
+
+    tablaBody.innerHTML = carrito
+      .map((item) => {
+        const subtotal = item.precio * item.cantidad;
+        return `
+        <tr data-id="${item.id}">
+          <td>${item.nombre}</td>
+          <td>${formatearCLP(item.precio)}</td>
+          <td style="max-width: 90px;">
+            <input
+              type="number"
+              class="form-control form-control-sm input-cantidad"
+              value="${item.cantidad}"
+              min="1"
+              max="${item.stockMaximo}"
+              data-id="${item.id}">
+          </td>
+          <td class="subtotal">${formatearCLP(subtotal)}</td>
+          <td class="text-end">
+            <button type="button" class="btn btn-sm btn-outline-danger btn-quitar" data-id="${item.id}">
+              Quitar
+            </button>
+          </td>
+        </tr>`;
+      })
+      .join("");
+
+    actualizarTotales();
+    actualizarContadorCart();
+  }
+
+  // --------------------------------------------
+  // Recalcula el total general (#cart-total-amount)
+  // --------------------------------------------
+  function actualizarTotales() {
+    const carrito = obtenerCarrito();
+    const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+    if (totalAmountEl) {
+      totalAmountEl.textContent = formatearCLP(total);
+    }
+  }
+
+  // --------------------------------------------
+  // Cambios de cantidad (input) — delegación de eventos
+  // --------------------------------------------
+  function manejarCambioCantidad(e) {
+    if (!e.target.classList.contains("input-cantidad")) return;
+
+    const id = Number(e.target.dataset.id);
+    const carrito = obtenerCarrito();
+    const item = carrito.find((p) => p.id === id);
+    if (!item) return;
+
+    let nuevaCantidad = parseInt(e.target.value, 10);
+
+    // No permitir valores inválidos, menores a 1 ni mayores al stock máximo
+    if (isNaN(nuevaCantidad) || nuevaCantidad < 1) {
+      nuevaCantidad = 1;
+    } else if (nuevaCantidad > item.stockMaximo) {
+      nuevaCantidad = item.stockMaximo;
+    }
+
+    item.cantidad = nuevaCantidad;
+    e.target.value = nuevaCantidad;
+    guardarCarrito(carrito);
+
+    // Actualiza solo el subtotal de la fila afectada (evita re-render completo)
+    const fila = e.target.closest("tr");
+    const subtotalCell = fila?.querySelector(".subtotal");
+    if (subtotalCell) {
+      subtotalCell.textContent = formatearCLP(item.precio * item.cantidad);
+    }
+
+    actualizarTotales();
+    actualizarContadorCart();
+  }
+
+  // --------------------------------------------
+  // Eliminar item — delegación de eventos
+  // --------------------------------------------
+  function manejarQuitarItem(e) {
+    if (!e.target.classList.contains("btn-quitar")) return;
+
+    const id = Number(e.target.dataset.id);
+    let carrito = obtenerCarrito();
+    carrito = carrito.filter((p) => p.id !== id);
+    guardarCarrito(carrito);
+
+    renderCarrito();
+  }
+
+  // --------------------------------------------
+  // Listeners de la tabla (delegados en el tbody)
+  // --------------------------------------------
+  if (tablaBody) {
+    tablaBody.addEventListener("input", manejarCambioCantidad);
+    tablaBody.addEventListener("click", manejarQuitarItem);
+  }
+
+  // --------------------------------------------
+  // Validación del formulario de despacho
+  // --------------------------------------------
+  function limpiarErrores() {
+    ["client-name", "client-address", "client-phone"].forEach((id) => {
+      const input = document.getElementById(id);
+      const errorEl = document.getElementById(`error-${id}`);
+      input?.classList.remove("is-invalid");
+      if (errorEl) errorEl.textContent = "";
+    });
+  }
+
+  function marcarError(inputId, mensaje) {
+    const input = document.getElementById(inputId);
+    const errorEl = document.getElementById(`error-${inputId}`);
+    input?.classList.add("is-invalid");
+    if (errorEl) errorEl.textContent = mensaje;
+  }
+
+  function validarFormularioDespacho() {
+    limpiarErrores();
+    let esValido = true;
+
+    const nombre = document.getElementById("client-name")?.value.trim() || "";
+    const direccion = document.getElementById("client-address")?.value.trim() || "";
+    const telefono = document.getElementById("client-phone")?.value.trim() || "";
+
+    // Nombre: requerido, mínimo 3 caracteres
+    if (nombre.length < 3) {
+      marcarError("client-name", "Ingresa tu nombre completo (mínimo 3 caracteres).");
+      esValido = false;
+    }
+
+    // Dirección: requerida
+    if (direccion.length === 0) {
+      marcarError("client-address", "Ingresa la dirección de entrega.");
+      esValido = false;
+    }
+
+    // Teléfono: requerido, 8 a 9 dígitos numéricos
+    const telefonoRegex = /^[0-9]{8,9}$/;
+    if (!telefonoRegex.test(telefono)) {
+      marcarError("client-phone", "Ingresa un teléfono válido (8 a 9 dígitos, solo números).");
+      esValido = false;
+    }
+
+    return { esValido, nombre };
+  }
+
+  if (checkoutForm) {
+    checkoutForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const carrito = obtenerCarrito();
+      if (carrito.length === 0) {
+        alert("Tu carrito está vacío. Agrega productos antes de confirmar el pedido.");
+        return;
+      }
+
+      const { esValido, nombre } = validarFormularioDespacho();
+      if (!esValido) return;
+
+      const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+      const pedidos = cargarPedidos();
+      const notas = document.getElementById("order-notes")?.value.trim() || "";
+      const nuevoId = pedidos.length ? Math.max(...pedidos.map((pedido) => pedido.id)) + 1 : 1;
+
+      const pedido = {
+        id: nuevoId,
+        fecha: new Date().toISOString(),
+        clienteNombre: nombre,
+        clienteDireccion: document.getElementById("client-address")?.value.trim() || "",
+        clienteTelefono: document.getElementById("client-phone")?.value.trim() || "",
+        notas,
+        items: carrito.map((item) => ({ ...item })),
+        total: carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0),
+        estado: "pendiente",
+        clienteId: sesion ? sesion.id : null
+      };
+
+      pedidos.push(pedido);
+      guardarPedidos(pedidos);
+      localStorage.removeItem(CART_STORAGE_KEY);
+      alert(`¡Gracias, ${nombre}! Tu solicitud de gas fue registrada. Un camión repartidor se pondrá en contacto contigo.`);
+      window.location.href = "index.html";
+    });
+  }
+
+  // --------------------------------------------
+  // Inicialización
+  // --------------------------------------------
+  // Se llama aparte de renderCarrito() porque esta última corta
+  // con un "return" temprano si no existe #cart-table-body (es
+  // decir, en index.html/products.html) — sin esto, el número del
+  // carrito en el navbar no se actualizaría en esas páginas.
+  actualizarContadorCart();
+  renderCarrito();
+});
+</file>
+
+<file path=".gitignore">
+# Sistema operativo / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node (por si más adelante se usa alguna herramienta de build)
+node_modules/
+npm-debug.log
+
+# Archivos temporales
+*.tmp
+*.log
+
+repomix-output.txt
+</file>
+
+<file path="assets/img/blog-1.svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="100%" height="100%" fill="#e94e1d" />
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="20">BLOG-1 (placeholder)</text>
+</svg>
+</file>
+
+<file path="assets/img/blog-2.svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="100%" height="100%" fill="#13162a" />
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="20">BLOG-2 (placeholder)</text>
+</svg>
+</file>
+
+<file path="assets/img/cilindro-placeholder.svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <rect width="100%" height="100%" fill="#f2f2f2" />
+  <g transform="translate(75,40)">
+    <rect x="0" y="0" width="150" height="220" rx="16" ry="16" fill="#e94e1d" />
+    <circle cx="75" cy="40" r="18" fill="#13162a" />
+  </g>
+  <text x="50%" y="92%" dominant-baseline="middle" text-anchor="middle" fill="#333333" font-family="Arial, Helvetica, sans-serif" font-size="14">CILINDRO (placeholder)</text>
+</svg>
+</file>
+
+<file path="assets/js/regiones.js">
+// Regiones y comunas de Chile (uso por validations.js para poblar selects)
+const REGIONES = [
+  { value: "arica-parinacota", label: "Arica y Parinacota", comunas: [{ value: "arica", label: "Arica" }] },
+  { value: "tarapaca", label: "Tarapacá", comunas: [{ value: "iqq", label: "Iquique" }] },
+  { value: "antofagasta", label: "Antofagasta", comunas: [{ value: "antofagasta", label: "Antofagasta" }] },
+  { value: "atacama", label: "Atacama", comunas: [{ value: "copiapo", label: "Copiapó" }] },
+  { value: "coquimbo", label: "Coquimbo", comunas: [{ value: "la-serena", label: "La Serena" }] },
+  { value: "valparaiso", label: "Valparaíso", comunas: [{ value: "valparaiso", label: "Valparaíso" }] },
+  { value: "metropolitana", label: "Región Metropolitana de Santiago", comunas: [{ value: "santiago", label: "Santiago" }] },
+  { value: "ohiggins", label: "Región del Libertador O'Higgins", comunas: [{ value: "rancagua", label: "Rancagua" }] },
+  { value: "maule", label: "Región del Maule", comunas: [{ value: "talca", label: "Talca" }] },
+  { value: "nuble", label: "Región de Ñuble", comunas: [
+    { value: "chillan", label: "Chillán" },
+    { value: "chillan-viejo", label: "Chillán Viejo" }
+  ] },
+  { value: "biobio", label: "Región del Biobío", comunas: [{ value: "concepcion", label: "Concepción" }] },
+  { value: "araucania", label: "Región de La Araucanía", comunas: [{ value: "temuco", label: "Temuco" }] },
+  { value: "los-rios", label: "Región de Los Ríos", comunas: [{ value: "valdivia", label: "Valdivia" }] },
+  { value: "los-lagos", label: "Región de Los Lagos", comunas: [{ value: "puerto-montt", label: "Puerto Montt" }] },
+  { value: "aisen", label: "Región de Aysén", comunas: [{ value: "coihaique", label: "Coihaique" }] },
+  { value: "magallanes", label: "Región de Magallanes", comunas: [{ value: "punta-arenas", label: "Punta Arenas" }] }
+];
+
+function poblarSelectRegiones(selectId, selectedValue = "") {
+  const sel = document.getElementById(selectId);
+  if (!sel) return;
+
+  sel.innerHTML = '<option value="" selected disabled>-- Seleccione región --</option>';
+  REGIONES.forEach((r) => {
+    const opt = document.createElement("option");
+    opt.value = r.value;
+    opt.textContent = r.label;
+    sel.appendChild(opt);
+  });
+
+  if (selectedValue) sel.value = selectedValue;
+}
+
+function poblarComunasPorRegion(regionValue, comunaSelectId, selectedComuna = "") {
+  const sel = document.getElementById(comunaSelectId);
+  if (!sel) return;
+
+  const regionObj = REGIONES.find((r) => r.value === regionValue) || { comunas: [] };
+  const opciones = regionObj.comunas || [];
+
+  sel.innerHTML = '<option value="" selected disabled>-- Seleccione comuna --</option>';
+  opciones.forEach((c) => {
+    const opt = document.createElement("option");
+    opt.value = c.value;
+    opt.textContent = c.label;
+    sel.appendChild(opt);
+  });
+
+  if (selectedComuna && opciones.some((c) => c.value === selectedComuna)) sel.value = selectedComuna;
+  else sel.value = "";
+
+  sel.disabled = !regionValue;
+}
+
+// Exponer funciones para compatibilidad con validations.js
+window.REGIONES = REGIONES;
+window.poblarSelectRegiones = poblarSelectRegiones;
+window.poblarComunasPorRegion = poblarComunasPorRegion;
+</file>
+
+<file path="assets/css/custom.css">
+/* ============================================
+   El Volcán Market — custom.css
+   Personalización sobre Bootstrap 5.3. Cargar
+   SIEMPRE después del CDN de Bootstrap.
+   ============================================ */
+
+/* ---------- Paleta de marca ---------- */
+/* Sobrescribir variables de Bootstrap acá, no escribir reglas nuevas
+   de color sueltas en el resto del sitio. */
+
+:root {
+  --bs-primary: #e94e1d;
+  --bs-primary-rgb: 233, 78, 29;
+  --bs-dark: #13162a;
+  --bs-dark-rgb: 19, 22, 42;
+  
+
+  /* Bordes redondeados: a diferencia del color, esta sí la heredan en
+     tiempo real botones, cards, inputs, alerts, dropdowns y modals. */
+  --bs-border-radius-sm: 0.35rem;
+  --bs-border-radius: 0.6rem;
+  --bs-border-radius-lg: 0.85rem;
+  --bs-border-radius-xl: 1.1rem;
+
+  /* Tipografía: SN Pro (cargada vía Google Fonts en el <head> de cada página) */
+  --bs-body-font-family: 'SN Pro', system-ui, -apple-system, sans-serif;
+  --bs-body-font-weight: 600; /* semibold, cuerpo de texto */
+}
+
+/* ---------- Tipografía: títulos en extra bold ---------- */
+/* --bs-body-font-family/--bs-body-font-weight arriba sí las usa Bootstrap
+   directamente en el selector body{}, pero los títulos traen su propio
+   font-weight compilado (500) que hay que sobrescribir acá. */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 800;
+}
+
+/* ---------- Componentes que Bootstrap NO recalcula solo con --bs-primary ---------- */
+/* .btn-primary, .btn-outline-primary y .nav-pills/.nav-link.active traen sus propios
+   colores "horneados" en el CSS compilado del CDN (--bs-btn-bg, etc., ya vienen en hex
+   azul). Sobrescribirlos acá para que sí reflejen el naranjo/azul de marca. */
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c64218;
+  --bs-btn-hover-border-color: #c64218;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #ae3a15;
+  --bs-btn-active-border-color: #ae3a15;
+  --bs-btn-disabled-bg: var(--bs-primary);
+  --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--bs-primary);
+  --bs-btn-hover-border-color: var(--bs-primary);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--bs-primary);
+  --bs-btn-active-border-color: var(--bs-primary);
+  --bs-btn-disabled-color: var(--bs-primary);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link,
+.navbar .nav-link.active {
+  background-color: var(--bs-primary);
+  color: #fff;
+  border-radius: var(--bs-border-radius-pill);
+}
+
+/* ---------- Navbar de store/: de barra pegada a los bordes a barra "flotante" ---------- */
+/* Mismo #store-navbar en las 11 páginas — no requiere tocar el HTML.
+   El border-bottom que trae la clase .border-bottom usa !important, así que
+   hay que anularlo explícitamente acá. */
+#store-navbar {
+  margin: 1rem 1rem 0;
+  border-bottom: 0 !important;
+  border-radius: var(--bs-border-radius-lg);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(19, 22, 42, 0.08);
+  background-color: #fde9dd !important;
+}
+
+/* ---------- Cards: efecto "levantar" + fondo de color al pasar el mouse ---------- */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 1.25rem 2rem rgba(19, 22, 42, 0.35);
+  background-color: #fbd3bb;
+}
+
+
+/* f5a177 es un tono claro: el texto se mantiene oscuro (no blanco) para
+   conservar buen contraste sobre ese fondo. */
+.card:hover .card-body,
+.card:hover .card-title,
+.card:hover .card-text,
+.card:hover p {
+  color: var(--bs-dark);
+}
+
+/* ---------- Carrusel del inicio: degradado oscuro + texto grande estilo "hero" ---------- */
+/* Sin esto el texto vive en una cajita chica en la esquina; con esto el fondo
+   se oscurece parejo y el texto flota directo sobre la imagen, como un banner
+   de landing page (referencia: gasdelcarmen.cl). */
+.carousel-item {
+  position: relative;
+}
+.carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(19, 22, 42, 0.75) 0%, rgba(19, 22, 42, 0.35) 45%, rgba(19, 22, 42, 0.05) 75%);
+  pointer-events: none;
+}
+.hero-caption {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: auto;
+  bottom: auto;
+  transform: translateY(-50%);
+  text-align: left;
+  max-width: 520px;
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-caption h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.hero-caption p {
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+/* Sin esto el texto (aunque transparente en esas zonas) igual "atrapa" el
+   clic y las flechas prev/next del carrusel dejan de responder. Se lo
+   devolvemos solo al botón, que sí debe seguir siendo clickeable. */
+.hero-caption a.btn {
+  pointer-events: auto;
+}
+</file>
+
+<file path="assets/js/register.js">
+// ============================================
+// El Volcán Market — register.js
+// Lógica de store/register.html: agrega un nuevo usuario al catálogo
+// compartido de assets/js/users.js. El autoregistro SIEMPRE crea
+// usuarios tipo "cliente" — no hay forma de elegir el rol desde acá
+// (eso es exclusivo de admin/new-user.html, ya autenticado como
+// Administrador).
+//
+// Requiere cargar users.js ANTES que este script.
+// Usa <form id="register-form"> con los campos del formulario de
+// store/register.html (#reg-run, #reg-name, #reg-lastname,
+// #reg-email, #reg-password, #reg-password-confirm, #reg-phone,
+// #reg-region, #reg-comuna, #reg-address).
+// ============================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof usuarios === "undefined") {
+    console.error("register.js: no se encontró el catálogo 'usuarios'. ¿Falta cargar users.js antes de este script?");
+    return;
+  }
+
+  const form = document.getElementById("register-form");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (typeof validarFormularioRegistro === "function" && !validarFormularioRegistro()) {
+      return;
+    }
+
+    const run = document.getElementById("reg-run").value.trim();
+    const nombre = document.getElementById("reg-name").value.trim();
+    const apellidos = document.getElementById("reg-lastname").value.trim();
+    const correo = document.getElementById("reg-email").value.trim();
+    const password = document.getElementById("reg-password").value;
+    const passwordConfirm = document.getElementById("reg-password-confirm").value;
+    const telefonoRaw = document.getElementById("reg-phone").value.trim();
+    const telefono = telefonoRaw === "" ? null : telefonoRaw;
+    const region = document.getElementById("reg-region").value;
+    const comuna = document.getElementById("reg-comuna").value;
+    const direccion = document.getElementById("reg-address").value.trim();
+
+    if (password !== passwordConfirm) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    const correoDuplicado = usuarios.some((u) => u.correo.toLowerCase() === correo.toLowerCase());
+    if (correoDuplicado) {
+      alert(`Ya existe una cuenta registrada con el correo ${correo}.`);
+      return;
+    }
+
+    const runDuplicado = usuarios.some((u) => u.run === run);
+    if (runDuplicado) {
+      alert(`Ya existe una cuenta registrada con el Run ${run}.`);
+      return;
+    }
+
+    const nuevoId = usuarios.length ? Math.max(...usuarios.map((u) => u.id)) + 1 : 1;
+    const nuevoUsuario = {
+      id: nuevoId,
+      run,
+      nombre,
+      apellidos,
+      correo,
+      password,
+      telefono,
+      fechaNacimiento: null,
+      tipo: "cliente", // Forzado: el autoregistro nunca crea Administrador/Vendedor.
+      region,
+      comuna,
+      direccion
+    };
+
+    usuarios.push(nuevoUsuario);
+    guardarCatalogoUsuarios(usuarios);
+
+    // Deja al nuevo cliente ya con sesión iniciada, sin pedirle
+    // loguearse de nuevo con lo que recién escribió.
+    guardarSesion(nuevoUsuario);
+    window.location.href = "index.html";
+  });
+});
+</file>
+
+<file path="assets/js/store-nav.js">
+// ============================================
+// El Volcán Market — store-nav.js
+// Genera el navbar público (store) a partir de un
+// array, para no repetir el mismo <nav> en cada
+// página. Requiere un contenedor
+// <nav id="store-navbar"></nav> en el HTML.
+// ============================================
+
+const STORE_NAV_ITEMS = [
+  { label: "Inicio", href: "index.html" },
+  { label: "Productos", href: "products.html" },
+  { label: "Nosotros", href: "about.html" },
+  { label: "Blog", href: "blog.html" },
+  { label: "Contacto", href: "contact.html" },
+];
+
+function renderStoreNavbar() {
+  const container = document.getElementById("store-navbar");
+  if (!container) return;
+
+  const currentPage = window.location.pathname.split("/").pop();
+  const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+
+  const linksHtml = STORE_NAV_ITEMS.map((item) => {
+    const isActive = item.href === currentPage;
+    return `
+      <li class="nav-item">
+        <a class="nav-link ${isActive ? "active" : ""}" href="${item.href}" ${isActive ? 'aria-current="page"' : ""}>
+          ${item.label}
+        </a>
+      </li>`;
+  }).join("");
+
+  const loginHtml = sesion
+    ? `
+      <span class="navbar-text me-2">Hola, ${sesion.nombre}</span>
+      <button type="button" class="btn btn-outline-secondary me-2" id="store-logout-button">Cerrar sesión</button>
+      `
+    : `<a href="login.html" class="btn btn-outline-secondary me-2">Iniciar sesión</a>`;
+
+  container.innerHTML = `
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <img src="../assets/img/EVG_Horizontal.svg" alt="El Volcán Market" height="36">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#storeNavCollapse" aria-controls="storeNavCollapse" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="storeNavCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          ${linksHtml}
+        </ul>
+        ${loginHtml}
+        <a href="cart.html" class="btn btn-outline-primary" id="store-cart-link">
+          🛒 Carrito <span class="badge text-bg-primary" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  const logoutButton = document.getElementById("store-logout-button");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      cerrarSesion();
+      window.location.href = "index.html";
+    });
+  }
+
+  if (currentPage === "cart.html") {
+    document.getElementById("store-cart-link")?.classList.add("active");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderStoreNavbar);
+</file>
+
+<file path="assets/js/users.js">
+// ============================================
+// El Volcán Market — users.js
+// Catálogo de usuarios: fuente de datos COMPARTIDA entre el panel
+// de administración (admin/) y, más adelante, el login/registro de
+// la tienda (store/login.html, store/register.html), a través de
+// localStorage. Mismo patrón que assets/js/products.js.
+//
+// Lo consumen tanto admin/ (vía admin-users.js) como la tienda
+// (vía login.js y register.js): login.js busca acá por correo, y
+// register.js agrega acá, siempre forzando tipo "cliente".
+//
+// NOTA: las contraseñas se guardan en texto plano en localStorage.
+// No es seguro, pero no hay backend en este proyecto — es el mismo
+// nivel de "base de datos falsa" que products.js usa para el catálogo.
+// ============================================
+
+const USERS_STORAGE_KEY = "volcan_users_catalog";
+
+// Catálogo de fábrica: se usa solo la PRIMERA vez que se carga el sitio
+// (localStorage vacío) o si el localStorage llegara a corromperse.
+// Corresponde a las mismas 3 filas de ejemplo que traía admin/users.html
+// antes de conectar esto a localStorage.
+//
+// Credenciales de prueba (login.html) para cada uno:
+//   javiera.munoz@gmail.com   / admin1234     (administrador)
+//   pedro.salinas@duoc.cl     / vendedor1234  (vendedor)
+//   camila.toro@gmail.com     / cliente1234   (cliente)
+const USUARIOS_SEED = [
+  {
+    id: 1,
+    run: "191234561",
+    nombre: "Javiera",
+    apellidos: "Muñoz Soto",
+    correo: "javiera.munoz@gmail.com",
+    password: "admin1234",
+    telefono: null,
+    fechaNacimiento: null,
+    tipo: "administrador",
+    region: "nuble",
+    comuna: "chillan",
+    direccion: "Av. Libertad 100, Chillán"
+  },
+  {
+    id: 2,
+    run: "17894567K",
+    nombre: "Pedro",
+    apellidos: "Salinas Rojas",
+    correo: "pedro.salinas@duoc.cl",
+    password: "vendedor1234",
+    telefono: null,
+    fechaNacimiento: null,
+    tipo: "vendedor",
+    region: "nuble",
+    comuna: "chillan",
+    direccion: "Av. O'Higgins 456, Chillán"
+  },
+  {
+    id: 3,
+    run: "205671129",
+    nombre: "Camila",
+    apellidos: "Toro Pizarro",
+    correo: "camila.toro@gmail.com",
+    password: "cliente1234",
+    telefono: null,
+    fechaNacimiento: null,
+    tipo: "cliente",
+    region: "nuble",
+    comuna: "chillan-viejo",
+    direccion: "Camino a Chillán Viejo 789"
+  }
+];
+
+// --------------------------------------------
+// Carga/guardado en localStorage
+// --------------------------------------------
+function cargarCatalogoUsuarios() {
+  try {
+    const data = localStorage.getItem(USERS_STORAGE_KEY);
+    if (data) return JSON.parse(data);
+  } catch (e) {
+    console.error("users.js: catálogo corrupto en localStorage, se reinicia con el catálogo de fábrica.", e);
+  }
+  localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(USUARIOS_SEED));
+  return USUARIOS_SEED;
+}
+
+function guardarCatalogoUsuarios(lista) {
+  try {
+    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(lista));
+  } catch (e) {
+    console.error('users.js: error al guardar catálogo de usuarios en localStorage', e);
+    alert('Imagen demasiado grande; no se guardó el cambio.');
+  }
+}
+
+// "let" (no "const"): admin-users.js reemplaza este array cuando
+// agrega/edita/elimina usuarios.
+let usuarios = cargarCatalogoUsuarios();
+
+// --------------------------------------------
+// Sesión activa (quién inició sesión, en este navegador)
+// Usado por login.js, register.js, store-nav.js y admin-nav.js.
+// --------------------------------------------
+const SESSION_STORAGE_KEY = "volcan_session";
+
+function guardarSesion(usuario) {
+  // Solo se guarda lo necesario para saludar/redirigir — nunca la
+  // contraseña.
+  const sesion = {
+    id: usuario.id,
+    nombre: usuario.nombre,
+    apellidos: usuario.apellidos,
+    correo: usuario.correo,
+    tipo: usuario.tipo
+  };
+  localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sesion));
+  return sesion;
+}
+
+function obtenerSesion() {
+  try {
+    const data = localStorage.getItem(SESSION_STORAGE_KEY);
+    return data ? JSON.parse(data) : null;
+  } catch (e) {
+    console.error("users.js: sesión corrupta en localStorage, se descarta.", e);
+    return null;
+  }
+}
+
+function cerrarSesion() {
+  localStorage.removeItem(SESSION_STORAGE_KEY);
+}
+</file>
+
+<file path="admin/edit-product.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Editar producto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <h1 class="h3 mb-4">Editar producto</h1>
+
+      <section style="max-width: 560px;">
+        <form id="edit-product-form">
+          <div class="mb-3">
+            <label for="product-code" class="form-label">Código producto</label>
+            <input type="text" class="form-control" id="product-code" name="productCode" required minlength="3">
+            <!-- TODO: el código normalmente no debería ser editable una vez creado -->
+            <div class="invalid-feedback" id="error-product-code"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="product-name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="product-name" name="productName" required maxlength="100">
+            <div class="invalid-feedback" id="error-product-name"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="product-description" class="form-label">Descripción (opcional)</label>
+            <textarea class="form-control" id="product-description" name="productDescription" rows="3" maxlength="500"></textarea>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="product-price" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="product-price" name="productPrice" min="0" step="0.01" required>
+              <div class="invalid-feedback" id="error-product-price"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="product-category" class="form-label">Categoría</label>
+              <select class="form-select" id="product-category" name="productCategory" required>
+                <option value="" selected disabled>-- Seleccione --</option>
+                <option value="5kg">5 kg</option>
+                <option value="11kg">11 kg</option>
+                <option value="15kg">15 kg</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="product-stock" class="form-label">Stock</label>
+              <input type="number" class="form-control" id="product-stock" name="productStock" min="0" step="1" required>
+              <div class="invalid-feedback" id="error-product-stock"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="product-critical-stock" class="form-label">Stock crítico (opcional)</label>
+              <input type="number" class="form-control" id="product-critical-stock" name="productCriticalStock" min="0" step="1">
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="product-image" class="form-label">Imagen (opcional)</label>
+            <input type="file" class="form-control" id="product-image" name="productImage" accept="image/*">
+          </div>
+
+          <div class="d-flex gap-2">
+            <a href="products.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/admin-products.js"></script>
+  <script src="../assets/js/validations.js"></script>
+</body>
+</html>
+</file>
+
+<file path="admin/home.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Panel administrador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">¡Hola, Administrador!</h1>
+        <span class="badge text-bg-secondary">Administrador</span>
+      </div>
+
+      <section class="mb-4">
+        <div class="row g-3">
+          <div class="col-sm-6 col-lg-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="text-muted mb-1">Productos registrados</p>
+                <p id="stat-total-productos" class="h4 mb-0">—</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="text-muted mb-1">Usuarios registrados</p>
+                <p id="stat-total-usuarios" class="h4 mb-0">—</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="text-muted mb-1">Productos en stock crítico</p>
+                <p id="stat-stock-critico" class="h4 mb-0">—</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="h5 mb-3">Accesos rápidos</h2>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="new-product.html" class="btn btn-primary">+ Nuevo producto</a>
+          <a href="new-user.html" class="btn btn-outline-primary">+ Nuevo usuario</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-home.js"></script>
+</body>
+</html>
+</file>
+
+<file path="admin/new-product.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Nuevo producto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <h1 class="h3 mb-4">Nuevo producto</h1>
+
+      <section style="max-width: 560px;">
+        <form id="new-product-form">
+          <div class="mb-3">
+            <label for="product-code" class="form-label">Código producto</label>
+            <input type="text" class="form-control" id="product-code" name="productCode" required minlength="3">
+            <div class="invalid-feedback" id="error-product-code"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="product-name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="product-name" name="productName" required maxlength="100">
+            <div class="invalid-feedback" id="error-product-name"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="product-description" class="form-label">Descripción (opcional)</label>
+            <textarea class="form-control" id="product-description" name="productDescription" rows="3" maxlength="500"></textarea>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="product-price" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="product-price" name="productPrice" min="0" step="0.01" required>
+              <div class="invalid-feedback" id="error-product-price"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="product-category" class="form-label">Categoría</label>
+              <select class="form-select" id="product-category" name="productCategory" required>
+                <option value="" selected disabled>-- Seleccione --</option>
+                <option value="5kg">5 kg</option>
+                <option value="11kg">11 kg</option>
+                <option value="15kg">15 kg</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="product-stock" class="form-label">Stock</label>
+              <input type="number" class="form-control" id="product-stock" name="productStock" min="0" step="1" required>
+              <div class="invalid-feedback" id="error-product-stock"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="product-critical-stock" class="form-label">Stock crítico (opcional)</label>
+              <input type="number" class="form-control" id="product-critical-stock" name="productCriticalStock" min="0" step="1">
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="product-image" class="form-label">Imagen (opcional)</label>
+            <input type="file" class="form-control" id="product-image" name="productImage" accept="image/*">
+          </div>
+
+          <div class="d-flex gap-2">
+            <a href="products.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar producto</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/admin-products.js"></script>
+  <script src="../assets/js/validations.js"></script>
+</body>
+</html>
+</file>
+
+<file path="admin/products.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Productos (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Productos</h1>
+        <a href="new-product.html" class="btn btn-primary">+ Nuevo producto</a>
+      </div>
+
+      <section>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Stock crítico</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Se llena dinámicamente desde assets/js/admin-products.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/admin-products.js"></script>
+</body>
+</html>
+</file>
+
+<file path="admin/users.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Usuarios (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Usuarios</h1>
+        <a href="new-user.html" class="btn btn-primary">+ Nuevo usuario</a>
+      </div>
+
+      <section>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Run</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Tipo de usuario</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-table-body">
+              <!-- Se llena dinámicamente desde assets/js/admin-users.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/admin-users.js"></script>
+</body>
+</html>
+</file>
+
+<file path="assets/js/admin-products.js">
+// ============================================
+// El Volcán Market — admin-products.js
+// CRUD de productos del panel admin, sobre el mismo catálogo
+// compartido con la tienda (assets/js/products.js: variable
+// global "productos" + localStorage bajo PRODUCTS_STORAGE_KEY).
+//
+// Requiere cargar products.js ANTES que este script.
+//
+// Usa en admin/products.html:
+//   <tbody id="admin-products-table-body">
+// Usa en admin/new-product.html:
+//   <form id="new-product-form"> con los campos #product-code,
+//   #product-name, #product-description, #product-price,
+//   #product-category, #product-stock, #product-critical-stock,
+//   #product-image
+// Usa en admin/edit-product.html: mismos campos, dentro de
+//   <form id="edit-product-form">, y se espera navegar a esta
+//   página con ?id=N en la URL.
+// ============================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof productos === "undefined") {
+    console.error("admin-products.js: no se encontró el catálogo 'productos'. ¿Falta cargar products.js antes de este script?");
+    return;
+  }
+
+  const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+  const esVendedor = sesion?.tipo === "vendedor";
+
+  const botonNuevoProducto = document.querySelector('a[href="new-product.html"]');
+  if (botonNuevoProducto && esVendedor) {
+    botonNuevoProducto.style.display = "none";
+  }
+
+  // --------------------------------------------
+  // admin/products.html — listado
+  // --------------------------------------------
+  const tablaBody = document.getElementById("admin-products-table-body");
+
+  function renderTablaProductos() {
+    if (!tablaBody) return;
+
+    if (productos.length === 0) {
+      tablaBody.innerHTML = `
+        <tr>
+          <td colspan="7" class="text-center text-muted py-4">
+            No hay productos registrados.
+          </td>
+        </tr>`;
+      return;
+    }
+
+    tablaBody.innerHTML = productos
+      .map((p) => {
+        const hayStockCritico = p.stockCritico != null && p.stock <= p.stockCritico;
+        const accionesHtml = esVendedor
+          ? '<span class="text-muted small">Solo lectura</span>'
+          : `
+            ${hayStockCritico ? '<span class="badge text-bg-warning me-1">Stock crítico</span>' : ""}
+            <a href="edit-product.html?id=${p.id}" class="btn btn-sm btn-outline-secondary">Editar</a>
+            <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar-producto" data-id="${p.id}">Eliminar</button>`;
+
+        return `
+        <tr data-id="${p.id}">
+          <td>${p.codigo}</td>
+          <td>${p.nombre}</td>
+          <td>${p.categoria}</td>
+          <td>$${p.precio.toLocaleString("es-CL")}</td>
+          <td>${p.stock}</td>
+          <td>${p.stockCritico ?? "—"}</td>
+          <td class="text-end">
+            ${accionesHtml}
+          </td>
+        </tr>`;
+      })
+      .join("");
+  }
+
+  if (tablaBody) {
+    renderTablaProductos();
+
+    tablaBody.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("btn-eliminar-producto")) return;
+
+      const id = Number(e.target.dataset.id);
+      const producto = productos.find((p) => p.id === id);
+      if (!producto) return;
+
+      const confirmado = confirm(`¿Eliminar "${producto.nombre}"? Esta acción no se puede deshacer.`);
+      if (!confirmado) return;
+
+      productos = productos.filter((p) => p.id !== id);
+      guardarCatalogoProductos(productos);
+      renderTablaProductos();
+    });
+  }
+
+  // --------------------------------------------
+  // admin/new-product.html y admin/edit-product.html — formulario
+  // --------------------------------------------
+  const form = document.getElementById("new-product-form") || document.getElementById("edit-product-form");
+  if (!form) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const idParam = params.get("id");
+  const modoEdicion = idParam !== null;
+  let productoEditando = null;
+
+  if (modoEdicion) {
+    productoEditando = productos.find((p) => p.id === Number(idParam));
+
+    if (!productoEditando) {
+      alert("Producto no encontrado.");
+      window.location.href = "products.html";
+      return;
+    }
+
+    document.getElementById("product-code").value = productoEditando.codigo;
+    document.getElementById("product-name").value = productoEditando.nombre;
+    document.getElementById("product-description").value = productoEditando.descripcion || "";
+    document.getElementById("product-price").value = productoEditando.precio;
+    document.getElementById("product-category").value = productoEditando.categoria;
+    document.getElementById("product-stock").value = productoEditando.stock;
+    document.getElementById("product-critical-stock").value = productoEditando.stockCritico ?? "";
+  }
+
+  // Convierte la imagen subida (si hay) a base64 para poder guardarla
+  // en localStorage — no hay backend/servidor de archivos en este proyecto.
+  function leerImagenComoBase64(inputFile) {
+    return new Promise((resolve) => {
+      const file = inputFile?.files?.[0];
+      if (!file) {
+        resolve(null);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (typeof validarFormularioProducto === "function" && !validarFormularioProducto()) {
+      return;
+    }
+
+    const codigo = document.getElementById("product-code").value.trim();
+    const nombre = document.getElementById("product-name").value.trim();
+    const descripcion = document.getElementById("product-description").value.trim();
+    const precio = Number(document.getElementById("product-price").value);
+    const categoria = document.getElementById("product-category").value;
+    const stock = Number(document.getElementById("product-stock").value);
+    const stockCriticoRaw = document.getElementById("product-critical-stock").value;
+    const stockCritico = stockCriticoRaw === "" ? null : Number(stockCriticoRaw);
+
+    const imagenInput = document.getElementById("product-image");
+    const imagenBase64 = await leerImagenComoBase64(imagenInput);
+    // Si no se subió imagen nueva: conserva la que ya tenía (modo edición)
+    // o usa un placeholder (producto nuevo sin imagen).
+    const imagenFinal = imagenBase64 || productoEditando?.imagen || "../assets/img/cilindro-placeholder.svg";
+
+    if (modoEdicion) {
+      productoEditando.codigo = codigo;
+      productoEditando.nombre = nombre;
+      productoEditando.descripcion = descripcion;
+      productoEditando.precio = precio;
+      productoEditando.categoria = categoria;
+      productoEditando.stock = stock;
+      productoEditando.stockCritico = stockCritico;
+      productoEditando.imagen = imagenFinal;
+    } else {
+      const nuevoId = productos.length ? Math.max(...productos.map((p) => p.id)) + 1 : 1;
+      productos.push({
+        id: nuevoId,
+        codigo,
+        nombre,
+        descripcion,
+        precio,
+        categoria,
+        stock,
+        stockCritico,
+        imagen: imagenFinal
+      });
+    }
+
+    guardarCatalogoProductos(productos);
+    window.location.href = "products.html";
+  });
+});
+</file>
+
+<file path="assets/js/admin-users.js">
+// ============================================
+// El Volcán Market — admin-users.js
+// CRUD de usuarios del panel admin, sobre el catálogo compartido
+// assets/js/users.js: variable global "usuarios" + localStorage
+// bajo USERS_STORAGE_KEY.
+//
+// Requiere cargar users.js ANTES que este script.
+//
+// Usa en admin/users.html:
+//   <tbody id="admin-users-table-body">
+// Usa en admin/new-user.html:
+//   <form id="new-user-form"> con los campos #user-run, #user-name,
+//   #user-lastname, #user-email, #user-birthdate, #user-type,
+//   #user-region, #user-comuna, #user-address
+// Usa en admin/edit-user.html: mismos campos, dentro de
+//   <form id="edit-user-form">, y se espera navegar a esta página
+//   con ?id=N en la URL.
+// ============================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof usuarios === "undefined") {
+    console.error("admin-users.js: no se encontró el catálogo 'usuarios'. ¿Falta cargar users.js antes de este script?");
+    return;
+  }
+
+  const TIPO_BADGE = {
+    administrador: "text-bg-dark",
+    vendedor: "text-bg-info",
+    cliente: "text-bg-secondary"
+  };
+
+  const TIPO_LABEL = {
+    administrador: "Administrador",
+    vendedor: "Vendedor",
+    cliente: "Cliente"
+  };
+
+  // --------------------------------------------
+  // admin/users.html — listado
+  // --------------------------------------------
+  const tablaBody = document.getElementById("admin-users-table-body");
+
+  function renderTablaUsuarios() {
+    if (!tablaBody) return;
+
+    if (usuarios.length === 0) {
+      tablaBody.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center text-muted py-4">
+            No hay usuarios registrados.
+          </td>
+        </tr>`;
+      return;
+    }
+
+    tablaBody.innerHTML = usuarios
+      .map((u) => {
+        const badgeClass = TIPO_BADGE[u.tipo] || "text-bg-secondary";
+        const badgeLabel = TIPO_LABEL[u.tipo] || u.tipo;
+        return `
+        <tr data-id="${u.id}">
+          <td>${u.run}</td>
+          <td>${u.nombre}</td>
+          <td>${u.apellidos}</td>
+          <td>${u.correo}</td>
+          <td><span class="badge ${badgeClass}">${badgeLabel}</span></td>
+          <td class="text-end">
+            <a href="edit-user.html?id=${u.id}" class="btn btn-sm btn-outline-secondary">Editar</a>
+            <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar-usuario" data-id="${u.id}">Eliminar</button>
+          </td>
+        </tr>`;
+      })
+      .join("");
+  }
+
+  if (tablaBody) {
+    renderTablaUsuarios();
+
+    tablaBody.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("btn-eliminar-usuario")) return;
+
+      const id = Number(e.target.dataset.id);
+      const usuario = usuarios.find((u) => u.id === id);
+      if (!usuario) return;
+
+      const confirmado = confirm(`¿Eliminar a "${usuario.nombre} ${usuario.apellidos}"? Esta acción no se puede deshacer.`);
+      if (!confirmado) return;
+
+      usuarios = usuarios.filter((u) => u.id !== id);
+      guardarCatalogoUsuarios(usuarios);
+      renderTablaUsuarios();
+    });
+  }
+
+  // --------------------------------------------
+  // admin/new-user.html y admin/edit-user.html — formulario
+  // --------------------------------------------
+  const form = document.getElementById("new-user-form") || document.getElementById("edit-user-form");
+  if (!form) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const idParam = params.get("id");
+  const modoEdicion = idParam !== null;
+  let usuarioEditando = null;
+
+  const campoRun = document.getElementById("user-run");
+
+  if (modoEdicion) {
+    usuarioEditando = usuarios.find((u) => u.id === Number(idParam));
+
+    if (!usuarioEditando) {
+      alert("Usuario no encontrado.");
+      window.location.href = "users.html";
+      return;
+    }
+
+    campoRun.value = usuarioEditando.run;
+    // El Run identifica al usuario: no se edita una vez creado.
+    campoRun.readOnly = true;
+    document.getElementById("user-name").value = usuarioEditando.nombre;
+    document.getElementById("user-lastname").value = usuarioEditando.apellidos;
+    document.getElementById("user-email").value = usuarioEditando.correo;
+    // La contraseña nunca se precarga (ni siquiera oculta): el campo
+    // se deja vacío y solo se cambia si se escribe algo nuevo.
+    document.getElementById("user-birthdate").value = usuarioEditando.fechaNacimiento || "";
+    document.getElementById("user-type").value = usuarioEditando.tipo;
+    document.getElementById("user-region").value = usuarioEditando.region;
+    document.getElementById("user-comuna").value = usuarioEditando.comuna;
+    document.getElementById("user-address").value = usuarioEditando.direccion;
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (typeof validarFormularioUsuario === "function" && !validarFormularioUsuario()) {
+      return;
+    }
+
+    const run = campoRun.value.trim();
+    const nombre = document.getElementById("user-name").value.trim();
+    const apellidos = document.getElementById("user-lastname").value.trim();
+    const correo = document.getElementById("user-email").value.trim();
+    const passwordIngresada = document.getElementById("user-password").value;
+    const fechaNacimientoRaw = document.getElementById("user-birthdate").value;
+    const fechaNacimiento = fechaNacimientoRaw === "" ? null : fechaNacimientoRaw;
+    const tipo = document.getElementById("user-type").value;
+    const region = document.getElementById("user-region").value;
+    const comuna = document.getElementById("user-comuna").value;
+    const direccion = document.getElementById("user-address").value.trim();
+
+    // Un mismo Run no puede repetirse entre dos usuarios distintos.
+    const yaExiste = usuarios.some(
+      (u) => u.run === run && (!modoEdicion || u.id !== usuarioEditando.id)
+    );
+    if (yaExiste) {
+      alert(`Ya existe un usuario registrado con el Run ${run}.`);
+      return;
+    }
+
+    const correoDuplicado = usuarios.some(
+      (u) => u.correo.toLowerCase() === correo.toLowerCase() && (!modoEdicion || u.id !== usuarioEditando.id)
+    );
+    if (correoDuplicado) {
+      alert(`Ya existe una cuenta registrada con el correo ${correo}.`);
+      return;
+    }
+
+    if (modoEdicion) {
+      usuarioEditando.nombre = nombre;
+      usuarioEditando.apellidos = apellidos;
+      usuarioEditando.correo = correo;
+      // Campo en blanco = no cambiar la contraseña actual.
+      if (passwordIngresada !== "") {
+        usuarioEditando.password = passwordIngresada;
+      }
+      usuarioEditando.fechaNacimiento = fechaNacimiento;
+      usuarioEditando.tipo = tipo;
+      usuarioEditando.region = region;
+      usuarioEditando.comuna = comuna;
+      usuarioEditando.direccion = direccion;
+    } else {
+      const nuevoId = usuarios.length ? Math.max(...usuarios.map((u) => u.id)) + 1 : 1;
+      usuarios.push({
+        id: nuevoId,
+        run,
+        nombre,
+        apellidos,
+        correo,
+        password: passwordIngresada,
+        telefono: null,
+        fechaNacimiento,
+        tipo,
+        region,
+        comuna,
+        direccion
+      });
+    }
+
+    guardarCatalogoUsuarios(usuarios);
+    window.location.href = "users.html";
+  });
+});
+</file>
+
+<file path="assets/js/validations.js">
+// ============================================
+// Distribuidora de Gas El Volcán — validations.js
+// Validaciones de formularios en tiempo real.
+// Reglas detalladas en el Anexo 1 (instrucciones).
+// ============================================
+
+// Las comunas ahora se obtienen desde assets/js/regiones.js (const REGIONES)
+
+function mostrarError(input, mensaje) {
+  if (!input) return;
+
+  input.classList.add("is-invalid");
+  input.setAttribute("aria-invalid", "true");
+  input.setCustomValidity(mensaje || "Entrada inválida");
+
+  const feedback = document.getElementById(`error-${input.id}`);
+  if (feedback) {
+    feedback.textContent = mensaje;
+  }
+}
+
+function limpiarError(input) {
+  if (!input) return;
+
+  input.classList.remove("is-invalid");
+  input.setAttribute("aria-invalid", "false");
+  input.setCustomValidity("");
+
+  const feedback = document.getElementById(`error-${input.id}`);
+  if (feedback) {
+    feedback.textContent = "";
+  }
+}
+
+function esRunValido(run) {
+  const valor = (run || "").toString().trim().replace(/\s+/g, "").toUpperCase();
+
+  if (!/^\d{6,8}[0-9K]$/.test(valor)) {
+    return false;
+  }
+
+  const digitos = valor.slice(0, -1).split("").map(Number);
+  let suma = 0;
+  let multiplicador = 2;
+
+  for (let i = digitos.length - 1; i >= 0; i--) {
+    suma += digitos[i] * multiplicador;
+    multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+  }
+
+  const resto = 11 - (suma % 11);
+  let digitoEsperado = "";
+
+  if (resto === 11) {
+    digitoEsperado = "0";
+  } else if (resto === 10) {
+    digitoEsperado = "K";
+  } else {
+    digitoEsperado = String(resto);
+  }
+
+  return digitoEsperado === valor.charAt(valor.length - 1).toUpperCase();
+}
+
+function esCorreoPermitido(correo) {
+  const valor = (correo || "").trim();
+  return /^[^\s@]+@(?:duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(valor);
+}
+
+function aplicarFiltroComunas(regionSelectId, comunaSelectId) {
+  const regionSelect = document.getElementById(regionSelectId);
+  const comunaSelect = document.getElementById(comunaSelectId);
+
+  if (!regionSelect || !comunaSelect) {
+    return;
+  }
+
+  const valorActual = comunaSelect.value;
+  const regionObj = (typeof REGIONES !== "undefined") ? REGIONES.find((r) => r.value === regionSelect.value) : null;
+  const opciones = (regionObj && regionObj.comunas) ? regionObj.comunas : [];
+
+  comunaSelect.innerHTML = '<option value="" selected disabled>-- Seleccione comuna --</option>';
+
+  opciones.forEach((comuna) => {
+    const option = document.createElement("option");
+    option.value = comuna.value;
+    option.textContent = comuna.label;
+    comunaSelect.appendChild(option);
+  });
+
+  if (valorActual && opciones.some((comuna) => comuna.value === valorActual)) {
+    comunaSelect.value = valorActual;
+  } else {
+    comunaSelect.value = "";
+  }
+
+  comunaSelect.disabled = !regionSelect.value;
+}
+
+function validarTextoObligatorio(input, mensaje) {
+  if (!input) return true;
+
+  const valor = input.value.trim();
+  if (!valor) {
+    mostrarError(input, mensaje);
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarRun(input, mensaje) {
+  if (!input) return true;
+
+  const valor = input.value.trim();
+  if (!valor) {
+    mostrarError(input, mensaje || "El RUN es obligatorio.");
+    return false;
+  }
+
+  if (!esRunValido(valor)) {
+    mostrarError(input, "El RUN ingresado no es válido.");
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarCorreo(input, requerido = true, mensajePersonalizado = "") {
+  if (!input) return true;
+
+  const valor = input.value.trim();
+
+  if (!valor) {
+    if (requerido) {
+      mostrarError(input, mensajePersonalizado || "El correo es obligatorio.");
+      return false;
+    }
+
+    limpiarError(input);
+    return true;
+  }
+
+  if (!esCorreoPermitido(valor)) {
+    mostrarError(input, "El correo debe tener un dominio válido (@duoc.cl, @profesor.duoc.cl o @gmail.com). ");
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarPassword(input, requerido = true) {
+  if (!input) return true;
+
+  const valor = input.value;
+
+  if (!valor) {
+    if (requerido) {
+      mostrarError(input, "La contraseña es obligatoria.");
+      return false;
+    }
+
+    limpiarError(input);
+    return true;
+  }
+
+  if (valor.length < 4 || valor.length > 10) {
+    mostrarError(input, "La contraseña debe tener entre 4 y 10 caracteres.");
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarConfirmacionPassword(input, passwordInput, mensaje = "Las contraseñas no coinciden.") {
+  if (!input || !passwordInput) return true;
+
+  if (!input.value) {
+    mostrarError(input, "Debes confirmar la contraseña.");
+    return false;
+  }
+
+  if (input.value !== passwordInput.value) {
+    mostrarError(input, mensaje);
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarSelect(input, mensaje) {
+  if (!input) return true;
+
+  if (!input.value) {
+    mostrarError(input, mensaje);
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarPrecio(input) {
+  if (!input) return true;
+
+  const valor = Number(input.value);
+  if (Number.isNaN(valor) || valor < 0) {
+    mostrarError(input, "El precio no puede ser negativo.");
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarStock(input, mensaje) {
+  if (!input) return true;
+
+  const valor = Number(input.value);
+  if (Number.isNaN(valor) || !Number.isInteger(valor) || valor < 0) {
+    mostrarError(input, mensaje || "El stock debe ser un número entero mayor o igual a 0.");
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarFechaNacimiento(input) {
+  if (!input || !input.value) {
+    return true;
+  }
+
+  const hoy = new Date();
+  const fecha = new Date(`${input.value}T00:00:00`);
+
+  if (Number.isNaN(fecha.getTime()) || fecha > hoy) {
+    mostrarError(input, "La fecha de nacimiento no puede ser futura.");
+    return false;
+  }
+
+  limpiarError(input);
+  return true;
+}
+
+function validarFormularioRegistro() {
+  const form = document.getElementById("register-form");
+  if (!form) return true;
+
+  const run = document.getElementById("reg-run");
+  const nombre = document.getElementById("reg-name");
+  const apellidos = document.getElementById("reg-lastname");
+  const correo = document.getElementById("reg-email");
+  const password = document.getElementById("reg-password");
+  const passwordConfirm = document.getElementById("reg-password-confirm");
+  const region = document.getElementById("reg-region");
+  const comuna = document.getElementById("reg-comuna");
+  const direccion = document.getElementById("reg-address");
+
+  let valido = true;
+  valido = validarRun(run, "El RUN es obligatorio.") && valido;
+  valido = validarTextoObligatorio(nombre, "El nombre es obligatorio.") && valido;
+  valido = validarTextoObligatorio(apellidos, "Los apellidos son obligatorios.") && valido;
+  valido = validarCorreo(correo, true) && valido;
+  valido = validarPassword(password, true) && valido;
+  valido = validarConfirmacionPassword(passwordConfirm, password) && valido;
+  valido = validarSelect(region, "Debes seleccionar una región.") && valido;
+  valido = validarSelect(comuna, "Debes seleccionar una comuna.") && valido;
+  valido = validarTextoObligatorio(direccion, "La dirección es obligatoria.") && valido;
+
+  return valido;
+}
+
+function validarFormularioLogin() {
+  const form = document.getElementById("login-form");
+  if (!form) return true;
+
+  const correo = document.getElementById("login-email");
+  const password = document.getElementById("login-password");
+
+  let valido = true;
+  valido = validarCorreo(correo, true) && valido;
+  valido = validarPassword(password, true) && valido;
+
+  return valido;
+}
+
+function validarFormularioContacto() {
+  const form = document.getElementById("contact-form");
+  if (!form) return true;
+
+  const nombre = document.getElementById("contact-name");
+  const correo = document.getElementById("contact-email");
+  const comentario = document.getElementById("contact-comment");
+
+  let valido = true;
+  const nombreValor = nombre?.value.trim() || "";
+  if (nombreValor.length < 3) {
+    mostrarError(nombre, "El nombre debe tener al menos 3 caracteres.");
+    valido = false;
+  } else {
+    limpiarError(nombre);
+  }
+
+  if (correo && correo.value.trim() && !esCorreoPermitido(correo.value.trim())) {
+    mostrarError(correo, "El correo debe tener un dominio válido (@duoc.cl, @profesor.duoc.cl o @gmail.com).");
+    valido = false;
+  } else if (correo) {
+    limpiarError(correo);
+  }
+
+  if (!comentario || !comentario.value.trim()) {
+    mostrarError(comentario, "El comentario es obligatorio.");
+    valido = false;
+  } else {
+    limpiarError(comentario);
+  }
+
+  return valido;
+}
+
+function validarFormularioProducto() {
+  const form = document.getElementById("new-product-form") || document.getElementById("edit-product-form");
+  if (!form) return true;
+
+  const codigo = document.getElementById("product-code");
+  const nombre = document.getElementById("product-name");
+  const precio = document.getElementById("product-price");
+  const categoria = document.getElementById("product-category");
+  const stock = document.getElementById("product-stock");
+  const stockCritico = document.getElementById("product-critical-stock");
+
+  let valido = true;
+  if (codigo && codigo.value.trim().length < 3) {
+    mostrarError(codigo, "El código del producto debe tener al menos 3 caracteres.");
+    valido = false;
+  } else if (codigo) {
+    limpiarError(codigo);
+  }
+
+  valido = validarTextoObligatorio(nombre, "El nombre del producto es obligatorio.") && valido;
+  valido = validarPrecio(precio) && valido;
+  valido = validarSelect(categoria, "Debes seleccionar una categoría.") && valido;
+  valido = validarStock(stock, "El stock debe ser un número entero mayor o igual a 0.") && valido;
+
+  if (stockCritico && stockCritico.value !== "") {
+    const valorCritico = Number(stockCritico.value);
+    const stockValor = Number(stock.value || 0);
+
+    if (Number.isNaN(valorCritico) || !Number.isInteger(valorCritico) || valorCritico < 0) {
+      mostrarError(stockCritico, "El stock crítico debe ser un número entero mayor o igual a 0.");
+      valido = false;
+    } else if (valorCritico > stockValor) {
+      mostrarError(stockCritico, "El stock crítico no puede ser mayor que el stock.");
+      valido = false;
+    } else {
+      limpiarError(stockCritico);
+    }
+  } else if (stockCritico) {
+    limpiarError(stockCritico);
+  }
+
+  return valido;
+}
+
+function validarFormularioUsuario() {
+  const form = document.getElementById("new-user-form") || document.getElementById("edit-user-form");
+  if (!form) return true;
+
+  const run = document.getElementById("user-run");
+  const nombre = document.getElementById("user-name");
+  const apellidos = document.getElementById("user-lastname");
+  const correo = document.getElementById("user-email");
+  const password = document.getElementById("user-password");
+  const fechaNacimiento = document.getElementById("user-birthdate");
+  const tipo = document.getElementById("user-type");
+  const region = document.getElementById("user-region");
+  const comuna = document.getElementById("user-comuna");
+  const direccion = document.getElementById("user-address");
+
+  let valido = true;
+  valido = validarRun(run, "El RUN es obligatorio.") && valido;
+  valido = validarTextoObligatorio(nombre, "El nombre es obligatorio.") && valido;
+  valido = validarTextoObligatorio(apellidos, "Los apellidos son obligatorios.") && valido;
+  valido = validarCorreo(correo, true) && valido;
+
+  if (form.id === "new-user-form") {
+    valido = validarPassword(password, true) && valido;
+  } else if (password && password.value) {
+    valido = validarPassword(password, false) && valido;
+  } else if (password) {
+    limpiarError(password);
+  }
+
+  valido = validarFechaNacimiento(fechaNacimiento) && valido;
+  valido = validarSelect(tipo, "Debes seleccionar un tipo de usuario.") && valido;
+  valido = validarSelect(region, "Debes seleccionar una región.") && valido;
+  valido = validarSelect(comuna, "Debes seleccionar una comuna.") && valido;
+  valido = validarTextoObligatorio(direccion, "La dirección es obligatoria.") && valido;
+
+  return valido;
+}
+
+function configurarValidacionesFormulario() {
+  const regionKeys = [
+    { regionId: "reg-region", comunaId: "reg-comuna" },
+    { regionId: "user-region", comunaId: "user-comuna" }
+  ];
+
+  regionKeys.forEach(({ regionId, comunaId }) => {
+    const regionSelect = document.getElementById(regionId);
+    const comunaSelect = document.getElementById(comunaId);
+
+    if (regionSelect && comunaSelect) {
+      // Poblar select de regiones si la función está disponible (assets/js/regiones.js)
+      if (typeof poblarSelectRegiones === "function") {
+        poblarSelectRegiones(regionId);
+      }
+
+      regionSelect.addEventListener("change", () => {
+        aplicarFiltroComunas(regionId, comunaId);
+      });
+
+      // Aplicar filtro inicial (si ya hay un valor seleccionado)
+      aplicarFiltroComunas(regionId, comunaId);
+    }
+  });
+
+  const registerForm = document.getElementById("register-form");
+  if (registerForm) {
+    [
+      "reg-run",
+      "reg-name",
+      "reg-lastname",
+      "reg-email",
+      "reg-password",
+      "reg-password-confirm",
+      "reg-region",
+      "reg-comuna",
+      "reg-address"
+    ].forEach((id) => {
+      const input = document.getElementById(id);
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        if (id === "reg-run") validarRun(input, "El RUN es obligatorio.");
+        if (id === "reg-name") validarTextoObligatorio(input, "El nombre es obligatorio.");
+        if (id === "reg-lastname") validarTextoObligatorio(input, "Los apellidos son obligatorios.");
+        if (id === "reg-email") validarCorreo(input, true);
+        if (id === "reg-password") validarPassword(input, true);
+        if (id === "reg-password-confirm") validarConfirmacionPassword(input, document.getElementById("reg-password"));
+        if (id === "reg-region") validarSelect(input, "Debes seleccionar una región.");
+        if (id === "reg-comuna") validarSelect(input, "Debes seleccionar una comuna.");
+        if (id === "reg-address") validarTextoObligatorio(input, "La dirección es obligatoria.");
+      });
+
+      input.addEventListener("blur", () => {
+        if (id === "reg-run") validarRun(input, "El RUN es obligatorio.");
+        if (id === "reg-name") validarTextoObligatorio(input, "El nombre es obligatorio.");
+        if (id === "reg-lastname") validarTextoObligatorio(input, "Los apellidos son obligatorios.");
+        if (id === "reg-email") validarCorreo(input, true);
+        if (id === "reg-password") validarPassword(input, true);
+        if (id === "reg-password-confirm") validarConfirmacionPassword(input, document.getElementById("reg-password"));
+        if (id === "reg-region") validarSelect(input, "Debes seleccionar una región.");
+        if (id === "reg-comuna") validarSelect(input, "Debes seleccionar una comuna.");
+        if (id === "reg-address") validarTextoObligatorio(input, "La dirección es obligatoria.");
+      });
+    });
+
+    registerForm.addEventListener("submit", (event) => {
+      if (!validarFormularioRegistro()) {
+        event.preventDefault();
+      }
+    });
+  }
+
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    ["login-email", "login-password"].forEach((id) => {
+      const input = document.getElementById(id);
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        if (id === "login-email") validarCorreo(input, true);
+        if (id === "login-password") validarPassword(input, true);
+      });
+
+      input.addEventListener("blur", () => {
+        if (id === "login-email") validarCorreo(input, true);
+        if (id === "login-password") validarPassword(input, true);
+      });
+    });
+
+    loginForm.addEventListener("submit", (event) => {
+      if (!validarFormularioLogin()) {
+        event.preventDefault();
+      }
+    });
+  }
+
+  const contactForm = document.getElementById("contact-form");
+  if (contactForm) {
+    ["contact-name", "contact-email", "contact-comment"].forEach((id) => {
+      const input = document.getElementById(id);
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        if (id === "contact-name") {
+          const valor = input.value.trim();
+          if (valor.length < 3) mostrarError(input, "El nombre debe tener al menos 3 caracteres.");
+          else limpiarError(input);
+        }
+
+        if (id === "contact-email") {
+          if (input.value.trim() && !esCorreoPermitido(input.value.trim())) {
+            mostrarError(input, "El correo debe tener un dominio válido (@duoc.cl, @profesor.duoc.cl o @gmail.com). ");
+          } else {
+            limpiarError(input);
+          }
+        }
+
+        if (id === "contact-comment") {
+          if (!input.value.trim()) mostrarError(input, "El comentario es obligatorio.");
+          else limpiarError(input);
+        }
+      });
+
+      input.addEventListener("blur", () => {
+        if (id === "contact-name") {
+          const valor = input.value.trim();
+          if (valor.length < 3) mostrarError(input, "El nombre debe tener al menos 3 caracteres.");
+          else limpiarError(input);
+        }
+
+        if (id === "contact-email") {
+          if (input.value.trim() && !esCorreoPermitido(input.value.trim())) {
+            mostrarError(input, "El correo debe tener un dominio válido (@duoc.cl, @profesor.duoc.cl o @gmail.com).");
+          } else {
+            limpiarError(input);
+          }
+        }
+
+        if (id === "contact-comment") {
+          if (!input.value.trim()) mostrarError(input, "El comentario es obligatorio.");
+          else limpiarError(input);
+        }
+      });
+    });
+
+    contactForm.addEventListener("submit", (event) => {
+      if (!validarFormularioContacto()) {
+        event.preventDefault();
+      }
+    });
+  }
+
+  const productForm = document.getElementById("new-product-form") || document.getElementById("edit-product-form");
+  if (productForm) {
+    ["product-code", "product-name", "product-price", "product-category", "product-stock", "product-critical-stock"].forEach((id) => {
+      const input = document.getElementById(id);
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        if (id === "product-code") {
+          if (input.value.trim().length < 3) mostrarError(input, "El código del producto debe tener al menos 3 caracteres.");
+          else limpiarError(input);
+        }
+
+        if (id === "product-name") {
+          validarTextoObligatorio(input, "El nombre del producto es obligatorio.");
+        }
+
+        if (id === "product-price") {
+          validarPrecio(input);
+        }
+
+        if (id === "product-category") {
+          validarSelect(input, "Debes seleccionar una categoría.");
+        }
+
+        if (id === "product-stock") {
+          validarStock(input, "El stock debe ser un número entero mayor o igual a 0.");
+        }
+
+        if (id === "product-critical-stock" && input.value !== "") {
+          const valorCritico = Number(input.value);
+          const stockValor = Number(document.getElementById("product-stock")?.value || 0);
+
+          if (Number.isNaN(valorCritico) || !Number.isInteger(valorCritico) || valorCritico < 0) {
+            mostrarError(input, "El stock crítico debe ser un número entero mayor o igual a 0.");
+          } else if (valorCritico > stockValor) {
+            mostrarError(input, "El stock crítico no puede ser mayor que el stock.");
+          } else {
+            limpiarError(input);
+          }
+        } else if (id === "product-critical-stock") {
+          limpiarError(input);
+        }
+      });
+
+      input.addEventListener("blur", () => {
+        if (id === "product-code") {
+          if (input.value.trim().length < 3) mostrarError(input, "El código del producto debe tener al menos 3 caracteres.");
+          else limpiarError(input);
+        }
+
+        if (id === "product-name") {
+          validarTextoObligatorio(input, "El nombre del producto es obligatorio.");
+        }
+
+        if (id === "product-price") {
+          validarPrecio(input);
+        }
+
+        if (id === "product-category") {
+          validarSelect(input, "Debes seleccionar una categoría.");
+        }
+
+        if (id === "product-stock") {
+          validarStock(input, "El stock debe ser un número entero mayor o igual a 0.");
+        }
+
+        if (id === "product-critical-stock" && input.value !== "") {
+          const valorCritico = Number(input.value);
+          const stockValor = Number(document.getElementById("product-stock")?.value || 0);
+
+          if (Number.isNaN(valorCritico) || !Number.isInteger(valorCritico) || valorCritico < 0) {
+            mostrarError(input, "El stock crítico debe ser un número entero mayor o igual a 0.");
+          } else if (valorCritico > stockValor) {
+            mostrarError(input, "El stock crítico no puede ser mayor que el stock.");
+          } else {
+            limpiarError(input);
+          }
+        } else if (id === "product-critical-stock") {
+          limpiarError(input);
+        }
+      });
+    });
+
+    productForm.addEventListener("submit", (event) => {
+      if (!validarFormularioProducto()) {
+        event.preventDefault();
+      }
+    });
+  }
+
+  const userForm = document.getElementById("new-user-form") || document.getElementById("edit-user-form");
+  if (userForm) {
+    ["user-run", "user-name", "user-lastname", "user-email", "user-password", "user-birthdate", "user-type", "user-region", "user-comuna", "user-address"].forEach((id) => {
+      const input = document.getElementById(id);
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        if (id === "user-run") validarRun(input, "El RUN es obligatorio.");
+        if (id === "user-name") validarTextoObligatorio(input, "El nombre es obligatorio.");
+        if (id === "user-lastname") validarTextoObligatorio(input, "Los apellidos son obligatorios.");
+        if (id === "user-email") validarCorreo(input, true);
+        if (id === "user-password") {
+          if (userForm.id === "new-user-form") validarPassword(input, true);
+          else if (input.value) validarPassword(input, false);
+          else limpiarError(input);
+        }
+        if (id === "user-birthdate") validarFechaNacimiento(input);
+        if (id === "user-type") validarSelect(input, "Debes seleccionar un tipo de usuario.");
+        if (id === "user-region") validarSelect(input, "Debes seleccionar una región.");
+        if (id === "user-comuna") validarSelect(input, "Debes seleccionar una comuna.");
+        if (id === "user-address") validarTextoObligatorio(input, "La dirección es obligatoria.");
+      });
+
+      input.addEventListener("blur", () => {
+        if (id === "user-run") validarRun(input, "El RUN es obligatorio.");
+        if (id === "user-name") validarTextoObligatorio(input, "El nombre es obligatorio.");
+        if (id === "user-lastname") validarTextoObligatorio(input, "Los apellidos son obligatorios.");
+        if (id === "user-email") validarCorreo(input, true);
+        if (id === "user-password") {
+          if (userForm.id === "new-user-form") validarPassword(input, true);
+          else if (input.value) validarPassword(input, false);
+          else limpiarError(input);
+        }
+        if (id === "user-birthdate") validarFechaNacimiento(input);
+        if (id === "user-type") validarSelect(input, "Debes seleccionar un tipo de usuario.");
+        if (id === "user-region") validarSelect(input, "Debes seleccionar una región.");
+        if (id === "user-comuna") validarSelect(input, "Debes seleccionar una comuna.");
+        if (id === "user-address") validarTextoObligatorio(input, "La dirección es obligatoria.");
+      });
+    });
+
+    userForm.addEventListener("submit", (event) => {
+      if (!validarFormularioUsuario()) {
+        event.preventDefault();
+      }
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", configurarValidacionesFormulario);
+</file>
+
+<file path="README.md">
+# Distribuidora de Gas El Volcán — Tienda Online (Evaluación 1)
+
+Proyecto del curso **DSY1104 – Desarrollo FullStack II** (Duoc UC).
+Caso asignado: **Forma C — Distribuidora de Gas El Volcán** (empresa familiar en Chillán que distribuye
+cilindros de gas licuado a domicilio, 5/11/15 kg).
+
+> ⚠️ **Importante sobre el alcance de esta entrega:** la Evaluación 1 (30%) solo pide una
+> tienda online básica en **HTML + CSS + JavaScript puro**, sin frameworks ni backend real.
+> El stack obligatorio del documento del caso (React, Spring Boot, MySQL, AWS, etc.) es para
+> **evaluaciones futuras**, no para esta entrega. No hay que adelantarse a eso todavía.
+
+## 1. Objetivo de esta entrega
+
+Construir el frontend estático de la tienda + un panel de administración simple, cumpliendo:
+
+- Estructura HTML semántica (secciones, encabezados, listas, etc.)
+- Navegación completa entre páginas (menú, enlaces, botones)
+- Hoja de estilos CSS externa, responsiva y consistente en todas las páginas
+- Validaciones de formularios con JavaScript (mensajes de error/sugerencias en tiempo real)
+- Repositorio GitHub público, con commits claros y trabajo repartido entre el equipo
+
+## 2. Estructura del repositorio
+
+```
+ElVolcanMarket/
+├── assets/
+│   ├── css/        → custom.css (personalización sobre Bootstrap, opcional por sección)
+│   ├── js/          → validations.js (validaciones de formularios, carrito, etc.)
+│   └── img/         → imágenes/logos
+├── store/           → vistas públicas (la tienda)
+├── admin/           → vistas del panel administrativo
+└── docs/            → ERS y planilla de requerimientos (versión de trabajo)
+```
+
+Cada página HTML ya está creada como esqueleto vacío con un comentario `<!-- TODO -->`
+indicando qué contenido/mockup de las instrucciones (Anexo 1) le corresponde. Así cada
+integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
+
+> **Decisión de equipo (actualizada):** todo el sitio usa **Bootstrap 5.3** (vía CDN), tanto
+> `admin/` como `store/`. No se mantiene un sistema de clases propio en paralelo. Ver
+> convenciones de código en la sección 4.
+
+## 3. Mapeo página → requisito (Anexo 1 instrucciones)
+
+### Tienda (pública)
+| Archivo | Vista (mockup) | Notas del caso |
+|---|---|---|
+| `store/index.html` | Página principal (Home) | Adaptar catálogo genérico a cilindros de gas (5, 11, 15 kg) |
+| `store/products.html` | Listado de productos | Catálogo de cilindros disponibles |
+| `store/product-detail.html` | Detalle de producto | Detalle de un tipo de cilindro + botón "agregar al pedido" |
+| `store/cart.html` | Carrito de compras | Aquí representa el "pedido" del cliente (dirección, tipo de cilindro) |
+| `store/register.html` | Registro de usuario | Con validaciones (RUN, correo, etc. — ver Anexo 1 sección validaciones) |
+| `store/login.html` | Inicio de sesión | Correo + contraseña |
+| `store/about.html` | Nosotros | Presentación de la empresa (usar contexto del caso, sección 1 del Forma C) |
+| `store/blog.html` | Blogs / noticias | 2 casos/noticias de ejemplo |
+| `store/blog-detail-1.html` | Detalle blog 1 | Libre elección de contenido |
+| `store/blog-detail-2.html` | Detalle blog 2 | Libre elección de contenido |
+| `store/contact.html` | Contacto | Formulario con validaciones |
+
+### Administrador
+| Archivo | Vista (mockup) |
+|---|---|
+| `admin/home.html` | Home admin (menú vertical) |
+| `admin/products.html` | Listado de productos (cilindros) |
+| `admin/new-product.html` | Nuevo producto |
+| `admin/edit-product.html` | Editar producto |
+| `admin/users.html` | Listado de usuarios |
+| `admin/new-user.html` | Nuevo usuario |
+| `admin/edit-user.html` | Editar usuario |
+
+> Las reglas de validación de cada campo (Run, correo, precio, stock, etc.) están detalladas
+> en el Anexo 1 de instrucciones, sección "Utilización y validación de JavaScript".
+
+## 4. Convenciones de código
+
+- **Framework CSS:** Bootstrap 5.3 (CDN) en **todas** las páginas, `store/` y `admin/` por
+  igual. Usar siempre las clases nativas de Bootstrap (`btn btn-primary`, `card`,
+  `form-control`, `form-select`, `table table-striped`, `navbar`, etc.) en vez de crear
+  clases propias equivalentes.
+- **CSS personalizado:** cada sección puede tener un `custom.css` pequeño, cargado
+  *después* del CDN de Bootstrap, para ajustar la identidad visual de la marca
+  (colores, tipografía) sobrescribiendo variables de Bootstrap (`--bs-primary`, etc.)
+  en vez de escribir reglas nuevas desde cero. **No** reemplaza a Bootstrap, lo
+  complementa.
+ - El proyecto usa `assets/css/custom.css` para personalizaciones por sección.
+- Un solo `<h1>` por página; `<section>` para bloques de contenido semánticamente
+  distintos.
+- Formularios: cada `<input>`/`<select>`/`<textarea>` con `<label for="...">` asociado,
+  su propio `id`/`name`, y un `<div class="invalid-feedback">` listo para la validación JS.
+- Rutas relativas a `assets/` siempre `../assets/...` (todas las páginas están un nivel
+  bajo la raíz, dentro de `store/` o `admin/`).
+
+## 5. Flujo de trabajo en Git sugerido
+
+- `main` → siempre debe quedar funcionando (no se sube trabajo a medio hacer).
+- Cada integrante trabaja en su propia rama: `feature/<nombre>-<pagina>` (ej: `feature/matias-home`).
+- Commits pequeños y descriptivos (ej: `feat: estructura HTML de home`, `fix: validación correo registro`).
+- Pull Request hacia `main` antes de fusionar, aunque sea autoevaluado por falta de tiempo.
+- Evitar editar el mismo archivo en paralelo sin avisar (sobre todo `custom.css` y `validations.js`).
+
+## 6. Próximos pasos (pendientes de definir en equipo)
+
+- [ ] Repartir páginas entre los integrantes
+- [ ] Definir paleta de colores / estilo visual de la marca
+- [ ] Completar el documento ERS (versión 1) — plantilla en `docs/`
+- [ ] Completar la planilla de requerimientos (Anexo 2)
+- [ ] Definir reglas del carrito de pedido (cantidades, tipos de cilindro, etc.)
+- [ ] Preparar la presentación de 15 minutos + ronda de preguntas
+
+## 7. Cómo subir este repo a GitHub
+
+```bash
+# 1. Crear un repositorio vacío y PÚBLICO en github.com (sin README, sin licencia)
+# 2. Desde esta carpeta:
+git remote add origin https://github.com/<tu-usuario>/ElVolcanMarket.git
+git branch -M main
+git push -u origin main
+```
+
+## Cómo probar el sitio localmente
+
+Opciones rápidas para ejecutar y revisar la interfaz estática:
+
+- Abrir `store/index.html` directamente en el navegador (modo desarrollo rápido).
+- Usar un servidor estático local (recomendado):
+
+```bash
+# desde la raíz del proyecto
+npx http-server -c-1 .
+# abrir http://127.0.0.1:8080/store/index.html
+```
+
+## Credenciales de prueba (seed)
+
+Estas cuentas ya vienen precargadas en el catálogo de ejemplo (localStorage inicial):
+
+- Administrador: `javiera.munoz@gmail.com` / `admin1234`
+- Vendedor: `pedro.salinas@duoc.cl` / `vendedor1234`
+- Cliente: `camila.toro@gmail.com` / `cliente1234`
+
+## Estado de cumplimiento (TAREAs)
+
+- TAREA 1: Placeholders de imágenes — completada
+- TAREA 2: Regiones/Comunas (`assets/js/regiones.js`) — completada
+- TAREA 3: Precio mínimo (permitir 0) — completada
+- TAREA 4: Reemplazo RUNs seed por válidos — completada
+- TAREA 5: Validación bloquea guardado — completada
+- TAREA 6: Limpiar sample row en `store/cart.html` — completada
+- TAREA 7: Eliminar `assets/css/styles.css` y ajuste README — completada
+- TAREA 8: Agregar sección Equipo de desarrollo en `store/about.html` — completada
+- TAREA 9: Actualizar README con instrucciones y estado — completada
+- TAREA 10: Ajustes menores (regex RUN, min-length, try/catch) — pendiente
+
+## Pendientes importantes
+
+- Completar ERS (documentación de requisitos) en `docs/`.
+- Rellenar planilla de requerimientos (Anexo 2) con trazabilidad.
+- Preparar la presentación de entrega (diapositivas y demo).
+</file>
+
+<file path="store/contact.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Contacto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5">
+    <h1 class="h3 mb-4">Contacto</h1>
+
+    <section style="max-width: 560px;">
+      <p class="text-muted">
+        ¿Tienes dudas o necesitas coordinar un pedido especial? Escríbenos y te responderemos
+        a la brevedad.
+      </p>
+
+      <form id="contact-form">
+        <div class="mb-3">
+          <label for="contact-name" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" id="contact-name" name="contactName" required maxlength="100">
+          <div class="invalid-feedback" id="error-contact-name"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="contact-email" class="form-label">Correo (opcional)</label>
+          <input type="email" class="form-control" id="contact-email" name="contactEmail" maxlength="100">
+          <div class="form-text">Si lo indicas, solo @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
+          <div class="invalid-feedback" id="error-contact-email"></div>
+        </div>
+
+        <div class="mb-4">
+          <label for="contact-comment" class="form-label">Comentario</label>
+          <textarea class="form-control" id="contact-comment" name="contactComment" rows="4" required maxlength="500"></textarea>
+          <div class="invalid-feedback" id="error-contact-comment"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/validations.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="assets/js/products.js">
+// ============================================
+// El Volcán Market — products.js
+// Catálogo de productos: fuente de datos COMPARTIDA entre la
+// tienda (store/) y el panel de administración (admin/), a
+// través de localStorage. Cualquier cambio hecho desde el admin
+// (agregar/editar/eliminar) se refleja automáticamente en la
+// tienda la próxima vez que se cargue una página, porque ambas
+// leen desde la misma clave de localStorage.
+//
+// Requiere <div id="contenedorProductos" class="row g-4"></div>
+// y, opcionalmente, <span id="cantidadProductos"></span> en el HTML
+// (solo en páginas de la tienda que muestran cards; admin no las usa).
+//
+// Nivel de heading de cada card: por defecto <h2> (correcto cuando el
+// título de la página es <h1>, como en products.html). Si la página ya
+// tiene un <h2> de sección por encima (como el "Nuestros productos" de
+// index.html), declarar ANTES de este script:
+//   <script>window.PRODUCTOS_HEADING_TAG = "h3";</script>
+// ============================================
+
+const PRODUCTS_STORAGE_KEY = "volcan_products_catalog";
+
+// Catálogo de fábrica: se usa solo la PRIMERA vez que se carga el sitio
+// (localStorage vacío) o si el localStorage llegara a corromperse.
+const PRODUCTOS_SEED = [
+  {
+    id: 1,
+    codigo: "CIL-05",
+    nombre: "Cilindro de gas 5 kg",
+    precio: 8500,
+    stock: 20,
+    stockCritico: 5,
+    categoria: "5kg",
+    imagen: "../assets/img/cilindro-5kg.png",
+    descripcion: "Formato compacto, ideal para cocinas pequeñas, calefont auxiliar o uso ocasional."
+  },
+  {
+    id: 2,
+    codigo: "CIL-11",
+    nombre: "Cilindro de gas 11 kg",
+    precio: 16500,
+    stock: 15,
+    stockCritico: 5,
+    categoria: "11kg",
+    imagen: "../assets/img/cilindro-11kg.png",
+    descripcion: "El formato más solicitado para uso doméstico: cocina, calefont y estufas. Despacho a domicilio en Chillán y comunas aledañas."
+  },
+  {
+    id: 3,
+    codigo: "CIL-15",
+    nombre: "Cilindro de gas 15 kg",
+    precio: 21000,
+    stock: 10,
+    stockCritico: 5,
+    categoria: "15kg",
+    imagen: "../assets/img/cilindro-15kg.png",
+    descripcion: "Mayor autonomía para hogares con alto consumo o uso comercial (locales, negocios pequeños)."
+  }
+];
+
+// --------------------------------------------
+// Carga/guardado en localStorage
+// --------------------------------------------
+function cargarCatalogoProductos() {
+  try {
+    const data = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+    if (data) return JSON.parse(data);
+  } catch (e) {
+    console.error("products.js: catálogo corrupto en localStorage, se reinicia con el catálogo de fábrica.", e);
+  }
+  localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(PRODUCTOS_SEED));
+  return PRODUCTOS_SEED;
+}
+
+function guardarCatalogoProductos(lista) {
+  try {
+    localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(lista));
+  } catch (e) {
+    console.error('products.js: error al guardar catálogo de productos en localStorage', e);
+    alert('Imagen demasiado grande; no se guardó el cambio.');
+  }
+}
+
+// "let" (no "const"): admin-products.js reemplaza este array
+// completo tras agregar/editar/eliminar, en la misma página.
+let productos = cargarCatalogoProductos();
+
+// --------------------------------------------
+// Render de cards (solo páginas de la tienda)
+// --------------------------------------------
+const contenedor = document.querySelector("#contenedorProductos");
+const cantidad = document.querySelector("#cantidadProductos");
+const headingTag = window.PRODUCTOS_HEADING_TAG || "h2";
+
+function formatearCategoria(categoria) {
+  // "5kg" -> "5 kg" (solo para mostrar; el valor guardado no lleva espacio,
+  // para que coincida tal cual con las opciones del <select> del admin).
+  return categoria.replace(/(\d+)kg/i, "$1 kg");
+}
+
+function renderProductos(lista) {
+  contenedor.innerHTML = "";
+
+  lista.forEach(producto => {
+    contenedor.innerHTML += `
+      <div class="col-sm-6 col-lg-4">
+        <article class="card h-100 shadow-sm">
+          <img src="${producto.imagen}"
+               class="card-img-top"
+               alt="${producto.nombre}">
+          <div class="card-body d-flex flex-column">
+            <span class="badge text-bg-light align-self-start mb-2">
+              ${formatearCategoria(producto.categoria)}
+            </span>
+            <${headingTag} class="h5">${producto.nombre}</${headingTag}>
+            <p class="fs-5 fw-bold">$${producto.precio.toLocaleString("es-CL")}</p>
+            <p>Stock: ${producto.stock}</p>
+            <div class="mt-auto d-flex gap-2">
+              <a href="product-detail.html?id=${producto.id}" class="btn btn-outline-primary btn-sm">Ver detalle</a>
+              <button class="btn btn-primary btn-sm btn-agregar"
+                      data-id="${producto.id}"
+                      ${producto.stock === 0 ? "disabled" : ""}>
+                Agregar al carrito
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>`;
+  });
+
+  if (cantidad) {
+    cantidad.textContent = `${lista.length} productos`;
+  }
+}
+
+if (contenedor) {
+  renderProductos(productos);
+}
+</file>
+
+<file path="store/login.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Iniciar sesión</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5 d-flex flex-column align-items-center">
+    <h1 class="h3 mb-4">Iniciar sesión</h1>
+
+    <section class="card p-4" style="max-width: 420px; width: 100%;">
+      <form id="login-form">
+        <div class="mb-3">
+          <label for="login-email" class="form-label">Correo</label>
+          <input type="email" class="form-control" id="login-email" name="loginEmail" required maxlength="100">
+          <div class="form-text">@duoc.cl, @profesor.duoc.cl o @gmail.com</div>
+          <div class="invalid-feedback" id="error-login-email"></div>
+        </div>
+
+        <div class="mb-4">
+          <label for="login-password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="login-password" name="loginPassword" required minlength="4" maxlength="10">
+          <div class="invalid-feedback" id="error-login-password"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+        <a href="register.html" class="btn btn-link w-100 mt-2">¿No tienes cuenta? Regístrate</a>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/login.js"></script>
+  <script src="../assets/js/validations.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/products.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Productos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="h3 mb-0">Nuestros productos</h1>
+      <span id="cantidadProductos" class="text-muted"></span>
+    </div>
+
+    <section>
+      <div id="contenedorProductos" class="row g-4">
+        <!-- Se llena dinámicamente desde assets/js/products.js -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/product-detail.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Detalle de producto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="products.html">Productos</a></li>
+        <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-actual">Producto</li>
+      </ol>
+    </nav>
+
+    <section id="detalle-producto" class="row g-5">
+      <!-- Se llena dinámicamente desde assets/js/product-detail.js, según ?id= en la URL -->
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/product-detail.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="admin/edit-user.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Editar usuario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <h1 class="h3 mb-4">Editar usuario</h1>
+      <!-- Los campos se precargan dinámicamente según ?id=N en la URL, vía assets/js/admin-users.js -->
+
+      <section style="max-width: 640px;">
+        <form id="edit-user-form">
+          <div class="mb-3">
+            <label for="user-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
+            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9">
+            <div class="form-text">El Run no se puede editar una vez creado el usuario.</div>
+            <div class="invalid-feedback" id="error-user-run"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50">
+              <div class="invalid-feedback" id="error-user-name"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-lastname" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100">
+              <div class="invalid-feedback" id="error-user-lastname"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-email" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100">
+            <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
+            <div class="invalid-feedback" id="error-user-email"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="user-password" name="userPassword" minlength="4" maxlength="10">
+            <div class="form-text">Déjala en blanco para no cambiarla.</div>
+            <div class="invalid-feedback" id="error-user-password"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-birthdate" class="form-label">Fecha de nacimiento (opcional)</label>
+              <input type="date" class="form-control" id="user-birthdate" name="userBirthdate">
+            </div>
+            <div class="col-sm-6">
+              <label for="user-type" class="form-label">Tipo de usuario</label>
+              <select class="form-select" id="user-type" name="userType" required>
+                <option value="" selected disabled>-- Seleccione --</option>
+                <option value="administrador">Administrador</option>
+                <option value="vendedor">Vendedor</option>
+                <option value="cliente">Cliente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-region" class="form-label">Región</label>
+              <!-- Regiones pobladas por assets/js/regiones.js -->
+              <select class="form-select" id="user-region" name="userRegion" required>
+                <option value="" selected disabled>-- Seleccione región --</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-comuna" class="form-label">Comuna</label>
+              <!-- Comunas pobladas dinámicamente -->
+              <select class="form-select" id="user-comuna" name="userComuna" required>
+                <option value="" selected disabled>-- Seleccione comuna --</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="user-address" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300">
+            <div class="invalid-feedback" id="error-user-address"></div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <a href="users.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-users.js"></script>
+  <script src="../assets/js/regiones.js"></script>
+  <script src="../assets/js/validations.js"></script>
+</body>
+</html>
+</file>
+
+<file path="admin/new-user.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Nuevo usuario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <h1 class="h3 mb-4">Nuevo usuario</h1>
+
+      <section style="max-width: 640px;">
+        <form id="new-user-form">
+          <div class="mb-3">
+            <label for="user-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
+            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9">
+            <div class="invalid-feedback" id="error-user-run"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50">
+              <div class="invalid-feedback" id="error-user-name"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-lastname" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100">
+              <div class="invalid-feedback" id="error-user-lastname"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-email" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100">
+            <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
+            <div class="invalid-feedback" id="error-user-email"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="user-password" name="userPassword" required minlength="4" maxlength="10">
+            <div class="form-text">La usará esta persona para iniciar sesión.</div>
+            <div class="invalid-feedback" id="error-user-password"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-birthdate" class="form-label">Fecha de nacimiento (opcional)</label>
+              <input type="date" class="form-control" id="user-birthdate" name="userBirthdate">
+            </div>
+            <div class="col-sm-6">
+              <label for="user-type" class="form-label">Tipo de usuario</label>
+              <select class="form-select" id="user-type" name="userType" required>
+                <option value="" selected disabled>-- Seleccione --</option>
+                <option value="administrador">Administrador</option>
+                <option value="vendedor">Vendedor</option>
+                <option value="cliente">Cliente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-region" class="form-label">Región</label>
+                <!-- Regiones pobladas por assets/js/regiones.js -->
+                <select class="form-select" id="user-region" name="userRegion" required>
+                  <option value="" selected disabled>-- Seleccione región --</option>
+                </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-comuna" class="form-label">Comuna</label>
+                <!-- Comunas pobladas dinámicamente -->
+                <select class="form-select" id="user-comuna" name="userComuna" required>
+                  <option value="" selected disabled>-- Seleccione comuna --</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="user-address" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300">
+            <div class="invalid-feedback" id="error-user-address"></div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <a href="users.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar usuario</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/admin-users.js"></script>
+    <script src="../assets/js/regiones.js"></script>
+  <script src="../assets/js/validations.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/about.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Nosotros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5">
+    <h1 class="mb-4">Quiénes somos</h1>
+
+    <section class="mb-5">
+      <h2 class="h4">Nuestra historia</h2>
+      <p>
+        Distribuidora de Gas El Volcán es una empresa familiar fundada en 1998 en la ciudad
+        de Chillán, Región de Ñuble. Desde nuestros inicios, nos hemos dedicado a la
+        distribución de cilindros de gas licuado a domicilio, llevando un servicio cálido,
+        confiable y oportuno tanto a clientes residenciales como comerciales de la comuna y
+        sus alrededores.
+      </p>
+      <p>
+        Lo que comenzó como un pequeño emprendimiento local ha crecido gracias a la
+        preferencia de nuestros vecinos, manteniendo siempre la esencia y los valores
+        humanos del primer día.
+      </p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h4 mb-3">Nuestro equipo e infraestructura</h2>
+      <p class="mb-4">
+        Para asegurar que cada pedido llegue de manera eficiente a tu hogar, contamos con un
+        equipo dedicado y una flota preparada para la ruta:
+      </p>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="h6">Logística y distribución</h3>
+              <p class="card-text small text-muted">
+                Disponemos de 2 camiones de reparto operados por 3 repartidores
+                experimentados, que recorren diariamente Chillán para cumplir con tus
+                solicitudes.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="h6">Atención telefónica</h3>
+              <p class="card-text small text-muted">
+                Nuestra operadora de llamadas recibe, coordina y agiliza cada solicitud de
+                gas directamente en nuestra central.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="h6">Administración y control</h3>
+              <p class="card-text small text-muted">
+                Nuestra administradora lidera los flujos contables y la gestión interna,
+                garantizando un servicio transparente y cercano al cliente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="h4">Compromiso de suministro</h2>
+      <p>
+        Sabemos lo importante que es el gas licuado en las tareas cotidianas del hogar y el
+        comercio. Por ello, garantizamos un stock continuo en los tres formatos más
+        solicitados del mercado: <strong>5 kg, 11 kg y 15 kg</strong>, listos para ser
+        despachados cuando más lo necesites.
+      </p>
+    </section>
+
+    <section class="mt-5">
+      <h2 class="h4 mb-3">Equipo de desarrollo</h2>
+      <p class="text-muted mb-4">Equipo responsable del desarrollo de la presente entrega (proyecto educativo).</p>
+
+      <div class="row g-4">
+        <div class="col-sm-6 col-md-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <h3 class="h6">NOMBRE_INTEGRANTE_1</h3>
+              <p class="small text-muted mb-0">Desarrollador frontend</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <h3 class="h6">NOMBRE_INTEGRANTE_2</h3>
+              <p class="small text-muted mb-0">Diseño y contenido</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <h3 class="h6">NOMBRE_INTEGRANTE_3</h3>
+              <p class="small text-muted mb-0">Documentación y QA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/blog-detail-1.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Uso seguro de cilindros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5" style="max-width: 760px;">
+    <a href="blog.html" class="btn btn-outline-secondary btn-sm mb-4">&larr; Volver al blog</a>
+
+    <h1 class="mb-3">Medidas clave para el uso seguro de cilindros en el hogar</h1>
+    <div class="text-muted small mb-4">
+      <span>Publicado el 15 de agosto, 2026</span> · <span>Por: Administradora El Volcán</span>
+    </div>
+
+    <img src="../assets/img/blog-1.svg" class="img-fluid rounded mb-4" alt="Uso seguro de cilindros de gas">
+
+    <article>
+      <p>
+        El gas licuado es una fuente de energía segura cuando se maneja correctamente. En
+        Distribuidora de Gas El Volcán queremos compartir contigo las recomendaciones
+        básicas para que su uso en el hogar sea siempre seguro.
+      </p>
+
+      <h2 class="h5 mt-4">1. Revisa las conexiones periódicamente</h2>
+      <p>
+        Antes de conectar un cilindro nuevo, verifica que la válvula y la manguera no
+        presenten grietas ni desgaste. Una conexión floja es una de las principales causas
+        de fugas.
+      </p>
+
+      <h2 class="h5 mt-4">2. Ubica el cilindro en un lugar ventilado</h2>
+      <p>
+        Nunca instales el cilindro en espacios cerrados sin ventilación, ni cerca de fuentes
+        de calor directo o llamas abiertas.
+      </p>
+
+      <h2 class="h5 mt-4">3. Ante un olor a gas, actúa de inmediato</h2>
+      <p>
+        Cierra la válvula, ventila el espacio y no enciendas ni apagues artefactos
+        eléctricos. Si el olor persiste, contáctanos para una revisión.
+      </p>
+    </article>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/blog-detail-2.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Cómo optimizar el consumo de gas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5" style="max-width: 760px;">
+    <a href="blog.html" class="btn btn-outline-secondary btn-sm mb-4">&larr; Volver al blog</a>
+
+    <h1 class="mb-3">Cómo optimizar el consumo de gas durante los meses fríos</h1>
+    <div class="text-muted small mb-4">
+      <span>Publicado el 2 de agosto, 2026</span> · <span>Por: Administradora El Volcán</span>
+    </div>
+
+    <img src="../assets/img/blog-2.svg" class="img-fluid rounded mb-4" alt="Optimización del consumo de gas en invierno">
+
+    <article>
+      <p>
+        Durante la época invernal en la Región de Ñuble, el uso de gas licuado para
+        calefacción y agua caliente se incrementa notablemente. En Distribuidora de Gas El
+        Volcán queremos ayudarte a cuidar tu presupuesto con recomendaciones simples que
+        maximizarán el rendimiento de tus cilindros.
+      </p>
+
+      <h2 class="h5 mt-4">1. Mantén la temperatura ideal en tus ambientes</h2>
+      <p>
+        Calefaccionar en exceso una habitación genera un gasto innecesario de energía.
+        Mantener una temperatura constante y moderada (entre 19°C y 21°C) es suficiente para
+        un espacio confortable y evita que el cilindro se agote antes de lo previsto.
+      </p>
+
+      <h2 class="h5 mt-4">2. Evita filtraciones de aire</h2>
+      <p>
+        Un porcentaje importante del calor se pierde por rendijas en puertas y ventanas.
+        Utilizar burletes o aislantes térmicos sencillos ayuda a conservar la temperatura del
+        hogar por mucho más tiempo, reduciendo las horas en que necesitas tener encendida tu
+        estufa a gas.
+      </p>
+
+      <h2 class="h5 mt-4">3. Mantención de artefactos</h2>
+      <p>
+        Un quemador sucio u obstruido disminuye drásticamente la eficiencia de la
+        combustión, gastando más gas para generar la misma cantidad de calor. Realizar una
+        limpieza preventiva a tus estufas y calefón antes de que comience el invierno
+        garantizará un consumo óptimo.
+      </p>
+    </article>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/blog.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5">
+    <h1 class="mb-3">Blog de noticias y consejos</h1>
+    <p class="text-muted mb-4">
+      Descubre consejos de seguridad, uso eficiente de cilindros de gas licuado y novedades
+      de Distribuidora El Volcán.
+    </p>
+
+    <section class="row g-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <img src="../assets/img/blog-1.svg" class="card-img-top" alt="Consejos de seguridad con cilindros de gas">
+          <div class="card-body">
+            <span class="text-muted small">15 de agosto, 2026</span>
+            <h2 class="h5 mt-2">Medidas clave para el uso seguro de cilindros en el hogar</h2>
+            <p class="card-text text-muted">
+              Aprende a revisar conexiones, reguladores y mangueras para garantizar la
+              máxima seguridad de tu familia.
+            </p>
+            <a href="blog-detail-1.html" class="btn btn-primary btn-sm">Leer artículo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card h-100">
+          <img src="../assets/img/blog-2.svg" class="card-img-top" alt="Optimización de consumo de gas en invierno">
+          <div class="card-body">
+            <span class="text-muted small">2 de agosto, 2026</span>
+            <h2 class="h5 mt-2">Cómo optimizar el consumo de gas durante los meses fríos</h2>
+            <p class="card-text text-muted">
+              Recomendaciones prácticas para calefaccionar tus ambientes de manera eficiente
+              sin descuidar tu presupuesto.
+            </p>
+            <a href="blog-detail-2.html" class="btn btn-primary btn-sm">Leer artículo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/cart.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Carrito de pedidos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5">
+    <h1 class="h3 mb-4">Tu carrito de pedidos</h1>
+
+    <section class="mb-5">
+      <h2 class="h5 mb-3">Productos seleccionados</h2>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Cilindro</th>
+              <th>Precio unitario</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+              <th class="text-end">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="cart-table-body">
+            <!-- Filas generadas dinámicamente por JS + localStorage -->
+          </tbody>
+        </table>
+      </div>
+      <p class="text-end fs-5">
+        Total a pagar (efectivo al repartidor): <strong id="cart-total-amount">$0</strong>
+      </p>
+    </section>
+
+    <section style="max-width: 560px;">
+      <h2 class="h5 mb-3">Datos de despacho en Chillán</h2>
+      <p class="text-muted">
+        Ingresa los datos de entrega para que la operadora asigne tu pedido a un camión
+        repartidor.
+      </p>
+
+      <form id="checkout-form">
+        <div class="mb-3">
+          <label for="client-name" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" id="client-name" name="clientName" required placeholder="Ej: Juan Pérez">
+          <div class="invalid-feedback" id="error-client-name"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="client-address" class="form-label">Dirección de entrega (Chillán / comunas aledañas)</label>
+          <input type="text" class="form-control" id="client-address" name="clientAddress" required placeholder="Ej: Av. O'Higgins 123, Chillán">
+          <div class="invalid-feedback" id="error-client-address"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="client-phone" class="form-label">Teléfono de contacto</label>
+          <input type="tel" class="form-control" id="client-phone" name="clientPhone" required placeholder="Ej: 912345678">
+          <div class="invalid-feedback" id="error-client-phone"></div>
+        </div>
+
+        <div class="mb-4">
+          <label for="order-notes" class="form-label">Notas adicionales (opcional)</label>
+          <textarea class="form-control" id="order-notes" name="orderNotes" rows="3" placeholder="Ej: Casa esquina con portón negro, timbre malo..."></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <a href="products.html" class="btn btn-outline-secondary">Seguir comprando</a>
+          <button type="submit" class="btn btn-primary">Confirmar solicitud de gas</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/index.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Inicio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main>
+    <h1 class="visually-hidden">El Volcán Market — Inicio</h1>
+
+    <!-- Sección principal: carrusel de presentación -->
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <!-- TODO: reemplazar por imagen real -->
+          <img src="../assets/img/banner-1.jpg" class="d-block w-100" style="height: 420px; object-fit: cover;" alt="Gas licuado a domicilio en Chillán">
+          <div class="carousel-caption d-none d-md-block hero-caption">
+            <h2 class="fw-bold">Gas licuado a domicilio en Chillán</h2>
+            <p>Cilindros de 5, 11 y 15 kg, despachados directo a tu hogar o negocio.</p>
+            <a href="products.html" class="btn btn-primary">Ver productos</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <!-- TODO: reemplazar por imagen real -->
+          <img src="../assets/img/banner-2.jpg" class="d-block w-100" style="height: 420px; object-fit: cover;" alt="Entrega rápida y segura">
+          <div class="carousel-caption d-none d-md-block hero-caption">
+            <h2 class="fw-bold">Entrega rápida y segura</h2>
+            <p>Cobertura en Chillán y comunas aledañas, con repartidores de confianza.</p>
+            <a href="contact.html" class="btn btn-primary">Contactar</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <!-- TODO: reemplazar por imagen real -->
+          <img src="../assets/img/banner-3.jpg" class="d-block w-100" style="height: 420px; object-fit: cover;" alt="Más de 25 años de experiencia">
+          <div class="carousel-caption d-none d-md-block hero-caption">
+            <h2 class="fw-bold">Más de 25 años de experiencia</h2>
+            <p>Una empresa familiar de Chillán al servicio de tu hogar desde 1998.</p>
+            <a href="about.html" class="btn btn-primary">Conócenos</a>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+
+    <!-- Sección: listado destacado de productos -->
+    <section class="container py-5">
+      <h2 class="h2 mb-4">Nuestros productos</h2>
+      <div id="contenedorProductos" class="row g-4">
+        <!-- Se llena dinámicamente desde assets/js/products.js -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script>window.PRODUCTOS_HEADING_TAG = "h3";</script>
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+<file path="store/register.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Registro de usuario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <nav id="store-navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <!-- Generado dinámicamente por assets/js/store-nav.js -->
+  </nav>
+
+  <main class="container py-5">
+    <h1 class="h3 mb-4">Crear una cuenta</h1>
+
+    <section style="max-width: 640px;">
+      <form id="register-form">
+        <div class="mb-3">
+          <label for="reg-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
+          <input type="text" class="form-control" id="reg-run" name="regRun" required minlength="7" maxlength="9">
+          <div class="invalid-feedback" id="error-reg-run"></div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-6">
+            <label for="reg-name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="reg-name" name="regName" required maxlength="50">
+            <div class="invalid-feedback" id="error-reg-name"></div>
+          </div>
+          <div class="col-sm-6">
+            <label for="reg-lastname" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="reg-lastname" name="regLastname" required maxlength="100">
+            <div class="invalid-feedback" id="error-reg-lastname"></div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="reg-email" class="form-label">Correo</label>
+          <input type="email" class="form-control" id="reg-email" name="regEmail" required maxlength="100">
+          <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
+          <div class="invalid-feedback" id="error-reg-email"></div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-6">
+            <label for="reg-password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="reg-password" name="regPassword" required minlength="4" maxlength="10">
+            <div class="invalid-feedback" id="error-reg-password"></div>
+          </div>
+          <div class="col-sm-6">
+            <label for="reg-password-confirm" class="form-label">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="reg-password-confirm" name="regPasswordConfirm" required minlength="4" maxlength="10">
+            <div class="invalid-feedback" id="error-reg-password-confirm"></div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="reg-phone" class="form-label">Teléfono (opcional)</label>
+          <input type="tel" class="form-control" id="reg-phone" name="regPhone" placeholder="Ej: 912345678">
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-6">
+            <label for="reg-region" class="form-label">Región</label>
+            <!-- TODO: reemplazar por el arreglo oficial de regiones/comunas -->
+              <select class="form-select" id="reg-region" name="regRegion" required>
+                <option value="" selected disabled>-- Seleccione región --</option>
+              </select>
+          </div>
+          <div class="col-sm-6">
+            <label for="reg-comuna" class="form-label">Comuna</label>
+            <!-- TODO: comunas deberían filtrarse en JS según la región seleccionada -->
+              <select class="form-select" id="reg-comuna" name="regComuna" required>
+                <option value="" selected disabled>-- Seleccione comuna --</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="reg-address" class="form-label">Dirección</label>
+          <input type="text" class="form-control" id="reg-address" name="regAddress" required maxlength="300">
+          <div class="invalid-feedback" id="error-reg-address"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+        <a href="login.html" class="btn btn-link">¿Ya tienes cuenta? Inicia sesión</a>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white-50 text-center py-4 mt-4">
+    <p class="mb-1">&copy; 2026 Distribuidora de Gas El Volcán — Chillán, Región de Ñuble.</p>
+    <p class="mb-0">Atención al cliente y respuesta a domicilio.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/register.js"></script>
+  <script src="../assets/js/regiones.js"></script>
+  <script src="../assets/js/validations.js"></script>
+  <script src="../assets/js/cart.js"></script>
+</body>
+</html>
+</file>
+
+</files>
