@@ -4,20 +4,7 @@
 // Reglas detalladas en el Anexo 1 (instrucciones).
 // ============================================
 
-const COMUNAS_POR_REGION = {
-  metropolitana: [
-    { value: "chillan", label: "Chillán" },
-    { value: "chillan-viejo", label: "Chillán Viejo" }
-  ],
-  araucania: [
-    { value: "chillan", label: "Chillán" },
-    { value: "chillan-viejo", label: "Chillán Viejo" }
-  ],
-  nuble: [
-    { value: "chillan", label: "Chillán" },
-    { value: "chillan-viejo", label: "Chillán Viejo" }
-  ]
-};
+// Las comunas ahora se obtienen desde assets/js/regiones.js (const REGIONES)
 
 function mostrarError(input, mensaje) {
   if (!input) return;
@@ -48,7 +35,7 @@ function limpiarError(input) {
 function esRunValido(run) {
   const valor = (run || "").toString().trim().replace(/\s+/g, "").toUpperCase();
 
-  if (!/^\d{7,8}[0-9K]$/.test(valor)) {
+  if (!/^\d{6,8}[0-9K]$/.test(valor)) {
     return false;
   }
 
@@ -89,7 +76,8 @@ function aplicarFiltroComunas(regionSelectId, comunaSelectId) {
   }
 
   const valorActual = comunaSelect.value;
-  const opciones = COMUNAS_POR_REGION[regionSelect.value] || [];
+  const regionObj = (typeof REGIONES !== "undefined") ? REGIONES.find((r) => r.value === regionSelect.value) : null;
+  const opciones = (regionObj && regionObj.comunas) ? regionObj.comunas : [];
 
   comunaSelect.innerHTML = '<option value="" selected disabled>-- Seleccione comuna --</option>';
 
@@ -221,8 +209,8 @@ function validarPrecio(input) {
   if (!input) return true;
 
   const valor = Number(input.value);
-  if (Number.isNaN(valor) || valor <= 0) {
-    mostrarError(input, "El precio debe ser mayor que 0.");
+  if (Number.isNaN(valor) || valor < 0) {
+    mostrarError(input, "El precio no puede ser negativo.");
     return false;
   }
 
@@ -429,9 +417,16 @@ function configurarValidacionesFormulario() {
     const comunaSelect = document.getElementById(comunaId);
 
     if (regionSelect && comunaSelect) {
+      // Poblar select de regiones si la función está disponible (assets/js/regiones.js)
+      if (typeof poblarSelectRegiones === "function") {
+        poblarSelectRegiones(regionId);
+      }
+
       regionSelect.addEventListener("change", () => {
         aplicarFiltroComunas(regionId, comunaId);
       });
+
+      // Aplicar filtro inicial (si ya hay un valor seleccionado)
       aplicarFiltroComunas(regionId, comunaId);
     }
   });

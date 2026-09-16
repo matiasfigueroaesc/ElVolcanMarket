@@ -25,6 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    if (typeof validarFormularioRegistro === "function" && !validarFormularioRegistro()) {
+      return;
+    }
+
     const run = document.getElementById("reg-run").value.trim();
     const nombre = document.getElementById("reg-name").value.trim();
     const apellidos = document.getElementById("reg-lastname").value.trim();

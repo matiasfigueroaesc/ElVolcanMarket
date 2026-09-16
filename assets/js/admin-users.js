@@ -132,6 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    if (typeof validarFormularioUsuario === "function" && !validarFormularioUsuario()) {
+      return;
+    }
+
     const run = campoRun.value.trim();
     const nombre = document.getElementById("user-name").value.trim();
     const apellidos = document.getElementById("user-lastname").value.trim();
