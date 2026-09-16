@@ -143,10 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (typeof validarFormularioProducto === "function" && !validarFormularioProducto()) {
-      return;
-    }
-
     const codigo = document.getElementById("product-code").value.trim();
     const nombre = document.getElementById("product-name").value.trim();
     const descripcion = document.getElementById("product-description").value.trim();
@@ -160,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const imagenBase64 = await leerImagenComoBase64(imagenInput);
     // Si no se subió imagen nueva: conserva la que ya tenía (modo edición)
     // o usa un placeholder (producto nuevo sin imagen).
-    const imagenFinal = imagenBase64 || productoEditando?.imagen || "../assets/img/cilindro-placeholder.svg";
+    const imagenFinal = imagenBase64 || productoEditando?.imagen || "../assets/img/cilindro-placeholder.png";
 
     if (modoEdicion) {
       productoEditando.codigo = codigo;

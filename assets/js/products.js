@@ -73,12 +73,7 @@ function cargarCatalogoProductos() {
 }
 
 function guardarCatalogoProductos(lista) {
-  try {
-    localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(lista));
-  } catch (e) {
-    console.error('products.js: error al guardar catálogo de productos en localStorage', e);
-    alert('Imagen demasiado grande; no se guardó el cambio.');
-  }
+  localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(lista));
 }
 
 // "let" (no "const"): admin-products.js reemplaza este array

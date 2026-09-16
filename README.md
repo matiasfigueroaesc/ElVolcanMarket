@@ -82,7 +82,9 @@ integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
   (colores, tipografía) sobrescribiendo variables de Bootstrap (`--bs-primary`, etc.)
   en vez de escribir reglas nuevas desde cero. **No** reemplaza a Bootstrap, lo
   complementa.
- - El proyecto usa `assets/css/custom.css` para personalizaciones por sección.
+- El antiguo `assets/css/styles.css` (sistema de clases propio: `btn-primary`,
+  `form-group`, etc.) queda **en desuso** — no usarlo en páginas nuevas ni en las que se
+  reescriban.
 - Un solo `<h1>` por página; `<section>` para bloques de contenido semánticamente
   distintos.
 - Formularios: cada `<input>`/`<select>`/`<textarea>` con `<label for="...">` asociado,
@@ -116,44 +118,3 @@ git remote add origin https://github.com/<tu-usuario>/ElVolcanMarket.git
 git branch -M main
 git push -u origin main
 ```
-
-## Cómo probar el sitio localmente
-
-Opciones rápidas para ejecutar y revisar la interfaz estática:
-
-- Abrir `store/index.html` directamente en el navegador (modo desarrollo rápido).
-- Usar un servidor estático local (recomendado):
-
-```bash
-# desde la raíz del proyecto
-npx http-server -c-1 .
-# abrir http://127.0.0.1:8080/store/index.html
-```
-
-## Credenciales de prueba (seed)
-
-Estas cuentas ya vienen precargadas en el catálogo de ejemplo (localStorage inicial):
-
-- Administrador: `javiera.munoz@gmail.com` / `admin1234`
-- Vendedor: `pedro.salinas@duoc.cl` / `vendedor1234`
-- Cliente: `camila.toro@gmail.com` / `cliente1234`
-
-## Estado de cumplimiento (TAREAs)
-
-- TAREA 1: Placeholders de imágenes — completada
-- TAREA 2: Regiones/Comunas (`assets/js/regiones.js`) — completada
-- TAREA 3: Precio mínimo (permitir 0) — completada
-- TAREA 4: Reemplazo RUNs seed por válidos — completada
-- TAREA 5: Validación bloquea guardado — completada
-- TAREA 6: Limpiar sample row en `store/cart.html` — completada
-- TAREA 7: Eliminar `assets/css/styles.css` y ajuste README — completada
-- TAREA 8: Agregar sección Equipo de desarrollo en `store/about.html` — completada
-- TAREA 9: Actualizar README con instrucciones y estado — completada
-- TAREA 10: Ajustes menores (regex RUN, min-length, try/catch) — pendiente
-
-## Pendientes importantes
-
-- Completar ERS (documentación de requisitos) en `docs/`.
-- Rellenar planilla de requerimientos (Anexo 2) con trazabilidad.
-- Preparar la presentación de entrega (diapositivas y demo).
-

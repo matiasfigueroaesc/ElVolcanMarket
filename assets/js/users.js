@@ -28,7 +28,7 @@ const USERS_STORAGE_KEY = "volcan_users_catalog";
 const USUARIOS_SEED = [
   {
     id: 1,
-    run: "191234561",
+    run: "191234565",
     nombre: "Javiera",
     apellidos: "Muñoz Soto",
     correo: "javiera.munoz@gmail.com",
@@ -42,7 +42,7 @@ const USUARIOS_SEED = [
   },
   {
     id: 2,
-    run: "17894567K",
+    run: "178945672",
     nombre: "Pedro",
     apellidos: "Salinas Rojas",
     correo: "pedro.salinas@duoc.cl",
@@ -56,7 +56,7 @@ const USUARIOS_SEED = [
   },
   {
     id: 3,
-    run: "205671129",
+    run: "205671123",
     nombre: "Camila",
     apellidos: "Toro Pizarro",
     correo: "camila.toro@gmail.com",
@@ -85,12 +85,7 @@ function cargarCatalogoUsuarios() {
 }
 
 function guardarCatalogoUsuarios(lista) {
-  try {
-    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(lista));
-  } catch (e) {
-    console.error('users.js: error al guardar catálogo de usuarios en localStorage', e);
-    alert('Imagen demasiado grande; no se guardó el cambio.');
-  }
+  localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(lista));
 }
 
 // "let" (no "const"): admin-users.js reemplaza este array cuando
