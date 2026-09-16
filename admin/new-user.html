@@ -73,22 +73,17 @@
           <div class="row g-3 mb-3">
             <div class="col-sm-6">
               <label for="user-region" class="form-label">Región</label>
-              <!-- TODO: reemplazar por el arreglo oficial de regiones/comunas complementario al Anexo 1 -->
-              <select class="form-select" id="user-region" name="userRegion" required>
-                <option value="" selected disabled>-- Seleccione región --</option>
-                <option value="metropolitana">Región Metropolitana de Santiago</option>
-                <option value="araucania">Región de la Araucanía</option>
-                <option value="nuble">Región de Ñuble</option>
-              </select>
+                <!-- Regiones pobladas por assets/js/regiones.js -->
+                <select class="form-select" id="user-region" name="userRegion" required>
+                  <option value="" selected disabled>-- Seleccione región --</option>
+                </select>
             </div>
             <div class="col-sm-6">
               <label for="user-comuna" class="form-label">Comuna</label>
-              <!-- TODO: comunas deberían filtrarse en JS según la región seleccionada -->
-              <select class="form-select" id="user-comuna" name="userComuna" required>
-                <option value="" selected disabled>-- Seleccione comuna --</option>
-                <option value="chillan">Chillán</option>
-                <option value="chillan-viejo">Chillán Viejo</option>
-              </select>
+                <!-- Comunas pobladas dinámicamente -->
+                <select class="form-select" id="user-comuna" name="userComuna" required>
+                  <option value="" selected disabled>-- Seleccione comuna --</option>
+                </select>
             </div>
           </div>
 
@@ -112,6 +107,7 @@
   <script src="../assets/js/admin-nav.js"></script>
   <script src="../assets/js/users.js"></script>
   <script src="../assets/js/admin-users.js"></script>
+    <script src="../assets/js/regiones.js"></script>
   <script src="../assets/js/validations.js"></script>
 </body>
 </html>
