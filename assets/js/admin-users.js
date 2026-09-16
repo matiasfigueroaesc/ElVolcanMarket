@@ -153,6 +153,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const correoDuplicado = usuarios.some(
+      (u) => u.correo.toLowerCase() === correo.toLowerCase() && (!modoEdicion || u.id !== usuarioEditando.id)
+    );
+    if (correoDuplicado) {
+      alert(`Ya existe una cuenta registrada con el correo ${correo}.`);
+      return;
+    }
+
     if (modoEdicion) {
       usuarioEditando.nombre = nombre;
       usuarioEditando.apellidos = apellidos;

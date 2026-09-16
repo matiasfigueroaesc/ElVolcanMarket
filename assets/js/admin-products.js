@@ -24,6 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+  const esVendedor = sesion?.tipo === "vendedor";
+
+  const botonNuevoProducto = document.querySelector('a[href="new-product.html"]');
+  if (botonNuevoProducto && esVendedor) {
+    botonNuevoProducto.style.display = "none";
+  }
+
   // --------------------------------------------
   // admin/products.html — listado
   // --------------------------------------------
@@ -45,6 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
     tablaBody.innerHTML = productos
       .map((p) => {
         const hayStockCritico = p.stockCritico != null && p.stock <= p.stockCritico;
+        const accionesHtml = esVendedor
+          ? '<span class="text-muted small">Solo lectura</span>'
+          : `
+            ${hayStockCritico ? '<span class="badge text-bg-warning me-1">Stock crítico</span>' : ""}
+            <a href="edit-product.html?id=${p.id}" class="btn btn-sm btn-outline-secondary">Editar</a>
+            <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar-producto" data-id="${p.id}">Eliminar</button>`;
+
         return `
         <tr data-id="${p.id}">
           <td>${p.codigo}</td>
@@ -54,9 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${p.stock}</td>
           <td>${p.stockCritico ?? "—"}</td>
           <td class="text-end">
-            ${hayStockCritico ? '<span class="badge text-bg-warning me-1">Stock crítico</span>' : ""}
-            <a href="edit-product.html?id=${p.id}" class="btn btn-sm btn-outline-secondary">Editar</a>
-            <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar-producto" data-id="${p.id}">Eliminar</button>
+            ${accionesHtml}
           </td>
         </tr>`;
       })

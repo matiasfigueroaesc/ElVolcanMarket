@@ -19,6 +19,7 @@ function renderStoreNavbar() {
   if (!container) return;
 
   const currentPage = window.location.pathname.split("/").pop();
+  const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
 
   const linksHtml = STORE_NAV_ITEMS.map((item) => {
     const isActive = item.href === currentPage;
@@ -29,6 +30,13 @@ function renderStoreNavbar() {
         </a>
       </li>`;
   }).join("");
+
+  const loginHtml = sesion
+    ? `
+      <span class="navbar-text me-2">Hola, ${sesion.nombre}</span>
+      <button type="button" class="btn btn-outline-secondary me-2" id="store-logout-button">Cerrar sesión</button>
+      `
+    : `<a href="login.html" class="btn btn-outline-secondary me-2">Iniciar sesión</a>`;
 
   container.innerHTML = `
     <div class="container-fluid">
@@ -42,7 +50,7 @@ function renderStoreNavbar() {
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           ${linksHtml}
         </ul>
-        <a href="login.html" class="btn btn-outline-secondary me-2">Iniciar sesión</a>
+        ${loginHtml}
         <a href="cart.html" class="btn btn-outline-primary" id="store-cart-link">
           🛒 Carrito <span class="badge text-bg-primary" id="cart-count">0</span>
         </a>
@@ -50,7 +58,14 @@ function renderStoreNavbar() {
     </div>
   `;
 
-  // Marca el link del carrito como activo si estamos en cart.html
+  const logoutButton = document.getElementById("store-logout-button");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      cerrarSesion();
+      window.location.href = "index.html";
+    });
+  }
+
   if (currentPage === "cart.html") {
     document.getElementById("store-cart-link")?.classList.add("active");
   }
