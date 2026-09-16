@@ -1006,72 +1006,6 @@ repomix-output.txt
 </svg>
 </file>
 
-<file path="assets/js/regiones.js">
-// Regiones y comunas de Chile (uso por validations.js para poblar selects)
-const REGIONES = [
-  { value: "arica-parinacota", label: "Arica y Parinacota", comunas: [{ value: "arica", label: "Arica" }] },
-  { value: "tarapaca", label: "Tarapacá", comunas: [{ value: "iqq", label: "Iquique" }] },
-  { value: "antofagasta", label: "Antofagasta", comunas: [{ value: "antofagasta", label: "Antofagasta" }] },
-  { value: "atacama", label: "Atacama", comunas: [{ value: "copiapo", label: "Copiapó" }] },
-  { value: "coquimbo", label: "Coquimbo", comunas: [{ value: "la-serena", label: "La Serena" }] },
-  { value: "valparaiso", label: "Valparaíso", comunas: [{ value: "valparaiso", label: "Valparaíso" }] },
-  { value: "metropolitana", label: "Región Metropolitana de Santiago", comunas: [{ value: "santiago", label: "Santiago" }] },
-  { value: "ohiggins", label: "Región del Libertador O'Higgins", comunas: [{ value: "rancagua", label: "Rancagua" }] },
-  { value: "maule", label: "Región del Maule", comunas: [{ value: "talca", label: "Talca" }] },
-  { value: "nuble", label: "Región de Ñuble", comunas: [
-    { value: "chillan", label: "Chillán" },
-    { value: "chillan-viejo", label: "Chillán Viejo" }
-  ] },
-  { value: "biobio", label: "Región del Biobío", comunas: [{ value: "concepcion", label: "Concepción" }] },
-  { value: "araucania", label: "Región de La Araucanía", comunas: [{ value: "temuco", label: "Temuco" }] },
-  { value: "los-rios", label: "Región de Los Ríos", comunas: [{ value: "valdivia", label: "Valdivia" }] },
-  { value: "los-lagos", label: "Región de Los Lagos", comunas: [{ value: "puerto-montt", label: "Puerto Montt" }] },
-  { value: "aisen", label: "Región de Aysén", comunas: [{ value: "coihaique", label: "Coihaique" }] },
-  { value: "magallanes", label: "Región de Magallanes", comunas: [{ value: "punta-arenas", label: "Punta Arenas" }] }
-];
-
-function poblarSelectRegiones(selectId, selectedValue = "") {
-  const sel = document.getElementById(selectId);
-  if (!sel) return;
-
-  sel.innerHTML = '<option value="" selected disabled>-- Seleccione región --</option>';
-  REGIONES.forEach((r) => {
-    const opt = document.createElement("option");
-    opt.value = r.value;
-    opt.textContent = r.label;
-    sel.appendChild(opt);
-  });
-
-  if (selectedValue) sel.value = selectedValue;
-}
-
-function poblarComunasPorRegion(regionValue, comunaSelectId, selectedComuna = "") {
-  const sel = document.getElementById(comunaSelectId);
-  if (!sel) return;
-
-  const regionObj = REGIONES.find((r) => r.value === regionValue) || { comunas: [] };
-  const opciones = regionObj.comunas || [];
-
-  sel.innerHTML = '<option value="" selected disabled>-- Seleccione comuna --</option>';
-  opciones.forEach((c) => {
-    const opt = document.createElement("option");
-    opt.value = c.value;
-    opt.textContent = c.label;
-    sel.appendChild(opt);
-  });
-
-  if (selectedComuna && opciones.some((c) => c.value === selectedComuna)) sel.value = selectedComuna;
-  else sel.value = "";
-
-  sel.disabled = !regionValue;
-}
-
-// Exponer funciones para compatibilidad con validations.js
-window.REGIONES = REGIONES;
-window.poblarSelectRegiones = poblarSelectRegiones;
-window.poblarComunasPorRegion = poblarComunasPorRegion;
-</file>
-
 <file path="assets/css/custom.css">
 /* ============================================
    El Volcán Market — custom.css
@@ -1224,6 +1158,167 @@ h1, h2, h3, h4, h5, h6,
 .hero-caption a.btn {
   pointer-events: auto;
 }
+</file>
+
+<file path="assets/js/regiones.js">
+// Regiones y comunas de Chile (uso por validations.js para poblar selects)
+// Cada región incluye varias comunas representativas para facilitar pruebas.
+const REGIONES = [
+  { value: "arica-parinacota", label: "Arica y Parinacota", comunas: [
+    { value: "arica", label: "Arica" },
+    { value: "putre", label: "Putre" },
+    { value: "camarones", label: "Camarones" },
+    { value: "general-lagos", label: "General Lagos" },
+    { value: "codpa", label: "Codpa" }
+  ] },
+  { value: "tarapaca", label: "Tarapacá", comunas: [
+    { value: "iquique", label: "Iquique" },
+    { value: "alto-hospicio", label: "Alto Hospicio" },
+    { value: "pozo-almonte", label: "Pozo Almonte" },
+    { value: "pica", label: "Pica" },
+    { value: "huara", label: "Huara" }
+  ] },
+  { value: "antofagasta", label: "Antofagasta", comunas: [
+    { value: "antofagasta", label: "Antofagasta" },
+    { value: "calama", label: "Calama" },
+    { value: "tocopilla", label: "Tocopilla" },
+    { value: "mejillones", label: "Mejillones" },
+    { value: "san-pedro-de-atacama", label: "San Pedro de Atacama" }
+  ] },
+  { value: "atacama", label: "Atacama", comunas: [
+    { value: "copiapo", label: "Copiapó" },
+    { value: "vallenar", label: "Vallenar" },
+    { value: "chuiquicamata", label: "Chuquicamata" },
+    { value: "caldera", label: "Caldera" },
+    { value: "tiajuana", label: "Tierra Amarilla" }
+  ] },
+  { value: "coquimbo", label: "Coquimbo", comunas: [
+    { value: "la-serena", label: "La Serena" },
+    { value: "coquimbo", label: "Coquimbo" },
+    { value: "ovalle", label: "Ovalle" },
+    { value: "illapel", label: "Illapel" },
+    { value: "andacollo", label: "Andacollo" }
+  ] },
+  { value: "valparaiso", label: "Valparaíso", comunas: [
+    { value: "valparaiso", label: "Valparaíso" },
+    { value: "viña-del-mar", label: "Viña del Mar" },
+    { value: "quilpue", label: "Quilpué" },
+    { value: "villa-alemana", label: "Villa Alemana" },
+    { value: "san-antonio", label: "San Antonio" }
+  ] },
+  { value: "metropolitana", label: "Región Metropolitana de Santiago", comunas: [
+    { value: "santiago", label: "Santiago" },
+    { value: "providencia", label: "Providencia" },
+    { value: "las-condes", label: "Las Condes" },
+    { value: "ñuñoa", label: "Ñuñoa" },
+    { value: "maipu", label: "Maipú" },
+    { value: "puente-alto", label: "Puente Alto" }
+  ] },
+  { value: "ohiggins", label: "Región del Libertador O'Higgins", comunas: [
+    { value: "rancagua", label: "Rancagua" },
+    { value: "san-fernando", label: "San Fernando" },
+    { value: "roscute", label: "Rengo" },
+    { value: "machali", label: "Machalí" },
+    { value: "quinta-de-lavera", label: "Pichilemu" }
+  ] },
+  { value: "maule", label: "Región del Maule", comunas: [
+    { value: "talca", label: "Talca" },
+    { value: "curico", label: "Curicó" },
+    { value: "linares", label: "Linares" },
+    { value: "chetumal", label: "Chillán" },
+    { value: "san-clemente", label: "San Clemente" }
+  ] },
+  { value: "nuble", label: "Región de Ñuble", comunas: [
+    { value: "chillan", label: "Chillán" },
+    { value: "chillan-viejo", label: "Chillán Viejo" },
+    { value: "bulnes", label: "Bulnes" },
+    { value: "san-ignacio", label: "San Ignacio" },
+    { value: "yungay", label: "Yungay" }
+  ] },
+  { value: "biobio", label: "Región del Biobío", comunas: [
+    { value: "concepcion", label: "Concepción" },
+    { value: "talcahuano", label: "Talcahuano" },
+    { value: "chiguayante", label: "Chiguayante" },
+    { value: "coronel", label: "Coronel" },
+    { value: "los-angeles", label: "Los Ángeles" }
+  ] },
+  { value: "araucania", label: "Región de La Araucanía", comunas: [
+    { value: "temuco", label: "Temuco" },
+    { value: "angol", label: "Angol" },
+    { value: "villarrica", label: "Villarrica" },
+    { value: "lautaro", label: "Lautaro" },
+    { value: "carahue", label: "Carahue" }
+  ] },
+  { value: "los-rios", label: "Región de Los Ríos", comunas: [
+    { value: "valdivia", label: "Valdivia" },
+    { value: "la-union", label: "La Unión" },
+    { value: "mariquina", label: "Mariquina" },
+    { value: "panguipulli", label: "Panguipulli" },
+    { value: "rios", label: "Rios" }
+  ] },
+  { value: "los-lagos", label: "Región de Los Lagos", comunas: [
+    { value: "puerto-montt", label: "Puerto Montt" },
+    { value: "castro", label: "Castro" },
+    { value: "osorno", label: "Osorno" },
+    { value: "calbuco", label: "Calbuco" },
+    { value: "chiloe", label: "Chiloé" }
+  ] },
+  { value: "aisen", label: "Región de Aysén", comunas: [
+    { value: "coihaique", label: "Coihaique" },
+    { value: "aysen", label: "Aysén" },
+    { value: "cisnes", label: "Cisnes" },
+    { value: "guaitecas", label: "Guaitecas" },
+    { value: "rio-ibanez", label: "Río Ibáñez" }
+  ] },
+  { value: "magallanes", label: "Región de Magallanes", comunas: [
+    { value: "punta-arenas", label: "Punta Arenas" },
+    { value: "timaukel", label: "Timaukel" },
+    { value: "natales", label: "Puerto Natales" },
+    { value: "porvenir", label: "Porvenir" },
+    { value: "lagos-ultima", label: "Lago Verde" }
+  ] }
+];
+
+function poblarSelectRegiones(selectId, selectedValue = "") {
+  const sel = document.getElementById(selectId);
+  if (!sel) return;
+
+  sel.innerHTML = '<option value="" selected disabled>-- Seleccione región --</option>';
+  REGIONES.forEach((r) => {
+    const opt = document.createElement("option");
+    opt.value = r.value;
+    opt.textContent = r.label;
+    sel.appendChild(opt);
+  });
+
+  if (selectedValue) sel.value = selectedValue;
+}
+
+function poblarComunasPorRegion(regionValue, comunaSelectId, selectedComuna = "") {
+  const sel = document.getElementById(comunaSelectId);
+  if (!sel) return;
+
+  const regionObj = REGIONES.find((r) => r.value === regionValue) || { comunas: [] };
+  const opciones = regionObj.comunas || [];
+
+  sel.innerHTML = '<option value="" selected disabled>-- Seleccione comuna --</option>';
+  opciones.forEach((c) => {
+    const opt = document.createElement("option");
+    opt.value = c.value;
+    opt.textContent = c.label;
+    sel.appendChild(opt);
+  });
+
+  if (selectedComuna && opciones.some((c) => c.value === selectedComuna)) sel.value = selectedComuna;
+  else sel.value = "";
+
+  sel.disabled = !regionValue;
+}
+
+// Exponer funciones para compatibilidad con validations.js
+window.REGIONES = REGIONES;
+window.poblarSelectRegiones = poblarSelectRegiones;
+window.poblarComunasPorRegion = poblarComunasPorRegion;
 </file>
 
 <file path="assets/js/register.js">
@@ -2100,211 +2195,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </file>
 
-<file path="assets/js/admin-users.js">
-// ============================================
-// El Volcán Market — admin-users.js
-// CRUD de usuarios del panel admin, sobre el catálogo compartido
-// assets/js/users.js: variable global "usuarios" + localStorage
-// bajo USERS_STORAGE_KEY.
-//
-// Requiere cargar users.js ANTES que este script.
-//
-// Usa en admin/users.html:
-//   <tbody id="admin-users-table-body">
-// Usa en admin/new-user.html:
-//   <form id="new-user-form"> con los campos #user-run, #user-name,
-//   #user-lastname, #user-email, #user-birthdate, #user-type,
-//   #user-region, #user-comuna, #user-address
-// Usa en admin/edit-user.html: mismos campos, dentro de
-//   <form id="edit-user-form">, y se espera navegar a esta página
-//   con ?id=N en la URL.
-// ============================================
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof usuarios === "undefined") {
-    console.error("admin-users.js: no se encontró el catálogo 'usuarios'. ¿Falta cargar users.js antes de este script?");
-    return;
-  }
-
-  const TIPO_BADGE = {
-    administrador: "text-bg-dark",
-    vendedor: "text-bg-info",
-    cliente: "text-bg-secondary"
-  };
-
-  const TIPO_LABEL = {
-    administrador: "Administrador",
-    vendedor: "Vendedor",
-    cliente: "Cliente"
-  };
-
-  // --------------------------------------------
-  // admin/users.html — listado
-  // --------------------------------------------
-  const tablaBody = document.getElementById("admin-users-table-body");
-
-  function renderTablaUsuarios() {
-    if (!tablaBody) return;
-
-    if (usuarios.length === 0) {
-      tablaBody.innerHTML = `
-        <tr>
-          <td colspan="6" class="text-center text-muted py-4">
-            No hay usuarios registrados.
-          </td>
-        </tr>`;
-      return;
-    }
-
-    tablaBody.innerHTML = usuarios
-      .map((u) => {
-        const badgeClass = TIPO_BADGE[u.tipo] || "text-bg-secondary";
-        const badgeLabel = TIPO_LABEL[u.tipo] || u.tipo;
-        return `
-        <tr data-id="${u.id}">
-          <td>${u.run}</td>
-          <td>${u.nombre}</td>
-          <td>${u.apellidos}</td>
-          <td>${u.correo}</td>
-          <td><span class="badge ${badgeClass}">${badgeLabel}</span></td>
-          <td class="text-end">
-            <a href="edit-user.html?id=${u.id}" class="btn btn-sm btn-outline-secondary">Editar</a>
-            <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar-usuario" data-id="${u.id}">Eliminar</button>
-          </td>
-        </tr>`;
-      })
-      .join("");
-  }
-
-  if (tablaBody) {
-    renderTablaUsuarios();
-
-    tablaBody.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("btn-eliminar-usuario")) return;
-
-      const id = Number(e.target.dataset.id);
-      const usuario = usuarios.find((u) => u.id === id);
-      if (!usuario) return;
-
-      const confirmado = confirm(`¿Eliminar a "${usuario.nombre} ${usuario.apellidos}"? Esta acción no se puede deshacer.`);
-      if (!confirmado) return;
-
-      usuarios = usuarios.filter((u) => u.id !== id);
-      guardarCatalogoUsuarios(usuarios);
-      renderTablaUsuarios();
-    });
-  }
-
-  // --------------------------------------------
-  // admin/new-user.html y admin/edit-user.html — formulario
-  // --------------------------------------------
-  const form = document.getElementById("new-user-form") || document.getElementById("edit-user-form");
-  if (!form) return;
-
-  const params = new URLSearchParams(window.location.search);
-  const idParam = params.get("id");
-  const modoEdicion = idParam !== null;
-  let usuarioEditando = null;
-
-  const campoRun = document.getElementById("user-run");
-
-  if (modoEdicion) {
-    usuarioEditando = usuarios.find((u) => u.id === Number(idParam));
-
-    if (!usuarioEditando) {
-      alert("Usuario no encontrado.");
-      window.location.href = "users.html";
-      return;
-    }
-
-    campoRun.value = usuarioEditando.run;
-    // El Run identifica al usuario: no se edita una vez creado.
-    campoRun.readOnly = true;
-    document.getElementById("user-name").value = usuarioEditando.nombre;
-    document.getElementById("user-lastname").value = usuarioEditando.apellidos;
-    document.getElementById("user-email").value = usuarioEditando.correo;
-    // La contraseña nunca se precarga (ni siquiera oculta): el campo
-    // se deja vacío y solo se cambia si se escribe algo nuevo.
-    document.getElementById("user-birthdate").value = usuarioEditando.fechaNacimiento || "";
-    document.getElementById("user-type").value = usuarioEditando.tipo;
-    document.getElementById("user-region").value = usuarioEditando.region;
-    document.getElementById("user-comuna").value = usuarioEditando.comuna;
-    document.getElementById("user-address").value = usuarioEditando.direccion;
-  }
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    if (typeof validarFormularioUsuario === "function" && !validarFormularioUsuario()) {
-      return;
-    }
-
-    const run = campoRun.value.trim();
-    const nombre = document.getElementById("user-name").value.trim();
-    const apellidos = document.getElementById("user-lastname").value.trim();
-    const correo = document.getElementById("user-email").value.trim();
-    const passwordIngresada = document.getElementById("user-password").value;
-    const fechaNacimientoRaw = document.getElementById("user-birthdate").value;
-    const fechaNacimiento = fechaNacimientoRaw === "" ? null : fechaNacimientoRaw;
-    const tipo = document.getElementById("user-type").value;
-    const region = document.getElementById("user-region").value;
-    const comuna = document.getElementById("user-comuna").value;
-    const direccion = document.getElementById("user-address").value.trim();
-
-    // Un mismo Run no puede repetirse entre dos usuarios distintos.
-    const yaExiste = usuarios.some(
-      (u) => u.run === run && (!modoEdicion || u.id !== usuarioEditando.id)
-    );
-    if (yaExiste) {
-      alert(`Ya existe un usuario registrado con el Run ${run}.`);
-      return;
-    }
-
-    const correoDuplicado = usuarios.some(
-      (u) => u.correo.toLowerCase() === correo.toLowerCase() && (!modoEdicion || u.id !== usuarioEditando.id)
-    );
-    if (correoDuplicado) {
-      alert(`Ya existe una cuenta registrada con el correo ${correo}.`);
-      return;
-    }
-
-    if (modoEdicion) {
-      usuarioEditando.nombre = nombre;
-      usuarioEditando.apellidos = apellidos;
-      usuarioEditando.correo = correo;
-      // Campo en blanco = no cambiar la contraseña actual.
-      if (passwordIngresada !== "") {
-        usuarioEditando.password = passwordIngresada;
-      }
-      usuarioEditando.fechaNacimiento = fechaNacimiento;
-      usuarioEditando.tipo = tipo;
-      usuarioEditando.region = region;
-      usuarioEditando.comuna = comuna;
-      usuarioEditando.direccion = direccion;
-    } else {
-      const nuevoId = usuarios.length ? Math.max(...usuarios.map((u) => u.id)) + 1 : 1;
-      usuarios.push({
-        id: nuevoId,
-        run,
-        nombre,
-        apellidos,
-        correo,
-        password: passwordIngresada,
-        telefono: null,
-        fechaNacimiento,
-        tipo,
-        region,
-        comuna,
-        direccion
-      });
-    }
-
-    guardarCatalogoUsuarios(usuarios);
-    window.location.href = "users.html";
-  });
-});
-</file>
-
 <file path="assets/js/validations.js">
 // ============================================
 // Distribuidora de Gas El Volcán — validations.js
@@ -3009,165 +2899,224 @@ function configurarValidacionesFormulario() {
 document.addEventListener("DOMContentLoaded", configurarValidacionesFormulario);
 </file>
 
-<file path="README.md">
-# Distribuidora de Gas El Volcán — Tienda Online (Evaluación 1)
+<file path="assets/js/admin-users.js">
+// ============================================
+// El Volcán Market — admin-users.js
+// CRUD de usuarios del panel admin, sobre el catálogo compartido
+// assets/js/users.js: variable global "usuarios" + localStorage
+// bajo USERS_STORAGE_KEY.
+//
+// Requiere cargar users.js ANTES que este script.
+//
+// Usa en admin/users.html:
+//   <tbody id="admin-users-table-body">
+// Usa en admin/new-user.html:
+//   <form id="new-user-form"> con los campos #user-run, #user-name,
+//   #user-lastname, #user-email, #user-birthdate, #user-type,
+//   #user-region, #user-comuna, #user-address
+// Usa en admin/edit-user.html: mismos campos, dentro de
+//   <form id="edit-user-form">, y se espera navegar a esta página
+//   con ?id=N en la URL.
+// ============================================
 
-Proyecto del curso **DSY1104 – Desarrollo FullStack II** (Duoc UC).
-Caso asignado: **Forma C — Distribuidora de Gas El Volcán** (empresa familiar en Chillán que distribuye
-cilindros de gas licuado a domicilio, 5/11/15 kg).
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof usuarios === "undefined") {
+    console.error("admin-users.js: no se encontró el catálogo 'usuarios'. ¿Falta cargar users.js antes de este script?");
+    return;
+  }
 
-> ⚠️ **Importante sobre el alcance de esta entrega:** la Evaluación 1 (30%) solo pide una
-> tienda online básica en **HTML + CSS + JavaScript puro**, sin frameworks ni backend real.
-> El stack obligatorio del documento del caso (React, Spring Boot, MySQL, AWS, etc.) es para
-> **evaluaciones futuras**, no para esta entrega. No hay que adelantarse a eso todavía.
+  const TIPO_BADGE = {
+    administrador: "text-bg-dark",
+    vendedor: "text-bg-info",
+    cliente: "text-bg-secondary"
+  };
 
-## 1. Objetivo de esta entrega
+  const TIPO_LABEL = {
+    administrador: "Administrador",
+    vendedor: "Vendedor",
+    cliente: "Cliente"
+  };
 
-Construir el frontend estático de la tienda + un panel de administración simple, cumpliendo:
+  // --------------------------------------------
+  // admin/users.html — listado
+  // --------------------------------------------
+  const tablaBody = document.getElementById("admin-users-table-body");
 
-- Estructura HTML semántica (secciones, encabezados, listas, etc.)
-- Navegación completa entre páginas (menú, enlaces, botones)
-- Hoja de estilos CSS externa, responsiva y consistente en todas las páginas
-- Validaciones de formularios con JavaScript (mensajes de error/sugerencias en tiempo real)
-- Repositorio GitHub público, con commits claros y trabajo repartido entre el equipo
+  function renderTablaUsuarios() {
+    if (!tablaBody) return;
 
-## 2. Estructura del repositorio
+    if (usuarios.length === 0) {
+      tablaBody.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center text-muted py-4">
+            No hay usuarios registrados.
+          </td>
+        </tr>`;
+      return;
+    }
 
-```
-ElVolcanMarket/
-├── assets/
-│   ├── css/        → custom.css (personalización sobre Bootstrap, opcional por sección)
-│   ├── js/          → validations.js (validaciones de formularios, carrito, etc.)
-│   └── img/         → imágenes/logos
-├── store/           → vistas públicas (la tienda)
-├── admin/           → vistas del panel administrativo
-└── docs/            → ERS y planilla de requerimientos (versión de trabajo)
-```
+    tablaBody.innerHTML = usuarios
+      .map((u) => {
+        const badgeClass = TIPO_BADGE[u.tipo] || "text-bg-secondary";
+        const badgeLabel = TIPO_LABEL[u.tipo] || u.tipo;
+        return `
+        <tr data-id="${u.id}">
+          <td>${u.run}</td>
+          <td>${u.nombre}</td>
+          <td>${u.apellidos}</td>
+          <td>${u.correo}</td>
+          <td><span class="badge ${badgeClass}">${badgeLabel}</span></td>
+          <td class="text-end">
+            <a href="edit-user.html?id=${u.id}" class="btn btn-sm btn-outline-secondary">Editar</a>
+            <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar-usuario" data-id="${u.id}">Eliminar</button>
+          </td>
+        </tr>`;
+      })
+      .join("");
+  }
 
-Cada página HTML ya está creada como esqueleto vacío con un comentario `<!-- TODO -->`
-indicando qué contenido/mockup de las instrucciones (Anexo 1) le corresponde. Así cada
-integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
+  if (tablaBody) {
+    renderTablaUsuarios();
 
-> **Decisión de equipo (actualizada):** todo el sitio usa **Bootstrap 5.3** (vía CDN), tanto
-> `admin/` como `store/`. No se mantiene un sistema de clases propio en paralelo. Ver
-> convenciones de código en la sección 4.
+    tablaBody.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("btn-eliminar-usuario")) return;
 
-## 3. Mapeo página → requisito (Anexo 1 instrucciones)
+      const id = Number(e.target.dataset.id);
+      const usuario = usuarios.find((u) => u.id === id);
+      if (!usuario) return;
 
-### Tienda (pública)
-| Archivo | Vista (mockup) | Notas del caso |
-|---|---|---|
-| `store/index.html` | Página principal (Home) | Adaptar catálogo genérico a cilindros de gas (5, 11, 15 kg) |
-| `store/products.html` | Listado de productos | Catálogo de cilindros disponibles |
-| `store/product-detail.html` | Detalle de producto | Detalle de un tipo de cilindro + botón "agregar al pedido" |
-| `store/cart.html` | Carrito de compras | Aquí representa el "pedido" del cliente (dirección, tipo de cilindro) |
-| `store/register.html` | Registro de usuario | Con validaciones (RUN, correo, etc. — ver Anexo 1 sección validaciones) |
-| `store/login.html` | Inicio de sesión | Correo + contraseña |
-| `store/about.html` | Nosotros | Presentación de la empresa (usar contexto del caso, sección 1 del Forma C) |
-| `store/blog.html` | Blogs / noticias | 2 casos/noticias de ejemplo |
-| `store/blog-detail-1.html` | Detalle blog 1 | Libre elección de contenido |
-| `store/blog-detail-2.html` | Detalle blog 2 | Libre elección de contenido |
-| `store/contact.html` | Contacto | Formulario con validaciones |
+      const confirmado = confirm(`¿Eliminar a "${usuario.nombre} ${usuario.apellidos}"? Esta acción no se puede deshacer.`);
+      if (!confirmado) return;
 
-### Administrador
-| Archivo | Vista (mockup) |
-|---|---|
-| `admin/home.html` | Home admin (menú vertical) |
-| `admin/products.html` | Listado de productos (cilindros) |
-| `admin/new-product.html` | Nuevo producto |
-| `admin/edit-product.html` | Editar producto |
-| `admin/users.html` | Listado de usuarios |
-| `admin/new-user.html` | Nuevo usuario |
-| `admin/edit-user.html` | Editar usuario |
+      usuarios = usuarios.filter((u) => u.id !== id);
+      guardarCatalogoUsuarios(usuarios);
+      renderTablaUsuarios();
+    });
+  }
 
-> Las reglas de validación de cada campo (Run, correo, precio, stock, etc.) están detalladas
-> en el Anexo 1 de instrucciones, sección "Utilización y validación de JavaScript".
+  // --------------------------------------------
+  // admin/new-user.html y admin/edit-user.html — formulario
+  // --------------------------------------------
+  const form = document.getElementById("new-user-form") || document.getElementById("edit-user-form");
+  if (!form) return;
 
-## 4. Convenciones de código
+  const params = new URLSearchParams(window.location.search);
+  const idParam = params.get("id");
+  const modoEdicion = idParam !== null;
+  let usuarioEditando = null;
 
-- **Framework CSS:** Bootstrap 5.3 (CDN) en **todas** las páginas, `store/` y `admin/` por
-  igual. Usar siempre las clases nativas de Bootstrap (`btn btn-primary`, `card`,
-  `form-control`, `form-select`, `table table-striped`, `navbar`, etc.) en vez de crear
-  clases propias equivalentes.
-- **CSS personalizado:** cada sección puede tener un `custom.css` pequeño, cargado
-  *después* del CDN de Bootstrap, para ajustar la identidad visual de la marca
-  (colores, tipografía) sobrescribiendo variables de Bootstrap (`--bs-primary`, etc.)
-  en vez de escribir reglas nuevas desde cero. **No** reemplaza a Bootstrap, lo
-  complementa.
- - El proyecto usa `assets/css/custom.css` para personalizaciones por sección.
-- Un solo `<h1>` por página; `<section>` para bloques de contenido semánticamente
-  distintos.
-- Formularios: cada `<input>`/`<select>`/`<textarea>` con `<label for="...">` asociado,
-  su propio `id`/`name`, y un `<div class="invalid-feedback">` listo para la validación JS.
-- Rutas relativas a `assets/` siempre `../assets/...` (todas las páginas están un nivel
-  bajo la raíz, dentro de `store/` o `admin/`).
+  const campoRun = document.getElementById("user-run");
 
-## 5. Flujo de trabajo en Git sugerido
+  if (modoEdicion) {
+    usuarioEditando = usuarios.find((u) => u.id === Number(idParam));
 
-- `main` → siempre debe quedar funcionando (no se sube trabajo a medio hacer).
-- Cada integrante trabaja en su propia rama: `feature/<nombre>-<pagina>` (ej: `feature/matias-home`).
-- Commits pequeños y descriptivos (ej: `feat: estructura HTML de home`, `fix: validación correo registro`).
-- Pull Request hacia `main` antes de fusionar, aunque sea autoevaluado por falta de tiempo.
-- Evitar editar el mismo archivo en paralelo sin avisar (sobre todo `custom.css` y `validations.js`).
+    if (!usuarioEditando) {
+      alert("Usuario no encontrado.");
+      window.location.href = "users.html";
+      return;
+    }
 
-## 6. Próximos pasos (pendientes de definir en equipo)
+    campoRun.value = usuarioEditando.run;
+    // El Run identifica al usuario: no se edita una vez creado.
+    campoRun.readOnly = true;
+    document.getElementById("user-name").value = usuarioEditando.nombre;
+    document.getElementById("user-lastname").value = usuarioEditando.apellidos;
+    document.getElementById("user-email").value = usuarioEditando.correo;
+    // La contraseña nunca se precarga (ni siquiera oculta): el campo
+    // se deja vacío y solo se cambia si se escribe algo nuevo.
+    document.getElementById("user-birthdate").value = usuarioEditando.fechaNacimiento || "";
+    document.getElementById("user-type").value = usuarioEditando.tipo;
+    // Precargar región y comuna usando las utilidades de assets/js/regiones.js
+    // No dependemos del orden de carga de scripts: si las funciones existen,
+    // las usamos para poblar selects y asignar el valor seleccionado;
+    // en caso contrario, degradamos a la asignación directa.
+    if (typeof poblarSelectRegiones === "function" && typeof poblarComunasPorRegion === "function") {
+      try {
+        poblarSelectRegiones("user-region", usuarioEditando.region);
+        poblarComunasPorRegion(usuarioEditando.region, "user-comuna", usuarioEditando.comuna);
+      } catch (e) {
+        // Si algo falla, caer a asignaciones directas para no bloquear la página.
+        document.getElementById("user-region").value = usuarioEditando.region;
+        document.getElementById("user-comuna").value = usuarioEditando.comuna;
+      }
+    } else {
+      document.getElementById("user-region").value = usuarioEditando.region;
+      document.getElementById("user-comuna").value = usuarioEditando.comuna;
+    }
+    document.getElementById("user-address").value = usuarioEditando.direccion;
+  }
 
-- [ ] Repartir páginas entre los integrantes
-- [ ] Definir paleta de colores / estilo visual de la marca
-- [ ] Completar el documento ERS (versión 1) — plantilla en `docs/`
-- [ ] Completar la planilla de requerimientos (Anexo 2)
-- [ ] Definir reglas del carrito de pedido (cantidades, tipos de cilindro, etc.)
-- [ ] Preparar la presentación de 15 minutos + ronda de preguntas
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-## 7. Cómo subir este repo a GitHub
+    if (typeof validarFormularioUsuario === "function" && !validarFormularioUsuario()) {
+      return;
+    }
 
-```bash
-# 1. Crear un repositorio vacío y PÚBLICO en github.com (sin README, sin licencia)
-# 2. Desde esta carpeta:
-git remote add origin https://github.com/<tu-usuario>/ElVolcanMarket.git
-git branch -M main
-git push -u origin main
-```
+    const run = campoRun.value.trim();
+    const nombre = document.getElementById("user-name").value.trim();
+    const apellidos = document.getElementById("user-lastname").value.trim();
+    const correo = document.getElementById("user-email").value.trim();
+    const passwordIngresada = document.getElementById("user-password").value;
+    const fechaNacimientoRaw = document.getElementById("user-birthdate").value;
+    const fechaNacimiento = fechaNacimientoRaw === "" ? null : fechaNacimientoRaw;
+    const tipo = document.getElementById("user-type").value;
+    const region = document.getElementById("user-region").value;
+    const comuna = document.getElementById("user-comuna").value;
+    const direccion = document.getElementById("user-address").value.trim();
 
-## Cómo probar el sitio localmente
+    // Un mismo Run no puede repetirse entre dos usuarios distintos.
+    const yaExiste = usuarios.some(
+      (u) => u.run === run && (!modoEdicion || u.id !== usuarioEditando.id)
+    );
+    if (yaExiste) {
+      alert(`Ya existe un usuario registrado con el Run ${run}.`);
+      return;
+    }
 
-Opciones rápidas para ejecutar y revisar la interfaz estática:
+    const correoDuplicado = usuarios.some(
+      (u) => u.correo.toLowerCase() === correo.toLowerCase() && (!modoEdicion || u.id !== usuarioEditando.id)
+    );
+    if (correoDuplicado) {
+      alert(`Ya existe una cuenta registrada con el correo ${correo}.`);
+      return;
+    }
 
-- Abrir `store/index.html` directamente en el navegador (modo desarrollo rápido).
-- Usar un servidor estático local (recomendado):
+    if (modoEdicion) {
+      usuarioEditando.nombre = nombre;
+      usuarioEditando.apellidos = apellidos;
+      usuarioEditando.correo = correo;
+      // Campo en blanco = no cambiar la contraseña actual.
+      if (passwordIngresada !== "") {
+        usuarioEditando.password = passwordIngresada;
+      }
+      usuarioEditando.fechaNacimiento = fechaNacimiento;
+      usuarioEditando.tipo = tipo;
+      usuarioEditando.region = region;
+      usuarioEditando.comuna = comuna;
+      usuarioEditando.direccion = direccion;
+    } else {
+      const nuevoId = usuarios.length ? Math.max(...usuarios.map((u) => u.id)) + 1 : 1;
+      usuarios.push({
+        id: nuevoId,
+        run,
+        nombre,
+        apellidos,
+        correo,
+        password: passwordIngresada,
+        telefono: null,
+        fechaNacimiento,
+        tipo,
+        region,
+        comuna,
+        direccion
+      });
+    }
 
-```bash
-# desde la raíz del proyecto
-npx http-server -c-1 .
-# abrir http://127.0.0.1:8080/store/index.html
-```
-
-## Credenciales de prueba (seed)
-
-Estas cuentas ya vienen precargadas en el catálogo de ejemplo (localStorage inicial):
-
-- Administrador: `javiera.munoz@gmail.com` / `admin1234`
-- Vendedor: `pedro.salinas@duoc.cl` / `vendedor1234`
-- Cliente: `camila.toro@gmail.com` / `cliente1234`
-
-## Estado de cumplimiento (TAREAs)
-
-- TAREA 1: Placeholders de imágenes — completada
-- TAREA 2: Regiones/Comunas (`assets/js/regiones.js`) — completada
-- TAREA 3: Precio mínimo (permitir 0) — completada
-- TAREA 4: Reemplazo RUNs seed por válidos — completada
-- TAREA 5: Validación bloquea guardado — completada
-- TAREA 6: Limpiar sample row en `store/cart.html` — completada
-- TAREA 7: Eliminar `assets/css/styles.css` y ajuste README — completada
-- TAREA 8: Agregar sección Equipo de desarrollo en `store/about.html` — completada
-- TAREA 9: Actualizar README con instrucciones y estado — completada
-- TAREA 10: Ajustes menores (regex RUN, min-length, try/catch) — pendiente
-
-## Pendientes importantes
-
-- Completar ERS (documentación de requisitos) en `docs/`.
-- Rellenar planilla de requerimientos (Anexo 2) con trazabilidad.
-- Preparar la presentación de entrega (diapositivas y demo).
+    guardarCatalogoUsuarios(usuarios);
+    window.location.href = "users.html";
+  });
+});
 </file>
 
 <file path="store/contact.html">
@@ -3234,6 +3183,159 @@ Estas cuentas ya vienen precargadas en el catálogo de ejemplo (localStorage ini
   <script src="../assets/js/cart.js"></script>
 </body>
 </html>
+</file>
+
+<file path="README.md">
+# Distribuidora de Gas El Volcán — Tienda Online (Evaluación 1)
+
+Proyecto del curso **DSY1104 – Desarrollo FullStack II** (Duoc UC).
+Caso asignado: **Forma C — Distribuidora de Gas El Volcán** (empresa familiar en Chillán que distribuye
+cilindros de gas licuado a domicilio, 5/11/15 kg).
+
+> ⚠️ **Importante sobre el alcance de esta entrega:** la Evaluación 1 (30%) solo pide una
+> tienda online básica en **HTML + CSS + JavaScript puro**, sin frameworks ni backend real.
+> El stack obligatorio del documento del caso (React, Spring Boot, MySQL, AWS, etc.) es para
+> **evaluaciones futuras**, no para esta entrega. No hay que adelantarse a eso todavía.
+
+## 1. Objetivo de esta entrega
+
+Construir el frontend estático de la tienda + un panel de administración simple, cumpliendo:
+
+- Estructura HTML semántica (secciones, encabezados, listas, etc.)
+- Navegación completa entre páginas (menú, enlaces, botones)
+- Hoja de estilos CSS externa, responsiva y consistente en todas las páginas
+- Validaciones de formularios con JavaScript (mensajes de error/sugerencias en tiempo real)
+- Repositorio GitHub público, con commits claros y trabajo repartido entre el equipo
+
+## 2. Estructura del repositorio
+
+```
+ElVolcanMarket/
+├── assets/
+│   ├── css/        → custom.css (personalización sobre Bootstrap, opcional por sección)
+│   ├── js/         → validaciones, navegación y lógica de la tienda/admin
+  │   └── img/         → imágenes/logos
+├── store/           → vistas públicas (la tienda)
+├── admin/           → vistas del panel administrativo
+└── docs/            → ERS y planilla de requerimientos (versión de trabajo)
+```
+
+> **Decisión de equipo (actualizada):** todo el sitio usa **Bootstrap 5.3** (vía CDN), tanto
+> `admin/` como `store/`. No se mantiene un sistema de clases propio en paralelo. Ver
+> convenciones de código en la sección 4.
+
+## 3. Mapeo página → requisito (Anexo 1 instrucciones)
+
+### Tienda (pública)
+| Archivo | Vista (mockup) | Notas del caso |
+|---|---|---|
+| `store/index.html` | Página principal (Home) | Adaptar catálogo genérico a cilindros de gas (5, 11, 15 kg) |
+| `store/products.html` | Listado de productos | Catálogo de cilindros disponibles |
+| `store/product-detail.html` | Detalle de producto | Detalle de un tipo de cilindro + botón "agregar al pedido" |
+| `store/cart.html` | Carrito de compras | Aquí representa el "pedido" del cliente (dirección, tipo de cilindro) |
+| `store/register.html` | Registro de usuario | Con validaciones (RUN, correo, etc. — ver Anexo 1 sección validaciones) |
+| `store/login.html` | Inicio de sesión | Correo + contraseña |
+| `store/about.html` | Nosotros | Presentación de la empresa (usar contexto del caso, sección 1 del Forma C) |
+| `store/blog.html` | Blogs / noticias | 2 casos/noticias de ejemplo |
+| `store/blog-detail-1.html` | Detalle blog 1 | Libre elección de contenido |
+| `store/blog-detail-2.html` | Detalle blog 2 | Libre elección de contenido |
+| `store/contact.html` | Contacto | Formulario con validaciones |
+
+### Administrador
+| Archivo | Vista (mockup) |
+|---|---|
+| `admin/home.html` | Home admin (menú vertical) |
+| `admin/products.html` | Listado de productos (cilindros) |
+| `admin/new-product.html` | Nuevo producto |
+| `admin/edit-product.html` | Editar producto |
+| `admin/users.html` | Listado de usuarios |
+| `admin/new-user.html` | Nuevo usuario |
+| `admin/edit-user.html` | Editar usuario |
+
+> Las reglas de validación de cada campo (Run, correo, precio, stock, etc.) están detalladas
+> en el Anexo 1 de instrucciones, sección "Utilización y validación de JavaScript".
+
+## 4. Convenciones de código
+
+- **Framework CSS:** Bootstrap 5.3 (CDN) en **todas** las páginas, `store/` y `admin/` por
+  igual. Usar siempre las clases nativas de Bootstrap (`btn btn-primary`, `card`,
+  `form-control`, `form-select`, `table table-striped`, `navbar`, etc.) en vez de crear
+  clases propias equivalentes.
+- **CSS personalizado:** cada sección puede tener un `custom.css` pequeño, cargado
+  *después* del CDN de Bootstrap, para ajustar la identidad visual de la marca
+  (colores, tipografía) sobrescribiendo variables de Bootstrap (`--bs-primary`, etc.)
+  en vez de escribir reglas nuevas desde cero. **No** reemplaza a Bootstrap, lo
+  complementa.
+ - El proyecto usa `assets/css/custom.css` para personalizaciones por sección.
+- Un solo `<h1>` por página; `<section>` para bloques de contenido semánticamente
+  distintos.
+- Formularios: cada `<input>`/`<select>`/`<textarea>` con `<label for="...">` asociado,
+  su propio `id`/`name`, y un `<div class="invalid-feedback">` listo para la validación JS.
+- Rutas relativas a `assets/` siempre `../assets/...` (todas las páginas están un nivel
+  bajo la raíz, dentro de `store/` o `admin/`).
+
+## 5. Flujo de trabajo en Git sugerido
+
+- `main` → siempre debe quedar funcionando (no se sube trabajo a medio hacer).
+- Cada integrante trabaja en su propia rama: `feature/<nombre>-<pagina>` (ej: `feature/matias-home`).
+- Commits pequeños y descriptivos (ej: `feat: estructura HTML de home`, `fix: validación correo registro`).
+- Pull Request hacia `main` antes de fusionar, aunque sea autoevaluado por falta de tiempo.
+- Evitar editar el mismo archivo en paralelo sin avisar (sobre todo `custom.css` y `validations.js`).
+
+## 6. Próximos pasos (pendientes de equipo)
+
+- [ ] Completar el documento ERS (versión 1) — plantilla en `docs/`
+- [ ] Completar la planilla de requerimientos (Anexo 2)
+- [ ] Preparar la presentación de 15 minutos + ronda de preguntas
+
+## 7. Cómo subir este repo a GitHub
+
+```bash
+# 1. Crear un repositorio vacío y PÚBLICO en github.com (sin README, sin licencia)
+# 2. Desde esta carpeta:
+git remote add origin https://github.com/<tu-usuario>/ElVolcanMarket.git
+git branch -M main
+git push -u origin main
+```
+
+## Cómo probar el sitio localmente
+
+Opciones rápidas para ejecutar y revisar la interfaz estática:
+
+- Abrir `store/index.html` directamente en el navegador (modo desarrollo rápido).
+- Usar un servidor estático local (recomendado):
+
+```bash
+# desde la raíz del proyecto
+npx http-server -c-1 .
+# abrir http://127.0.0.1:8080/store/index.html
+```
+
+## Credenciales de prueba (seed)
+
+Estas cuentas ya vienen precargadas en el catálogo de ejemplo (localStorage inicial):
+
+- Administrador: `javiera.munoz@gmail.com` / `admin1234`
+- Vendedor: `pedro.salinas@duoc.cl` / `vendedor1234`
+- Cliente: `camila.toro@gmail.com` / `cliente1234`
+
+## Estado de cumplimiento
+
+Mapeo de requisitos (Anexo 1) → ubicación de implementación
+
+- **Estructura HTML semántica:** archivos `store/*.html` y `admin/*.html` (secciones, encabezados y roles semánticos).
+- **Navegación completa:** `assets/js/store-nav.js` y `assets/js/admin-nav.js` (barras y enlaces entre páginas).
+- **CSS externo responsivo:** `assets/css/custom.css` (sobrescribe variables de Bootstrap) + uso de Bootstrap CDN en los `<head>`.
+- **Validaciones JS en tiempo real:** `assets/js/validations.js` (RUN, correo, precios, stock, formularios de registro/login/contacto/producto/usuario).
+- **Carrito con persistencia (localStorage):** `assets/js/cart.js` y `assets/js/orders.js` (persistencia bajo `volcan_cart` y `volcan_orders`).
+- **Panel administrador y control de roles:** `admin/` vistas junto a `assets/js/admin-users.js`, `assets/js/admin-products.js`, `assets/js/admin-nav.js` y `assets/js/admin-guard.js`.
+- **Repositorio y control de versiones:** este repositorio (página raíz) contiene el historial y ramas usadas durante el desarrollo.
+
+## Pendientes importantes
+
+- Completar ERS (documentación de requisitos) en `docs/`.
+- Rellenar la planilla de requerimientos (Anexo 2) con trazabilidad.
+- Preparar la presentación de entrega (diapositivas y demo).
 </file>
 
 <file path="assets/js/products.js">
@@ -3522,240 +3624,6 @@ if (contenedor) {
   <script src="../assets/js/products.js"></script>
   <script src="../assets/js/product-detail.js"></script>
   <script src="../assets/js/cart.js"></script>
-</body>
-</html>
-</file>
-
-<file path="admin/edit-user.html">
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Volcán Market — Editar usuario</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/custom.css">
-</head>
-<body>
-  <div class="d-flex">
-    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
-      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
-    </nav>
-
-    <main class="flex-grow-1 p-4">
-      <h1 class="h3 mb-4">Editar usuario</h1>
-      <!-- Los campos se precargan dinámicamente según ?id=N en la URL, vía assets/js/admin-users.js -->
-
-      <section style="max-width: 640px;">
-        <form id="edit-user-form">
-          <div class="mb-3">
-            <label for="user-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
-            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9">
-            <div class="form-text">El Run no se puede editar una vez creado el usuario.</div>
-            <div class="invalid-feedback" id="error-user-run"></div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-sm-6">
-              <label for="user-name" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50">
-              <div class="invalid-feedback" id="error-user-name"></div>
-            </div>
-            <div class="col-sm-6">
-              <label for="user-lastname" class="form-label">Apellidos</label>
-              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100">
-              <div class="invalid-feedback" id="error-user-lastname"></div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="user-email" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100">
-            <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
-            <div class="invalid-feedback" id="error-user-email"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="user-password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="user-password" name="userPassword" minlength="4" maxlength="10">
-            <div class="form-text">Déjala en blanco para no cambiarla.</div>
-            <div class="invalid-feedback" id="error-user-password"></div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-sm-6">
-              <label for="user-birthdate" class="form-label">Fecha de nacimiento (opcional)</label>
-              <input type="date" class="form-control" id="user-birthdate" name="userBirthdate">
-            </div>
-            <div class="col-sm-6">
-              <label for="user-type" class="form-label">Tipo de usuario</label>
-              <select class="form-select" id="user-type" name="userType" required>
-                <option value="" selected disabled>-- Seleccione --</option>
-                <option value="administrador">Administrador</option>
-                <option value="vendedor">Vendedor</option>
-                <option value="cliente">Cliente</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-sm-6">
-              <label for="user-region" class="form-label">Región</label>
-              <!-- Regiones pobladas por assets/js/regiones.js -->
-              <select class="form-select" id="user-region" name="userRegion" required>
-                <option value="" selected disabled>-- Seleccione región --</option>
-              </select>
-            </div>
-            <div class="col-sm-6">
-              <label for="user-comuna" class="form-label">Comuna</label>
-              <!-- Comunas pobladas dinámicamente -->
-              <select class="form-select" id="user-comuna" name="userComuna" required>
-                <option value="" selected disabled>-- Seleccione comuna --</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="mb-4">
-            <label for="user-address" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300">
-            <div class="invalid-feedback" id="error-user-address"></div>
-          </div>
-
-          <div class="d-flex gap-2">
-            <a href="users.html" class="btn btn-outline-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-          </div>
-        </form>
-      </section>
-    </main>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/admin-guard.js"></script>
-  <script src="../assets/js/admin-nav.js"></script>
-  <script src="../assets/js/users.js"></script>
-  <script src="../assets/js/admin-users.js"></script>
-  <script src="../assets/js/regiones.js"></script>
-  <script src="../assets/js/validations.js"></script>
-</body>
-</html>
-</file>
-
-<file path="admin/new-user.html">
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Volcán Market — Nuevo usuario</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/custom.css">
-</head>
-<body>
-  <div class="d-flex">
-    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
-      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
-    </nav>
-
-    <main class="flex-grow-1 p-4">
-      <h1 class="h3 mb-4">Nuevo usuario</h1>
-
-      <section style="max-width: 640px;">
-        <form id="new-user-form">
-          <div class="mb-3">
-            <label for="user-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
-            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9">
-            <div class="invalid-feedback" id="error-user-run"></div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-sm-6">
-              <label for="user-name" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50">
-              <div class="invalid-feedback" id="error-user-name"></div>
-            </div>
-            <div class="col-sm-6">
-              <label for="user-lastname" class="form-label">Apellidos</label>
-              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100">
-              <div class="invalid-feedback" id="error-user-lastname"></div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="user-email" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100">
-            <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
-            <div class="invalid-feedback" id="error-user-email"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="user-password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="user-password" name="userPassword" required minlength="4" maxlength="10">
-            <div class="form-text">La usará esta persona para iniciar sesión.</div>
-            <div class="invalid-feedback" id="error-user-password"></div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-sm-6">
-              <label for="user-birthdate" class="form-label">Fecha de nacimiento (opcional)</label>
-              <input type="date" class="form-control" id="user-birthdate" name="userBirthdate">
-            </div>
-            <div class="col-sm-6">
-              <label for="user-type" class="form-label">Tipo de usuario</label>
-              <select class="form-select" id="user-type" name="userType" required>
-                <option value="" selected disabled>-- Seleccione --</option>
-                <option value="administrador">Administrador</option>
-                <option value="vendedor">Vendedor</option>
-                <option value="cliente">Cliente</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-sm-6">
-              <label for="user-region" class="form-label">Región</label>
-                <!-- Regiones pobladas por assets/js/regiones.js -->
-                <select class="form-select" id="user-region" name="userRegion" required>
-                  <option value="" selected disabled>-- Seleccione región --</option>
-                </select>
-            </div>
-            <div class="col-sm-6">
-              <label for="user-comuna" class="form-label">Comuna</label>
-                <!-- Comunas pobladas dinámicamente -->
-                <select class="form-select" id="user-comuna" name="userComuna" required>
-                  <option value="" selected disabled>-- Seleccione comuna --</option>
-                </select>
-            </div>
-          </div>
-
-          <div class="mb-4">
-            <label for="user-address" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300">
-            <div class="invalid-feedback" id="error-user-address"></div>
-          </div>
-
-          <div class="d-flex gap-2">
-            <a href="users.html" class="btn btn-outline-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar usuario</button>
-          </div>
-        </form>
-      </section>
-    </main>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/admin-guard.js"></script>
-  <script src="../assets/js/admin-nav.js"></script>
-  <script src="../assets/js/users.js"></script>
-  <script src="../assets/js/admin-users.js"></script>
-    <script src="../assets/js/regiones.js"></script>
-  <script src="../assets/js/validations.js"></script>
 </body>
 </html>
 </file>
@@ -4302,6 +4170,240 @@ if (contenedor) {
 </html>
 </file>
 
+<file path="admin/edit-user.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Editar usuario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <h1 class="h3 mb-4">Editar usuario</h1>
+      <!-- Los campos se precargan dinámicamente según ?id=N en la URL, vía assets/js/admin-users.js -->
+
+      <section style="max-width: 640px;">
+        <form id="edit-user-form">
+          <div class="mb-3">
+            <label for="user-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
+            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9">
+            <div class="form-text">El Run no se puede editar una vez creado el usuario.</div>
+            <div class="invalid-feedback" id="error-user-run"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50">
+              <div class="invalid-feedback" id="error-user-name"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-lastname" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100">
+              <div class="invalid-feedback" id="error-user-lastname"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-email" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100">
+            <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
+            <div class="invalid-feedback" id="error-user-email"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="user-password" name="userPassword" minlength="4" maxlength="10">
+            <div class="form-text">Déjala en blanco para no cambiarla.</div>
+            <div class="invalid-feedback" id="error-user-password"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-birthdate" class="form-label">Fecha de nacimiento (opcional)</label>
+              <input type="date" class="form-control" id="user-birthdate" name="userBirthdate">
+            </div>
+            <div class="col-sm-6">
+              <label for="user-type" class="form-label">Tipo de usuario</label>
+              <select class="form-select" id="user-type" name="userType" required>
+                <option value="" selected disabled>-- Seleccione --</option>
+                <option value="administrador">Administrador</option>
+                <option value="vendedor">Vendedor</option>
+                <option value="cliente">Cliente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-region" class="form-label">Región</label>
+              <!-- Regiones pobladas por assets/js/regiones.js -->
+              <select class="form-select" id="user-region" name="userRegion" required>
+                <option value="" selected disabled>-- Seleccione región --</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-comuna" class="form-label">Comuna</label>
+              <!-- Comunas pobladas dinámicamente -->
+              <select class="form-select" id="user-comuna" name="userComuna" required>
+                <option value="" selected disabled>-- Seleccione comuna --</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="user-address" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300">
+            <div class="invalid-feedback" id="error-user-address"></div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <a href="users.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/regiones.js"></script>
+  <script src="../assets/js/validations.js"></script>
+  <script src="../assets/js/admin-users.js"></script>
+</body>
+</html>
+</file>
+
+<file path="admin/new-user.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Volcán Market — Nuevo usuario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
+  <div class="d-flex">
+    <nav id="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 260px; min-height: 100vh;">
+      <!-- Generado dinámicamente por assets/js/admin-nav.js -->
+    </nav>
+
+    <main class="flex-grow-1 p-4">
+      <h1 class="h3 mb-4">Nuevo usuario</h1>
+
+      <section style="max-width: 640px;">
+        <form id="new-user-form">
+          <div class="mb-3">
+            <label for="user-run" class="form-label">Run (sin puntos ni guión, ej: 19011022K)</label>
+            <input type="text" class="form-control" id="user-run" name="userRun" required minlength="7" maxlength="9">
+            <div class="invalid-feedback" id="error-user-run"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="user-name" name="userName" required maxlength="50">
+              <div class="invalid-feedback" id="error-user-name"></div>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-lastname" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="user-lastname" name="userLastname" required maxlength="100">
+              <div class="invalid-feedback" id="error-user-lastname"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-email" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="user-email" name="userEmail" required maxlength="100">
+            <div class="form-text">Solo correos @duoc.cl, @profesor.duoc.cl o @gmail.com</div>
+            <div class="invalid-feedback" id="error-user-email"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="user-password" name="userPassword" required minlength="4" maxlength="10">
+            <div class="form-text">La usará esta persona para iniciar sesión.</div>
+            <div class="invalid-feedback" id="error-user-password"></div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-birthdate" class="form-label">Fecha de nacimiento (opcional)</label>
+              <input type="date" class="form-control" id="user-birthdate" name="userBirthdate">
+            </div>
+            <div class="col-sm-6">
+              <label for="user-type" class="form-label">Tipo de usuario</label>
+              <select class="form-select" id="user-type" name="userType" required>
+                <option value="" selected disabled>-- Seleccione --</option>
+                <option value="administrador">Administrador</option>
+                <option value="vendedor">Vendedor</option>
+                <option value="cliente">Cliente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="user-region" class="form-label">Región</label>
+                <!-- Regiones pobladas por assets/js/regiones.js -->
+                <select class="form-select" id="user-region" name="userRegion" required>
+                  <option value="" selected disabled>-- Seleccione región --</option>
+                </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="user-comuna" class="form-label">Comuna</label>
+                <!-- Comunas pobladas dinámicamente -->
+                <select class="form-select" id="user-comuna" name="userComuna" required>
+                  <option value="" selected disabled>-- Seleccione comuna --</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="user-address" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="user-address" name="userAddress" required maxlength="300">
+            <div class="invalid-feedback" id="error-user-address"></div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <a href="users.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar usuario</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/admin-guard.js"></script>
+  <script src="../assets/js/admin-nav.js"></script>
+  <script src="../assets/js/users.js"></script>
+  <script src="../assets/js/regiones.js"></script>
+  <script src="../assets/js/validations.js"></script>
+  <script src="../assets/js/admin-users.js"></script>
+</body>
+</html>
+</file>
+
 <file path="store/register.html">
 <!DOCTYPE html>
 <html lang="es">
@@ -4405,10 +4507,10 @@ if (contenedor) {
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/users.js"></script>
-  <script src="../assets/js/store-nav.js"></script>
-  <script src="../assets/js/register.js"></script>
   <script src="../assets/js/regiones.js"></script>
   <script src="../assets/js/validations.js"></script>
+  <script src="../assets/js/store-nav.js"></script>
+  <script src="../assets/js/register.js"></script>
   <script src="../assets/js/cart.js"></script>
 </body>
 </html>

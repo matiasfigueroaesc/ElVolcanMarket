@@ -167,8 +167,8 @@ function validarPassword(input, requerido = true) {
     return true;
   }
 
-  if (valor.length < 4 || valor.length > 10) {
-    mostrarError(input, "La contraseña debe tener entre 4 y 10 caracteres.");
+  if (valor.length < 4 || valor.length > 20) {
+    mostrarError(input, "La contraseña debe tener entre 4 y 20 caracteres.");
     return false;
   }
 
