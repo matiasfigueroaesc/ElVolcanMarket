@@ -10,6 +10,7 @@ const ADMIN_NAV_ITEMS = [
   { label: "Inicio", href: "home.html" },
   { label: "Productos", href: "products.html" },
   { label: "Usuarios", href: "users.html" },
+  { label: "Pedidos", href: "orders.html" },
 ];
 
 function renderAdminSidebar() {
@@ -17,8 +18,16 @@ function renderAdminSidebar() {
   if (!container) return;
 
   const currentPage = window.location.pathname.split("/").pop();
+  const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+  const nombreUsuario = sesion?.nombre || "Usuario";
 
-  const linksHtml = ADMIN_NAV_ITEMS.map((item) => {
+  const navItemsFiltrados = ADMIN_NAV_ITEMS.filter((item) => {
+    if (!sesion || sesion.tipo === "administrador") return true;
+    if (sesion.tipo === "vendedor") return item.href !== "users.html";
+    return false;
+  });
+
+  const linksHtml = navItemsFiltrados.map((item) => {
     const isActive = item.href === currentPage;
     return `
       <li class="nav-item">
@@ -29,9 +38,11 @@ function renderAdminSidebar() {
   }).join("");
 
   container.innerHTML = `
-    <a href="home.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <a href="home.html" class="d-flex align-items-center mb-2 text-white text-decoration-none">
       <span class="fs-5 fw-semibold">El Volcán Market</span>
     </a>
+    <div class="small text-white-50 mb-3">${nombreUsuario}</div>
+    <button type="button" class="btn btn-link btn-sm text-white-50 p-0 mb-3 text-decoration-none" id="admin-logout-button">Cerrar sesión</button>
     <hr class="text-white-50">
     <ul class="nav nav-pills flex-column mb-auto">
       ${linksHtml}
@@ -39,6 +50,16 @@ function renderAdminSidebar() {
     <hr class="text-white-50">
     <a href="../store/index.html" class="text-white-50 small text-decoration-none">&larr; Volver a la tienda</a>
   `;
+
+  const logoutButton = document.getElementById("admin-logout-button");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      if (typeof cerrarSesion === "function") {
+        cerrarSesion();
+      }
+      window.location.href = "../store/login.html";
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", renderAdminSidebar);

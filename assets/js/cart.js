@@ -75,10 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const id = Number(e.target.dataset.id);
 
-    // "productos" es el array global declarado en products.js.
-    // Si esta página no cargó products.js (ej. cart.html), no
-    // existe ningún botón .btn-agregar y esta función nunca
-    // debería dispararse; el chequeo es solo defensivo.
     if (typeof productos === "undefined") {
       console.error("cart.js: no se encontró el catálogo 'productos'. ¿Falta cargar products.js antes de cart.js?");
       return;
@@ -90,21 +86,28 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const inputCantidad = document.getElementById("product-quantity");
+    let cantidadAgregar = 1;
+
+    if (inputCantidad) {
+      const valor = Number.parseInt(inputCantidad.value, 10);
+      if (!Number.isNaN(valor) && valor > 0) {
+        cantidadAgregar = Math.min(valor, producto.stock);
+      }
+    }
+
     const carrito = obtenerCarrito();
     const itemExistente = carrito.find((p) => p.id === id);
 
     if (itemExistente) {
-      if (itemExistente.cantidad < producto.stock) {
-        itemExistente.cantidad += 1;
-      }
-      // Si ya está en el tope de stock, no sumamos más (silencioso;
-      // se puede agregar un aviso visual más adelante si se quiere).
+      const nuevaCantidad = Math.min(itemExistente.cantidad + cantidadAgregar, producto.stock);
+      itemExistente.cantidad = nuevaCantidad;
     } else {
       carrito.push({
         id: producto.id,
         nombre: producto.nombre,
         precio: producto.precio,
-        cantidad: 1,
+        cantidad: cantidadAgregar,
         stockMaximo: producto.stock
       });
     }
@@ -295,7 +298,26 @@ document.addEventListener("DOMContentLoaded", () => {
       const { esValido, nombre } = validarFormularioDespacho();
       if (!esValido) return;
 
-      // Pedido válido: limpiar carrito y confirmar
+      const sesion = typeof obtenerSesion === "function" ? obtenerSesion() : null;
+      const pedidos = cargarPedidos();
+      const notas = document.getElementById("order-notes")?.value.trim() || "";
+      const nuevoId = pedidos.length ? Math.max(...pedidos.map((pedido) => pedido.id)) + 1 : 1;
+
+      const pedido = {
+        id: nuevoId,
+        fecha: new Date().toISOString(),
+        clienteNombre: nombre,
+        clienteDireccion: document.getElementById("client-address")?.value.trim() || "",
+        clienteTelefono: document.getElementById("client-phone")?.value.trim() || "",
+        notas,
+        items: carrito.map((item) => ({ ...item })),
+        total: carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0),
+        estado: "pendiente",
+        clienteId: sesion ? sesion.id : null
+      };
+
+      pedidos.push(pedido);
+      guardarPedidos(pedidos);
       localStorage.removeItem(CART_STORAGE_KEY);
       alert(`¡Gracias, ${nombre}! Tu solicitud de gas fue registrada. Un camión repartidor se pondrá en contacto contigo.`);
       window.location.href = "index.html";
