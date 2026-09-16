@@ -312,6 +312,56 @@ function evgMostrarAlertaLogin(alertaBox, mensaje) {
   alertaBox.classList.remove("d-none");
 }
 
+// --------------------------------------------
+// CONTACTO (store/contact.html)
+// --------------------------------------------
+function evgValidarEmailOpcional(input) {
+  const valor = input.value.trim();
+
+  // El correo es opcional: si viene vacío, no es error.
+  if (!valor) {
+    evgMostrarValido(input);
+    return true;
+  }
+  // Si el usuario sí escribió algo, se valida igual que en login/registro.
+  return evgValidarEmail(input);
+}
+
+function evgInicializarContacto() {
+  const form = document.getElementById("contact-form");
+  if (!form) return; // se comparte entre páginas: si no hay form, no hace nada
+
+  const inputName = document.getElementById("contact-name");
+  const inputEmail = document.getElementById("contact-email");
+  const inputComment = document.getElementById("contact-comment");
+
+  inputName.addEventListener("input", () =>
+    evgValidarTexto(inputName, { min: 3, max: 100, etiqueta: "El nombre" })
+  );
+  inputEmail.addEventListener("input", () => evgValidarEmailOpcional(inputEmail));
+  inputComment.addEventListener("input", () =>
+    evgValidarTexto(inputComment, { min: 10, max: 500, etiqueta: "El comentario" })
+  );
+
+  form.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    const validaciones = [
+      evgValidarTexto(inputName, { min: 3, max: 100, etiqueta: "El nombre" }),
+      evgValidarEmailOpcional(inputEmail),
+      evgValidarTexto(inputComment, { min: 10, max: 500, etiqueta: "El comentario" })
+    ];
+    if (validaciones.includes(false)) return;
+
+    // Sin backend: se simula el envío exitoso.
+    alert("¡Gracias! Tu mensaje fue recibido, te responderemos a la brevedad.");
+    form.reset();
+    [inputName, inputEmail, inputComment].forEach((input) => {
+      input.classList.remove("is-valid", "is-invalid");
+    });
+  });
+}
+
 
 // --------------------------------------------
 // Inicialización general.
@@ -321,6 +371,7 @@ function evgMostrarAlertaLogin(alertaBox, mensaje) {
 document.addEventListener("DOMContentLoaded", () => {
   evgInicializarLogin();
   evgInicializarRegistro();
+  evgInicializarContacto();
 });
 
 // TODO: validación formulario de contacto (nombre, correo, comentario)
