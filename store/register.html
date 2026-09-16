@@ -68,21 +68,16 @@
           <div class="col-sm-6">
             <label for="reg-region" class="form-label">Región</label>
             <!-- TODO: reemplazar por el arreglo oficial de regiones/comunas -->
-            <select class="form-select" id="reg-region" name="regRegion" required>
-              <option value="" selected disabled>-- Seleccione región --</option>
-              <option value="metropolitana">Región Metropolitana de Santiago</option>
-              <option value="araucania">Región de la Araucanía</option>
-              <option value="nuble">Región de Ñuble</option>
-            </select>
+              <select class="form-select" id="reg-region" name="regRegion" required>
+                <option value="" selected disabled>-- Seleccione región --</option>
+              </select>
           </div>
           <div class="col-sm-6">
             <label for="reg-comuna" class="form-label">Comuna</label>
             <!-- TODO: comunas deberían filtrarse en JS según la región seleccionada -->
-            <select class="form-select" id="reg-comuna" name="regComuna" required>
-              <option value="" selected disabled>-- Seleccione comuna --</option>
-              <option value="chillan">Chillán</option>
-              <option value="chillan-viejo">Chillán Viejo</option>
-            </select>
+              <select class="form-select" id="reg-comuna" name="regComuna" required>
+                <option value="" selected disabled>-- Seleccione comuna --</option>
+              </select>
           </div>
         </div>
 
@@ -107,6 +102,7 @@
   <script src="../assets/js/users.js"></script>
   <script src="../assets/js/store-nav.js"></script>
   <script src="../assets/js/register.js"></script>
+  <script src="../assets/js/regiones.js"></script>
   <script src="../assets/js/validations.js"></script>
   <script src="../assets/js/cart.js"></script>
 </body>
