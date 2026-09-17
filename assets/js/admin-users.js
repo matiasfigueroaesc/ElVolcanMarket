@@ -124,8 +124,23 @@ document.addEventListener("DOMContentLoaded", () => {
     // se deja vacío y solo se cambia si se escribe algo nuevo.
     document.getElementById("user-birthdate").value = usuarioEditando.fechaNacimiento || "";
     document.getElementById("user-type").value = usuarioEditando.tipo;
-    document.getElementById("user-region").value = usuarioEditando.region;
-    document.getElementById("user-comuna").value = usuarioEditando.comuna;
+    // Precargar región y comuna usando las utilidades de assets/js/regiones.js
+    // No dependemos del orden de carga de scripts: si las funciones existen,
+    // las usamos para poblar selects y asignar el valor seleccionado;
+    // en caso contrario, degradamos a la asignación directa.
+    if (typeof poblarSelectRegiones === "function" && typeof poblarComunasPorRegion === "function") {
+      try {
+        poblarSelectRegiones("user-region", usuarioEditando.region);
+        poblarComunasPorRegion(usuarioEditando.region, "user-comuna", usuarioEditando.comuna);
+      } catch (e) {
+        // Si algo falla, caer a asignaciones directas para no bloquear la página.
+        document.getElementById("user-region").value = usuarioEditando.region;
+        document.getElementById("user-comuna").value = usuarioEditando.comuna;
+      }
+    } else {
+      document.getElementById("user-region").value = usuarioEditando.region;
+      document.getElementById("user-comuna").value = usuarioEditando.comuna;
+    }
     document.getElementById("user-address").value = usuarioEditando.direccion;
   }
 

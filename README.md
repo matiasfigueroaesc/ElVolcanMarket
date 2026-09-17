@@ -25,16 +25,12 @@ Construir el frontend estático de la tienda + un panel de administración simpl
 ElVolcanMarket/
 ├── assets/
 │   ├── css/        → custom.css (personalización sobre Bootstrap, opcional por sección)
-│   ├── js/          → validations.js (validaciones de formularios, carrito, etc.)
-│   └── img/         → imágenes/logos
+│   ├── js/         → validaciones, navegación y lógica de la tienda/admin
+  │   └── img/         → imágenes/logos
 ├── store/           → vistas públicas (la tienda)
 ├── admin/           → vistas del panel administrativo
 └── docs/            → ERS y planilla de requerimientos (versión de trabajo)
 ```
-
-Cada página HTML ya está creada como esqueleto vacío con un comentario `<!-- TODO -->`
-indicando qué contenido/mockup de las instrucciones (Anexo 1) le corresponde. Así cada
-integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
 
 > **Decisión de equipo (actualizada):** todo el sitio usa **Bootstrap 5.3** (vía CDN), tanto
 > `admin/` como `store/`. No se mantiene un sistema de clases propio en paralelo. Ver
@@ -98,13 +94,10 @@ integrante puede tomar una página y empezar a trabajar sin pisarse con otros.
 - Pull Request hacia `main` antes de fusionar, aunque sea autoevaluado por falta de tiempo.
 - Evitar editar el mismo archivo en paralelo sin avisar (sobre todo `custom.css` y `validations.js`).
 
-## 6. Próximos pasos (pendientes de definir en equipo)
+## 6. Próximos pasos (pendientes de equipo)
 
-- [ ] Repartir páginas entre los integrantes
-- [ ] Definir paleta de colores / estilo visual de la marca
 - [ ] Completar el documento ERS (versión 1) — plantilla en `docs/`
 - [ ] Completar la planilla de requerimientos (Anexo 2)
-- [ ] Definir reglas del carrito de pedido (cantidades, tipos de cilindro, etc.)
 - [ ] Preparar la presentación de 15 minutos + ronda de preguntas
 
 ## 7. Cómo subir este repo a GitHub
@@ -138,22 +131,21 @@ Estas cuentas ya vienen precargadas en el catálogo de ejemplo (localStorage ini
 - Vendedor: `pedro.salinas@duoc.cl` / `vendedor1234`
 - Cliente: `camila.toro@gmail.com` / `cliente1234`
 
-## Estado de cumplimiento (TAREAs)
+## Estado de cumplimiento
 
-- TAREA 1: Placeholders de imágenes — completada
-- TAREA 2: Regiones/Comunas (`assets/js/regiones.js`) — completada
-- TAREA 3: Precio mínimo (permitir 0) — completada
-- TAREA 4: Reemplazo RUNs seed por válidos — completada
-- TAREA 5: Validación bloquea guardado — completada
-- TAREA 6: Limpiar sample row en `store/cart.html` — completada
-- TAREA 7: Eliminar `assets/css/styles.css` y ajuste README — completada
-- TAREA 8: Agregar sección Equipo de desarrollo en `store/about.html` — completada
-- TAREA 9: Actualizar README con instrucciones y estado — completada
-- TAREA 10: Ajustes menores (regex RUN, min-length, try/catch) — pendiente
+Mapeo de requisitos (Anexo 1) → ubicación de implementación
+
+- **Estructura HTML semántica:** archivos `store/*.html` y `admin/*.html` (secciones, encabezados y roles semánticos).
+- **Navegación completa:** `assets/js/store-nav.js` y `assets/js/admin-nav.js` (barras y enlaces entre páginas).
+- **CSS externo responsivo:** `assets/css/custom.css` (sobrescribe variables de Bootstrap) + uso de Bootstrap CDN en los `<head>`.
+- **Validaciones JS en tiempo real:** `assets/js/validations.js` (RUN, correo, precios, stock, formularios de registro/login/contacto/producto/usuario).
+- **Carrito con persistencia (localStorage):** `assets/js/cart.js` y `assets/js/orders.js` (persistencia bajo `volcan_cart` y `volcan_orders`).
+- **Panel administrador y control de roles:** `admin/` vistas junto a `assets/js/admin-users.js`, `assets/js/admin-products.js`, `assets/js/admin-nav.js` y `assets/js/admin-guard.js`.
+- **Repositorio y control de versiones:** este repositorio (página raíz) contiene el historial y ramas usadas durante el desarrollo.
 
 ## Pendientes importantes
 
 - Completar ERS (documentación de requisitos) en `docs/`.
-- Rellenar planilla de requerimientos (Anexo 2) con trazabilidad.
+- Rellenar la planilla de requerimientos (Anexo 2) con trazabilidad.
 - Preparar la presentación de entrega (diapositivas y demo).
 

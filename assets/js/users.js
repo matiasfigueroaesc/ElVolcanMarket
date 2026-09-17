@@ -46,7 +46,7 @@ const USUARIOS_SEED = [
     nombre: "Pedro",
     apellidos: "Salinas Rojas",
     correo: "pedro.salinas@duoc.cl",
-    password: "vendedor1234",
+    password: "vendedor12",
     telefono: null,
     fechaNacimiento: null,
     tipo: "vendedor",
