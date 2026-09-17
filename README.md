@@ -94,13 +94,8 @@ ElVolcanMarket/
 - Pull Request hacia `main` antes de fusionar, aunque sea autoevaluado por falta de tiempo.
 - Evitar editar el mismo archivo en paralelo sin avisar (sobre todo `custom.css` y `validations.js`).
 
-## 6. Próximos pasos (pendientes de equipo)
 
-- [ ] Completar el documento ERS (versión 1) — plantilla en `docs/`
-- [ ] Completar la planilla de requerimientos (Anexo 2)
-- [ ] Preparar la presentación de 15 minutos + ronda de preguntas
-
-## 7. Cómo subir este repo a GitHub
+## 6. Cómo subir este repo a GitHub
 
 ```bash
 # 1. Crear un repositorio vacío y PÚBLICO en github.com (sin README, sin licencia)
