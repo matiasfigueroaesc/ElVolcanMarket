@@ -67,7 +67,7 @@ const PRODUCTOS_SEED = [
     stock: 30,
     stockCritico: 10,
     categoria: "Cilindros de Gas",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/cilindro-45kg.png",
     descripcion: "Cilindro industrial. Uso comercial: restaurantes, talleres, calefacción de locales.",
     unidad: "Unidad"
   },
@@ -79,7 +79,7 @@ const PRODUCTOS_SEED = [
     stock: 45,
     stockCritico: 10,
     categoria: "Reguladores",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/regulador-estandar.png",
     descripcion: "Regulador de 1 etapa para cilindros 5, 11 y 15 kg. Presión de salida 28 mbar.",
     unidad: "Unidad"
   },
@@ -91,7 +91,7 @@ const PRODUCTOS_SEED = [
     stock: 12,
     stockCritico: 5,
     categoria: "Reguladores",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/regulador-alta-presion.png",
     descripcion: "Regulador para cocinas industriales o equipos de mayor consumo. Presión regulable.",
     unidad: "Unidad"
   },
@@ -103,7 +103,7 @@ const PRODUCTOS_SEED = [
     stock: 18,
     stockCritico: 5,
     categoria: "Reguladores",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/regulador-dual.png",
     descripcion: "Permite conectar dos artefactos simultáneamente al mismo cilindro.",
     unidad: "Unidad"
   },
@@ -115,7 +115,7 @@ const PRODUCTOS_SEED = [
     stock: 80,
     stockCritico: 10,
     categoria: "Mangueras y Conexiones",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/manguera-1.5m.png",
     descripcion: "Manguera flexible homologada. Diámetro interior 9mm. Compatible con reguladores estándar.",
     unidad: "Unidad"
   },
@@ -127,7 +127,7 @@ const PRODUCTOS_SEED = [
     stock: 50,
     stockCritico: 10,
     categoria: "Mangueras y Conexiones",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/manguera-3m.png",
     descripcion: "Manguera larga para instalaciones donde el artefacto está alejado del cilindro.",
     unidad: "Unidad"
   },
@@ -139,7 +139,7 @@ const PRODUCTOS_SEED = [
     stock: 200,
     stockCritico: 10,
     categoria: "Mangueras y Conexiones",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/abrazadera.png",
     descripcion: "Abrazadera de acero para asegurar la conexión manguera-regulador y manguera-artefacto.",
     unidad: "Unidad"
   },
@@ -151,7 +151,7 @@ const PRODUCTOS_SEED = [
     stock: 25,
     stockCritico: 10,
     categoria: "Mangueras y Conexiones",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/kit-conexion.png",
     descripcion: "Todo lo necesario para instalar un cilindro nuevo.",
     unidad: "Kit"
   },
@@ -163,7 +163,7 @@ const PRODUCTOS_SEED = [
     stock: 20,
     stockCritico: 5,
     categoria: "Accesorios",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/carro-porta-cilindro.png",
     descripcion: "Carro metálico con ruedas para transportar cilindros dentro del hogar con seguridad.",
     unidad: "Unidad"
   },
@@ -175,7 +175,7 @@ const PRODUCTOS_SEED = [
     stock: 60,
     stockCritico: 10,
     categoria: "Accesorios",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/tapa-protectora.png",
     descripcion: "Tapa de plástico ABS para proteger la válvula del cilindro durante el transporte.",
     unidad: "Unidad"
   },
@@ -187,7 +187,7 @@ const PRODUCTOS_SEED = [
     stock: 8,
     stockCritico: 5,
     categoria: "Accesorios",
-    imagen: "../assets/img/cilindro-placeholder.svg",
+    imagen: "../assets/img/detector-gas.png",
     descripcion: "Sensor electroquímico. Alarma sonora y visual ante fuga de gas GLP o metano.",
     unidad: "Unidad"
   }
