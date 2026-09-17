@@ -11,8 +11,8 @@
 // Usa en admin/new-product.html:
 //   <form id="new-product-form"> con los campos #product-code,
 //   #product-name, #product-description, #product-price,
-//   #product-category, #product-stock, #product-critical-stock,
-//   #product-image
+//   #product-category, #product-unit, #product-stock,
+//   #product-critical-stock, #product-image
 // Usa en admin/edit-product.html: mismos campos, dentro de
 //   <form id="edit-product-form">, y se espera navegar a esta
 //   página con ?id=N en la URL.
@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("product-description").value = productoEditando.descripcion || "";
     document.getElementById("product-price").value = productoEditando.precio;
     document.getElementById("product-category").value = productoEditando.categoria;
+    document.getElementById("product-unit").value = productoEditando.unidad || "Unidad";
     document.getElementById("product-stock").value = productoEditando.stock;
     document.getElementById("product-critical-stock").value = productoEditando.stockCritico ?? "";
   }
@@ -152,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const descripcion = document.getElementById("product-description").value.trim();
     const precio = Number(document.getElementById("product-price").value);
     const categoria = document.getElementById("product-category").value;
+    const unidad = document.getElementById("product-unit").value;
     const stock = Number(document.getElementById("product-stock").value);
     const stockCriticoRaw = document.getElementById("product-critical-stock").value;
     const stockCritico = stockCriticoRaw === "" ? null : Number(stockCriticoRaw);
@@ -168,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
       productoEditando.descripcion = descripcion;
       productoEditando.precio = precio;
       productoEditando.categoria = categoria;
+      productoEditando.unidad = unidad;
       productoEditando.stock = stock;
       productoEditando.stockCritico = stockCritico;
       productoEditando.imagen = imagenFinal;
@@ -180,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         descripcion,
         precio,
         categoria,
+        unidad,
         stock,
         stockCritico,
         imagen: imagenFinal

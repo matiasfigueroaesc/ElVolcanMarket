@@ -18,43 +18,178 @@
 //   <script>window.PRODUCTOS_HEADING_TAG = "h3";</script>
 // ============================================
 
-const PRODUCTS_STORAGE_KEY = "volcan_products_catalog";
+const PRODUCTS_STORAGE_KEY = "volcan_products_catalog_v2";
 
 // Catálogo de fábrica: se usa solo la PRIMERA vez que se carga el sitio
 // (localStorage vacío) o si el localStorage llegara a corromperse.
 const PRODUCTOS_SEED = [
   {
     id: 1,
-    codigo: "CIL-05",
-    nombre: "Cilindro de gas 5 kg",
-    precio: 8500,
-    stock: 20,
-    stockCritico: 5,
-    categoria: "5kg",
+    codigo: "CL001",
+    nombre: "Cilindro GLP 5 kg",
+    precio: 6500,
+    stock: 80,
+    stockCritico: 10,
+    categoria: "Cilindros de Gas",
     imagen: "../assets/img/cilindro-5kg.png",
-    descripcion: "Formato compacto, ideal para cocinas pequeñas, calefont auxiliar o uso ocasional."
+    descripcion: "Cilindro de gas licuado de petróleo 5 kg. Para uso residencial (cocina, calefacción pequeña).",
+    unidad: "Unidad"
   },
   {
     id: 2,
-    codigo: "CIL-11",
-    nombre: "Cilindro de gas 11 kg",
-    precio: 16500,
-    stock: 15,
-    stockCritico: 5,
-    categoria: "11kg",
+    codigo: "CL002",
+    nombre: "Cilindro GLP 11 kg",
+    precio: 12000,
+    stock: 200,
+    stockCritico: 10,
+    categoria: "Cilindros de Gas",
     imagen: "../assets/img/cilindro-11kg.png",
-    descripcion: "El formato más solicitado para uso doméstico: cocina, calefont y estufas. Despacho a domicilio en Chillán y comunas aledañas."
+    descripcion: "Cilindro estándar doméstico. El más utilizado en hogares chilenos. Compatible con reguladores estándar.",
+    unidad: "Unidad"
   },
   {
     id: 3,
-    codigo: "CIL-15",
-    nombre: "Cilindro de gas 15 kg",
-    precio: 21000,
-    stock: 10,
-    stockCritico: 5,
-    categoria: "15kg",
+    codigo: "CL003",
+    nombre: "Cilindro GLP 15 kg",
+    precio: 16000,
+    stock: 90,
+    stockCritico: 10,
+    categoria: "Cilindros de Gas",
     imagen: "../assets/img/cilindro-15kg.png",
-    descripcion: "Mayor autonomía para hogares con alto consumo o uso comercial (locales, negocios pequeños)."
+    descripcion: "Cilindro de mayor capacidad para hogares de alto consumo o locales pequeños.",
+    unidad: "Unidad"
+  },
+  {
+    id: 4,
+    codigo: "CL004",
+    nombre: "Cilindro GLP 45 kg",
+    precio: 45000,
+    stock: 30,
+    stockCritico: 10,
+    categoria: "Cilindros de Gas",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Cilindro industrial. Uso comercial: restaurantes, talleres, calefacción de locales.",
+    unidad: "Unidad"
+  },
+  {
+    id: 5,
+    codigo: "RG001",
+    nombre: "Regulador doméstico estándar",
+    precio: 8990,
+    stock: 45,
+    stockCritico: 10,
+    categoria: "Reguladores",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Regulador de 1 etapa para cilindros 5, 11 y 15 kg. Presión de salida 28 mbar.",
+    unidad: "Unidad"
+  },
+  {
+    id: 6,
+    codigo: "RG002",
+    nombre: "Regulador de alta presión",
+    precio: 18990,
+    stock: 12,
+    stockCritico: 5,
+    categoria: "Reguladores",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Regulador para cocinas industriales o equipos de mayor consumo. Presión regulable.",
+    unidad: "Unidad"
+  },
+  {
+    id: 7,
+    codigo: "RG003",
+    nombre: "Regulador dual (2 salidas)",
+    precio: 14990,
+    stock: 18,
+    stockCritico: 5,
+    categoria: "Reguladores",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Permite conectar dos artefactos simultáneamente al mismo cilindro.",
+    unidad: "Unidad"
+  },
+  {
+    id: 8,
+    codigo: "MG001",
+    nombre: "Manguera gas 1.5 m",
+    precio: 3990,
+    stock: 80,
+    stockCritico: 10,
+    categoria: "Mangueras y Conexiones",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Manguera flexible homologada. Diámetro interior 9mm. Compatible con reguladores estándar.",
+    unidad: "Unidad"
+  },
+  {
+    id: 9,
+    codigo: "MG002",
+    nombre: "Manguera gas 3 m",
+    precio: 6990,
+    stock: 50,
+    stockCritico: 10,
+    categoria: "Mangueras y Conexiones",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Manguera larga para instalaciones donde el artefacto está alejado del cilindro.",
+    unidad: "Unidad"
+  },
+  {
+    id: 10,
+    codigo: "MG003",
+    nombre: "Abrazadera metálica",
+    precio: 990,
+    stock: 200,
+    stockCritico: 10,
+    categoria: "Mangueras y Conexiones",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Abrazadera de acero para asegurar la conexión manguera-regulador y manguera-artefacto.",
+    unidad: "Unidad"
+  },
+  {
+    id: 11,
+    codigo: "MG004",
+    nombre: "Kit conexión completo (regulador + manguera 1.5m + abrazaderas)",
+    precio: 12990,
+    stock: 25,
+    stockCritico: 10,
+    categoria: "Mangueras y Conexiones",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Todo lo necesario para instalar un cilindro nuevo.",
+    unidad: "Kit"
+  },
+  {
+    id: 12,
+    codigo: "AC001",
+    nombre: "Carro porta cilindro 11/15 kg",
+    precio: 12990,
+    stock: 20,
+    stockCritico: 5,
+    categoria: "Accesorios",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Carro metálico con ruedas para transportar cilindros dentro del hogar con seguridad.",
+    unidad: "Unidad"
+  },
+  {
+    id: 13,
+    codigo: "AC002",
+    nombre: "Tapa protectora para válvula",
+    precio: 1490,
+    stock: 60,
+    stockCritico: 10,
+    categoria: "Accesorios",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Tapa de plástico ABS para proteger la válvula del cilindro durante el transporte.",
+    unidad: "Unidad"
+  },
+  {
+    id: 14,
+    codigo: "AC003",
+    nombre: "Detector de gas a batería",
+    precio: 19990,
+    stock: 8,
+    stockCritico: 5,
+    categoria: "Accesorios",
+    imagen: "../assets/img/cilindro-placeholder.svg",
+    descripcion: "Sensor electroquímico. Alarma sonora y visual ante fuga de gas GLP o metano.",
+    unidad: "Unidad"
   }
 ];
 
@@ -90,43 +225,52 @@ let productos = cargarCatalogoProductos();
 // --------------------------------------------
 const contenedor = document.querySelector("#contenedorProductos");
 const cantidad = document.querySelector("#cantidadProductos");
+const filtroCategoria = document.querySelector("#product-category-filter");
 const headingTag = window.PRODUCTOS_HEADING_TAG || "h2";
 
-function formatearCategoria(categoria) {
-  // "5kg" -> "5 kg" (solo para mostrar; el valor guardado no lleva espacio,
-  // para que coincida tal cual con las opciones del <select> del admin).
-  return categoria.replace(/(\d+)kg/i, "$1 kg");
+function filtrarProductosPorCategoria(categoria) {
+  if (!categoria) return productos;
+  return productos.filter((producto) => producto.categoria === categoria);
 }
 
 function renderProductos(lista) {
   contenedor.innerHTML = "";
 
-  lista.forEach(producto => {
-    contenedor.innerHTML += `
-      <div class="col-sm-6 col-lg-4">
-        <article class="card h-100 shadow-sm">
-          <img src="${producto.imagen}"
-               class="card-img-top"
-               alt="${producto.nombre}">
-          <div class="card-body d-flex flex-column">
-            <span class="badge text-bg-light align-self-start mb-2">
-              ${formatearCategoria(producto.categoria)}
-            </span>
-            <${headingTag} class="h5">${producto.nombre}</${headingTag}>
-            <p class="fs-5 fw-bold">$${producto.precio.toLocaleString("es-CL")}</p>
-            <p>Stock: ${producto.stock}</p>
-            <div class="mt-auto d-flex gap-2">
-              <a href="product-detail.html?id=${producto.id}" class="btn btn-outline-primary btn-sm">Ver detalle</a>
-              <button class="btn btn-primary btn-sm btn-agregar"
-                      data-id="${producto.id}"
-                      ${producto.stock === 0 ? "disabled" : ""}>
-                Agregar al carrito
-              </button>
-            </div>
-          </div>
-        </article>
+  if (!lista.length) {
+    contenedor.innerHTML = `
+      <div class="col-12">
+        <div class="alert alert-info mb-0">
+          No hay productos para la categoría seleccionada.
+        </div>
       </div>`;
-  });
+  } else {
+    lista.forEach(producto => {
+      contenedor.innerHTML += `
+        <div class="col-sm-6 col-lg-4">
+          <article class="card h-100 shadow-sm">
+            <img src="${producto.imagen}"
+                 class="card-img-top"
+                 alt="${producto.nombre}">
+            <div class="card-body d-flex flex-column">
+              <span class="badge text-bg-light align-self-start mb-2">
+                ${producto.categoria}
+              </span>
+              <${headingTag} class="h5">${producto.nombre}</${headingTag}>
+              <p class="fs-5 fw-bold">$${producto.precio.toLocaleString("es-CL")}</p>
+              <p>Stock: ${producto.stock}</p>
+              <div class="mt-auto d-flex gap-2">
+                <a href="product-detail.html?id=${producto.id}" class="btn btn-outline-primary btn-sm">Ver detalle</a>
+                <button class="btn btn-primary btn-sm btn-agregar"
+                        data-id="${producto.id}"
+                        ${producto.stock === 0 ? "disabled" : ""}>
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>`;
+    });
+  }
 
   if (cantidad) {
     cantidad.textContent = `${lista.length} productos`;
@@ -134,5 +278,11 @@ function renderProductos(lista) {
 }
 
 if (contenedor) {
-  renderProductos(productos);
+  const renderVistaActual = () => renderProductos(filtrarProductosPorCategoria(filtroCategoria?.value || ""));
+
+  if (filtroCategoria) {
+    filtroCategoria.addEventListener("change", renderVistaActual);
+  }
+
+  renderVistaActual();
 }
