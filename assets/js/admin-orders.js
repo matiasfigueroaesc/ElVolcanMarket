@@ -6,6 +6,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const tablaBody = document.getElementById("admin-orders-table-body");
 
+  function obtenerClaseBadgeEstado(estado) {
+    switch ((estado || "").toLowerCase()) {
+      case "preparando":
+        return "text-bg-warning";
+      case "en camino":
+        return "text-bg-primary";
+      case "entregado":
+        return "text-bg-success";
+      case "recibido":
+      default:
+        return "text-bg-secondary";
+    }
+  }
+
+  function actualizarEstadoPedido(id, nuevoEstado) {
+    const pedido = pedidos.find((item) => item.id === Number(id));
+    if (!pedido) return;
+
+    pedido.estado = nuevoEstado;
+    guardarPedidos(pedidos);
+    renderTablaPedidos();
+  }
+
   function crearModalDetalle() {
     const existente = document.getElementById("order-detail-modal");
     if (existente) return existente;
@@ -22,7 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
               <div class="mb-3">
                 <p class="mb-1"><strong>ID:</strong> <span id="modal-order-id"></span></p>
                 <p class="mb-1"><strong>Fecha:</strong> <span id="modal-order-date"></span></p>
-                <p class="mb-1"><strong>Estado:</strong> <span id="modal-order-status"></span></p>
+                <div class="mb-2">
+                  <label for="modal-order-status" class="form-label mb-1"><strong>Estado:</strong></label>
+                  <select id="modal-order-status" class="form-select form-select-sm" aria-label="Estado del pedido">
+                    <option value="recibido">recibido</option>
+                    <option value="preparando">preparando</option>
+                    <option value="en camino">en camino</option>
+                    <option value="entregado">entregado</option>
+                  </select>
+                </div>
               </div>
 
               <div class="mb-3">
@@ -45,7 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>`;
 
-    document.body.insertAdjacentHTML("beforeend", modalHtml);
+    const root = document.getElementById("order-detail-modal-root") || document.body;
+    root.insertAdjacentHTML("beforeend", modalHtml);
     return document.getElementById("order-detail-modal");
   }
 
@@ -68,13 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
           dateStyle: "short",
           timeStyle: "short"
         });
+        const estado = (pedido.estado || "recibido").toLowerCase() === "pendiente" ? "recibido" : (pedido.estado || "recibido").toLowerCase();
 
         return `
           <tr data-id="${pedido.id}">
             <td>${fecha}</td>
             <td>${pedido.clienteNombre || "Invitado"}</td>
             <td>$${Number(pedido.total || 0).toLocaleString("es-CL")}</td>
-            <td><span class="badge text-bg-warning">${pedido.estado || "pendiente"}</span></td>
+            <td><span class="badge ${obtenerClaseBadgeEstado(estado)}">${estado}</span></td>
             <td class="text-end">
               <button type="button" class="btn btn-sm btn-outline-primary btn-ver-pedido" data-id="${pedido.id}">Ver detalle</button>
             </td>
@@ -95,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dateStyle: "short",
       timeStyle: "short"
     });
-    document.getElementById("modal-order-status").textContent = pedido.estado || "pendiente";
+    document.getElementById("modal-order-status").value = (pedido.estado || "recibido").toLowerCase() === "pendiente" ? "recibido" : (pedido.estado || "recibido").toLowerCase();
     document.getElementById("modal-order-customer").textContent = pedido.clienteNombre || "Invitado";
     document.getElementById("modal-order-address").textContent = pedido.clienteDireccion || "—";
     document.getElementById("modal-order-phone").textContent = pedido.clienteTelefono || "—";
@@ -108,6 +141,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     bootstrapModal.show();
   }
+
+  document.addEventListener("change", (e) => {
+    if (!e.target.matches("#modal-order-status")) return;
+
+    const pedidoId = document.getElementById("modal-order-id")?.textContent;
+    if (!pedidoId) return;
+
+    actualizarEstadoPedido(pedidoId, e.target.value);
+  });
 
   if (tablaBody) {
     renderTablaPedidos();

@@ -312,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notas,
         items: carrito.map((item) => ({ ...item })),
         total: carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0),
-        estado: "pendiente",
+        estado: "recibido",
         clienteId: sesion ? sesion.id : null
       };
 

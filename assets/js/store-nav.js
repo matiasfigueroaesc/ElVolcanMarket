@@ -10,6 +10,8 @@ const STORE_NAV_ITEMS = [
   { label: "Inicio", href: "index.html" },
   { label: "Productos", href: "products.html" },
   { label: "Nosotros", href: "about.html" },
+  { label: "Zonas de despacho", href: "delivery-zones.html" },
+  { label: "Seguimiento", href: "tracking.html" },
   { label: "Blog", href: "blog.html" },
   { label: "Contacto", href: "contact.html" },
 ];

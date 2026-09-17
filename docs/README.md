@@ -13,3 +13,30 @@ instrucciones (Anexo 1, sección "Instrucciones para la entrega I").
 Copia aquí los archivos `.docx` / `.xlsx` reales del equipo a medida que se vayan
 trabajando (no se versionan como binarios pesados si el equipo prefiere usar Google
 Docs/Sheets compartidos — en ese caso, dejar un archivo `enlaces.md` con los links).
+
+## Estructura de datos de productos
+
+Cada producto del catálogo compartido usa esta forma general:
+
+- `id`
+- `codigo`
+- `nombre`
+- `precio`
+- `stock`
+- `stockCritico`
+- `categoria`
+- `unidad`
+- `imagen`
+- `descripcion`
+
+Valores válidos para `categoria`:
+
+- `Cilindros de Gas`
+- `Reguladores`
+- `Mangueras y Conexiones`
+- `Accesorios`
+
+Valores válidos para `unidad`:
+
+- `Unidad`
+- `Kit`
