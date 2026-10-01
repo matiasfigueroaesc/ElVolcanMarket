@@ -1,0 +1,189 @@
+/* ============================================
+   El Volcán Market — custom.css
+   Personalización sobre Bootstrap 5.3. Cargar
+   SIEMPRE después del CDN de Bootstrap.
+   ============================================ */
+
+/* ---------- Paleta de marca ---------- */
+/* Sobrescribir variables de Bootstrap acá, no escribir reglas nuevas
+   de color sueltas en el resto del sitio. */
+
+:root {
+  --bs-primary: #e94e1d;
+  --bs-primary-rgb: 233, 78, 29;
+  --bs-dark: #13162a;
+  --bs-dark-rgb: 19, 22, 42;
+  
+
+  /* Bordes redondeados: a diferencia del color, esta sí la heredan en
+     tiempo real botones, cards, inputs, alerts, dropdowns y modals. */
+  --bs-border-radius-sm: 0.35rem;
+  --bs-border-radius: 0.6rem;
+  --bs-border-radius-lg: 0.85rem;
+  --bs-border-radius-xl: 1.1rem;
+
+  /* Tipografía: SN Pro (cargada vía Google Fonts en el <head> de cada página) */
+  --bs-body-font-family: 'SN Pro', system-ui, -apple-system, sans-serif;
+  --bs-body-font-weight: 600; /* semibold, cuerpo de texto */
+}
+
+/* ---------- Tipografía: títulos en extra bold ---------- */
+/* --bs-body-font-family/--bs-body-font-weight arriba sí las usa Bootstrap
+   directamente en el selector body{}, pero los títulos traen su propio
+   font-weight compilado (500) que hay que sobrescribir acá. */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 800;
+}
+
+/* ---------- Componentes que Bootstrap NO recalcula solo con --bs-primary ---------- */
+/* .btn-primary, .btn-outline-primary y .nav-pills/.nav-link.active traen sus propios
+   colores "horneados" en el CSS compilado del CDN (--bs-btn-bg, etc., ya vienen en hex
+   azul). Sobrescribirlos acá para que sí reflejen el naranjo/azul de marca. */
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c64218;
+  --bs-btn-hover-border-color: #c64218;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #ae3a15;
+  --bs-btn-active-border-color: #ae3a15;
+  --bs-btn-disabled-bg: var(--bs-primary);
+  --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--bs-primary);
+  --bs-btn-hover-border-color: var(--bs-primary);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--bs-primary);
+  --bs-btn-active-border-color: var(--bs-primary);
+  --bs-btn-disabled-color: var(--bs-primary);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link,
+.navbar .nav-link.active {
+  background-color: var(--bs-primary);
+  color: #fff;
+  border-radius: var(--bs-border-radius-pill);
+}
+
+/* ---------- Navbar de store/: de barra pegada a los bordes a barra "flotante" ---------- */
+/* Mismo #store-navbar en las 11 páginas — no requiere tocar el HTML.
+   El border-bottom que trae la clase .border-bottom usa !important, así que
+   hay que anularlo explícitamente acá. */
+#store-navbar {
+  margin: 1rem 1rem 0;
+  border-bottom: 0 !important;
+  border-radius: var(--bs-border-radius-lg);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(19, 22, 42, 0.08);
+  background-color: #fde9dd !important;
+}
+
+/* ---------- Cards: efecto "levantar" + fondo de color al pasar el mouse ---------- */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 1.25rem 2rem rgba(19, 22, 42, 0.35);
+  background-color: #fbd3bb;
+}
+
+
+/* f5a177 es un tono claro: el texto se mantiene oscuro (no blanco) para
+   conservar buen contraste sobre ese fondo. */
+.card:hover .card-body,
+.card:hover .card-title,
+.card:hover .card-text,
+.card:hover p {
+  color: var(--bs-dark);
+}
+
+/* ---------- Carrusel del inicio: degradado oscuro + texto grande estilo "hero" ---------- */
+/* Sin esto el texto vive en una cajita chica en la esquina; con esto el fondo
+   se oscurece parejo y el texto flota directo sobre la imagen, como un banner
+   de landing page (referencia: gasdelcarmen.cl). */
+.carousel-item {
+  position: relative;
+}
+.carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(19, 22, 42, 0.75) 0%, rgba(19, 22, 42, 0.35) 45%, rgba(19, 22, 42, 0.05) 75%);
+  pointer-events: none;
+}
+.hero-caption {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: auto;
+  bottom: auto;
+  transform: translateY(-50%);
+  text-align: left;
+  max-width: 520px;
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-caption h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.hero-caption p {
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+/* Sin esto el texto (aunque transparente en esas zonas) igual "atrapa" el
+   clic y las flechas prev/next del carrusel dejan de responder. Se lo
+   devolvemos solo al botón, que sí debe seguir siendo clickeable. */
+.hero-caption a.btn {
+  pointer-events: auto;
+}
+
+/* ---------- Eval 2: panel admin en React ---------- */
+.admin-sidebar {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .admin-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .admin-menu {
+    flex-grow: 1;
+  }
+}
+/* Logo en blanco sobre el sidebar oscuro (no hay variante clara del SVG). */
+.admin-logo {
+  filter: brightness(0) invert(1);
+}
+/* En el admin las cards de métricas y accesos no se "levantan" tanto. */
+.admin-layout .card:hover {
+  transform: translateY(-3px);
+  background-color: var(--bs-card-bg);
+}
+.admin-layout .card.text-bg-primary:hover p,
+.admin-layout .card.text-bg-success:hover p,
+.admin-layout .card.text-bg-danger:hover p {
+  color: #fff;
+}
+/* El formulario de login no necesita el efecto hover de las cards del catálogo. */
+.login-card:hover {
+  transform: none;
+  background-color: var(--bs-card-bg);
+}
