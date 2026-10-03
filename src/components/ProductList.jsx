@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard.jsx";
 
-export default function ProductList({ productos, onAgregar }) {
+export default function ProductList({ productos, onAgregar, encabezado }) {
   if (productos.length === 0) {
     return <p className="alert alert-info">No hay productos para mostrar.</p>;
   }
@@ -8,7 +8,7 @@ export default function ProductList({ productos, onAgregar }) {
     <div className="row g-4">
       {productos.map((p) => (
         <div key={p.id} className="col-sm-6 col-lg-4">
-          <ProductCard producto={p} onAgregar={onAgregar} />
+          <ProductCard producto={p} onAgregar={onAgregar} encabezado={encabezado} /> 
         </div>
       ))}
     </div>
