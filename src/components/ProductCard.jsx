@@ -3,7 +3,8 @@ import { obtenerCategoria } from "../data/categorias.js";
 import { estaEnOferta, precioFinal } from "../data/productos.js";
 import { formatearCLP } from "../utils/formato.js";
 
-export default function ProductCard({ producto, onAgregar }) {
+export default function ProductCard({ producto, onAgregar, encabezado: Encabezado = "h2" }) {
+    
   const sinStock = producto.stock <= 0;
   const categoria = obtenerCategoria(producto.categoriaId);
 
@@ -14,7 +15,7 @@ export default function ProductCard({ producto, onAgregar }) {
         {categoria && (
           <span className="badge text-bg-light align-self-start mb-2">{categoria.nombre}</span>
         )}
-        <h2 className="h5">{producto.nombre}</h2>
+        <Encabezado className="h5">{producto.nombre}</Encabezado>
         <p className="fs-5 fw-bold mb-1">
           {estaEnOferta(producto) && (
             <del className="text-muted fs-6 me-2">{formatearCLP(producto.precio)}</del>
