@@ -2,8 +2,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import LoginForm from "../../components/LoginForm.jsx";
 
-// Versión base funcional para poder entrar al admin durante el desarrollo.
-// TODO (I3): portar diseño y validaciones de legacy-eval1/store/login.html.
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();

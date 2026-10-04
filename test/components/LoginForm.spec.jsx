@@ -42,4 +42,21 @@ describe("<LoginForm />", () => {
     expect(onLogin).not.toHaveBeenCalled();
     expect(screen.getByRole("alert")).toBeTruthy();
   });
+
+  it("muestra el error de formato de correo en tiempo real, sin llamar a onLogin", () => {
+    const onLogin = jasmine.createSpy("onLogin");
+    render(<LoginForm onLogin={onLogin} />);
+    fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "alguien@hotmail.com" } });
+    expect(screen.getByLabelText("Correo").className).toContain("is-invalid");
+
+    fireEvent.change(screen.getByLabelText("Contraseña"), { target: { value: "cliente1234" } });
+    fireEvent.click(screen.getByRole("button", { name: "Iniciar sesión" }));
+    expect(onLogin).not.toHaveBeenCalled();
+  });
+
+  it("no marca error de contraseña mientras cumple el largo permitido (4-20)", () => {
+    render(<LoginForm onLogin={() => true} />);
+    fireEvent.change(screen.getByLabelText("Contraseña"), { target: { value: "abcd" } });
+    expect(screen.getByLabelText("Contraseña").className).not.toContain("is-invalid");
+  });
 });
