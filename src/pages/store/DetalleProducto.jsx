@@ -37,7 +37,7 @@ export default function DetalleProducto() {
   }
 
   return (
-    <main className="container py-5">
+    <section className="container py-5">
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item"><Link to="/">Inicio</Link></li>
@@ -46,7 +46,7 @@ export default function DetalleProducto() {
         </ol>
       </nav>
 
-      <section className="row g-5">
+      <div className="row g-4">
         <div className="col-lg-6">
           <img src={producto.imagen} alt={producto.nombre} className="img-fluid rounded" />
         </div>
@@ -87,7 +87,7 @@ export default function DetalleProducto() {
             </div>
           )}
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

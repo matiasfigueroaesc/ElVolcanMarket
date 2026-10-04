@@ -26,9 +26,9 @@ export default function Checkout() {
     const orden = crearOrden({
       usuarioId: usuario?.id ?? null,
       cliente: {
-        nombre: datos.nombre,
-        apellidos: datos.apellidos,
-        correo: datos.correo,
+        nombre: datos.nombre.trim(),
+        apellidos: datos.apellidos.trim(),
+        correo: datos.correo.trim(),
       },
       direccion: {
         calle: datos.calle,
@@ -36,6 +36,9 @@ export default function Checkout() {
         region: datos.region,
         comuna: datos.comuna,
         indicaciones: datos.indicaciones,
+        // Atajo: crearOrden guarda "direccion" tal cual. Lo ideal es un campo "entrega"
+        // propio en la orden (requiere cambiar src/data/ordenes.js, que es de Mati).
+        entrega: datos.entrega,
       },
       items,
       estadoPago: aprobado ? "pagado" : "rechazado",

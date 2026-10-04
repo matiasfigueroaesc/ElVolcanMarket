@@ -8,7 +8,14 @@ import { obtenerProducto } from "../../src/data/productos.js";
 import { guardarSesion } from "../../src/data/usuarios.js";
 import Checkout from "../../src/pages/store/Checkout.jsx";
 
-const item = { id: 2, nombre: "Cilindro GLP 11 kg", precio: 12000, imagen: "", cantidad: 2, stock: 10 };
+const item = {
+  id: 2,
+  nombre: "Cilindro GLP 11 kg",
+  precio: 12000,
+  imagen: "/img/cilindro-5kg.png",
+  cantidad: 2,
+  stock: 10,
+};
 
 const mostrar = () =>
   render(
@@ -28,10 +35,11 @@ const mostrar = () =>
 function llenar() {
   fireEvent.change(screen.getByLabelText("Nombre"), { target: { value: "Ana" } });
   fireEvent.change(screen.getByLabelText("Apellidos"), { target: { value: "Pérez Soto" } });
-  fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@correo.cl" } });
+  fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@gmail.com" } });
   fireEvent.change(screen.getByLabelText("Calle y número"), { target: { value: "Av. Libertad 100" } });
   fireEvent.change(screen.getByLabelText("Región"), { target: { value: "nuble" } });
   fireEvent.change(screen.getByLabelText("Comuna"), { target: { value: "chillan" } });
+  fireEvent.change(screen.getByLabelText("Opción de entrega"), { target: { value: "normal" } });
 }
 
 describe("<Checkout />", () => {
@@ -48,8 +56,14 @@ describe("<Checkout />", () => {
 
   it("autocompleta el formulario con el usuario en sesión", () => {
     guardarSesion({
-      id: 3, nombre: "Camila", apellidos: "Toro Pizarro", correo: "camila.toro@gmail.com",
-      direccion: "Camino a Chillán Viejo 789", region: "nuble", comuna: "chillan-viejo", tipo: "cliente",
+      id: 3,
+      nombre: "Camila",
+      apellidos: "Toro Pizarro",
+      correo: "camila.toro@gmail.com",
+      direccion: "Camino a Chillán Viejo 789",
+      region: "nuble",
+      comuna: "chillan-viejo",
+      tipo: "cliente",
     });
     mostrar();
     expect(screen.getByLabelText("Nombre").value).toBe("Camila");
@@ -65,8 +79,10 @@ describe("<Checkout />", () => {
 
     expect(screen.getByText("pantalla exito")).toBeTruthy();
     const ordenes = listarOrdenes();
+    const ultima = ordenes[ordenes.length - 1];
     expect(ordenes.length).toBe(ordenesAntes + 1);
-    expect(ordenes[ordenes.length - 1].estadoPago).toBe("pagado");
+    expect(ultima.estadoPago).toBe("pagado");
+    expect(ultima.direccion.entrega).toBe("normal");
     expect(obtenerProducto(2).stock).toBe(stockAntes - 2);
     expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY))).toEqual([]);
   });

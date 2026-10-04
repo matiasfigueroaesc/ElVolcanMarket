@@ -4,10 +4,11 @@ import CheckoutForm from "../../src/components/CheckoutForm.jsx";
 function llenar() {
   fireEvent.change(screen.getByLabelText("Nombre"), { target: { value: "Ana" } });
   fireEvent.change(screen.getByLabelText("Apellidos"), { target: { value: "Pérez Soto" } });
-  fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@correo.cl" } });
+  fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@gmail.com" } });
   fireEvent.change(screen.getByLabelText("Calle y número"), { target: { value: "Av. Libertad 100" } });
   fireEvent.change(screen.getByLabelText("Región"), { target: { value: "nuble" } });
   fireEvent.change(screen.getByLabelText("Comuna"), { target: { value: "chillan" } });
+  fireEvent.change(screen.getByLabelText("Opción de entrega"), { target: { value: "normal" } });
 }
 
 describe("<CheckoutForm />", () => {
@@ -42,8 +43,10 @@ describe("<CheckoutForm />", () => {
     llenar();
     fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
     expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(onSubmit.calls.mostRecent().args[0].nombre).toBe("Ana");
-    expect(onSubmit.calls.mostRecent().args[0].simularRechazo).toBeFalse();
+    const datos = onSubmit.calls.mostRecent().args[0];
+    expect(datos.nombre).toBe("Ana");
+    expect(datos.entrega).toBe("normal");
+    expect(datos.simularRechazo).toBeFalse();
   });
 
   it("envía simularRechazo en true al marcar la casilla", () => {
@@ -53,5 +56,33 @@ describe("<CheckoutForm />", () => {
     fireEvent.click(screen.getByLabelText("Simular pago rechazado"));
     fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
     expect(onSubmit.calls.mostRecent().args[0].simularRechazo).toBeTrue();
+  });
+
+  it("no envía si no se elige una opción de entrega", () => {
+    const onSubmit = jasmine.createSpy("onSubmit");
+    render(<CheckoutForm onSubmit={onSubmit} />);
+    llenar();
+    fireEvent.change(screen.getByLabelText("Opción de entrega"), { target: { value: "" } });
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+    expect(screen.getByText("Selecciona una opción de entrega")).toBeTruthy();
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("acepta correos de cualquier dominio", () => {
+    const onSubmit = jasmine.createSpy("onSubmit");
+    render(<CheckoutForm onSubmit={onSubmit} />);
+    llenar();
+    fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@hotmail.com" } });
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("no envía si el correo tiene un formato inválido", () => {
+    const onSubmit = jasmine.createSpy("onSubmit");
+    render(<CheckoutForm onSubmit={onSubmit} />);
+    llenar();
+    fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@" } });
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+    expect(onSubmit).not.toHaveBeenCalled();
   });
 });

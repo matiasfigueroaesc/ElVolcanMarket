@@ -1,10 +1,10 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import Carousel from "bootstrap/js/dist/carousel";
 import { listarCategorias } from "../../data/categorias.js";
 import { listarProductos } from "../../data/productos.js";
 import { useCart } from "../../context/CartContext.jsx";
 import ProductList from "../../components/ProductList.jsx";
-import { useEffect } from "react";
-import Carousel from "bootstrap/js/dist/carousel";
 
 const BANNERS = [
   {
@@ -36,19 +36,19 @@ const BANNERS = [
 export default function Home() {
   const { agregar } = useCart();
   const destacados = listarProductos().slice(0, 6);
+  const carruselRef = useRef(null);
 
+  // Bootstrap solo inicia el avance automático al cargar la página; en React hay que iniciarlo a mano.
   useEffect(() => {
-  const instancia = Carousel.getOrCreateInstance(document.getElementById("heroCarousel"), {
-    ride: "carousel",
-  });
-  return () => instancia.dispose();
-}, []);
+    const instancia = Carousel.getOrCreateInstance(carruselRef.current, { ride: "carousel" });
+    return () => instancia.dispose();
+  }, []);
 
   return (
     <>
       <h1 className="visually-hidden">El Volcán Market — Inicio</h1>
 
-      <div id="heroCarousel" className="carousel slide">
+      <div id="heroCarousel" ref={carruselRef} className="carousel slide">
         <div className="carousel-indicators">
           {BANNERS.map((b, i) => (
             <button
@@ -71,9 +71,9 @@ export default function Home() {
                 className="d-block w-100"
                 style={{ height: 420, objectFit: "cover" }}
               />
-              <div className="carousel-caption d-none d-md-block hero-caption">
-                <h2 className="fw-bold">{b.titulo}</h2>
-                <p>{b.texto}</p>
+              <div className="carousel-caption hero-caption">
+                <h2 className="fw-bold d-none d-md-block">{b.titulo}</h2>
+                <p className="d-none d-md-block">{b.texto}</p>
                 <Link to={b.ruta} className="btn btn-primary">{b.boton}</Link>
               </div>
             </div>
