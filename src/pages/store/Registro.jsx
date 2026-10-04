@@ -13,8 +13,10 @@ export default function Registro() {
   // campos ya la hizo RegistroForm antes de llamar a onSubmit.
   function handleSubmit(valores) {
     setErrorRegistro("");
+    // passwordConfirm es solo del formulario: no debe guardarse en el usuario ni en la sesión.
+    const { passwordConfirm, ...datos } = valores;
     try {
-      registrar(valores);
+      registrar(datos);
       navigate("/");
     } catch (error) {
       setErrorRegistro(error.message);

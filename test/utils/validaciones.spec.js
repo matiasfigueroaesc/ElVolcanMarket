@@ -68,6 +68,23 @@ describe("utils/validaciones.js", () => {
     it("acepta un correo válido", () => {
       expect(validarCorreo("camila.toro@gmail.com")).toBe("");
     });
+
+    it("rechaza un correo con formato inválido aunque no se restrinja el dominio", () => {
+      expect(validarCorreo("sin-arroba")).toBe("Ingresa un correo válido.");
+      expect(validarCorreo("ana@hotmail", { restringirDominio: false })).toBe("Ingresa un correo válido.");
+    });
+
+    it("con restringirDominio false acepta cualquier dominio con formato válido", () => {
+      expect(validarCorreo("ana@correo.cl", { restringirDominio: false })).toBe("");
+    });
+
+    it("con restringirDominio false sigue exigiendo el correo", () => {
+      expect(validarCorreo("", { restringirDominio: false })).toBe("El correo es obligatorio.");
+    });
+
+    it("por defecto mantiene la restricción de dominio", () => {
+      expect(validarCorreo("ana@correo.cl")).toContain("dominio válido");
+    });
   });
 
   // --- password ------------------------------------------------------------

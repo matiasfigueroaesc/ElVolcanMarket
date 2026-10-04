@@ -98,7 +98,7 @@ export default function RegistroForm({ inicial = {}, onSubmit }) {
     <form onSubmit={enviar} noValidate>
       <div className="mb-3">
         <label htmlFor="reg-run" className="form-label">
-          Run (sin puntos ni guión, ej: 19011022K)
+          Run (sin puntos ni guión, ej: 111111111)
         </label>
         <input
           id="reg-run"
