@@ -13,7 +13,7 @@ export const ADMIN_NAV_ITEMS = [
 // En escritorio es una barra lateral fija; en celular el menú se pliega bajo un botón.
 export default function AdminSidebar({ usuario, onLogout }) {
   return (
-    <aside className="admin-sidebar bg-dark text-white p-3">
+    <aside className="admin-sidebar bg-dark text-white p-3 d-print-none">
       <div className="d-flex align-items-center justify-content-between mb-md-4">
         <Link to="/admin">
           <img src="/img/EVG_Horizontal.svg" alt="El Volcán Market" height="32" className="admin-logo" />
