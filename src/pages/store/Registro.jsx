@@ -14,7 +14,7 @@ export default function Registro() {
   function handleSubmit(valores) {
     setErrorRegistro("");
     // passwordConfirm es solo del formulario: no debe guardarse en el usuario ni en la sesión.
-    const { passwordConfirm, ...datos } = valores;
+    const { passwordConfirm: _passwordConfirm, ...datos } = valores;
     try {
       registrar(datos);
       navigate("/");
