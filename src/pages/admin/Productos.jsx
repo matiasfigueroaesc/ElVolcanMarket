@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ProductTable from "../../components/ProductTable.jsx";
 import { buscarProductos, eliminarProducto, listarProductos } from "../../data/productos.js";
 
@@ -26,7 +27,17 @@ export default function Productos() {
 
   return (
     <div>
-      <h1>Productos</h1>
+      <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 className="mb-0">Productos</h1>
+        <div className="d-flex gap-2">
+          <Link to="/admin/productos/criticos" className="btn btn-outline-danger">
+            Ver críticos
+          </Link>
+          <Link to="/admin/productos/nuevo" className="btn btn-primary">
+            Nuevo producto
+          </Link>
+        </div>
+      </div>
 
       {mensaje && (
         <div className="alert alert-success" role="status">
