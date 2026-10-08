@@ -57,20 +57,20 @@ export function validarApellidos(valor) {
 }
 
 /**
- * Correo: obligatorio y restringido a dominios @duoc.cl, @profesor.duoc.cl o
- * @gmail.com. Pasa { requerido: false } para campos de correo opcionales.
+ * Correo: obligatorio. Valida el formato y, por defecto, restringe el dominio a
+ * @duoc.cl, @profesor.duoc.cl o @gmail.com (regla heredada de Eval. 1).
+ * Opciones:
+ *  - requerido: false -> permite vacío.
+ *  - restringirDominio: false -> solo valida el formato (Checkout, donde un
+ *    invitado puede comprar con cualquier correo).
  */
-export function validarCorreo(valor, { requerido = true } = {}) {
+export function validarCorreo(valor, { requerido = true, restringirDominio = true } = {}) {
   const limpio = (valor || "").trim();
-
-  if (!limpio) {
-    return requerido ? "El correo es obligatorio." : "";
-  }
-
-  if (!esCorreoPermitido(limpio)) {
+  if (!limpio) return requerido ? "El correo es obligatorio." : "";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(limpio)) return "Ingresa un correo válido.";
+  if (restringirDominio && !esCorreoPermitido(limpio)) {
     return "El correo debe tener un dominio válido (@duoc.cl, @profesor.duoc.cl o @gmail.com).";
   }
-
   return "";
 }
 
