@@ -15,11 +15,23 @@ describe("<ProductForm />", () => {
   });
 
   it("parte con los datos del producto cuando se edita", () => {
-    const producto = { id: 9, codigo: "RG009", nombre: "Regulador X", precio: 1000, precioOferta: null, categoriaId: 2, unidad: "Unidad", stock: 3, stockCritico: 1, descripcion: "", imagen: "" };
+    const producto = {
+      id: 9,
+      codigo: "RG009",
+      nombre: "Regulador X",
+      precio: 1000,
+      precioOferta: null,
+      categoriaId: 2,
+      unidad: "Unidad",
+      stock: 3,
+      stockCritico: 1,
+      descripcion: "",
+      imagen: "",
+    };
     render(<ProductForm producto={producto} categorias={CATEGORIAS} onGuardar={() => {}} />);
     expect(screen.getByLabelText("Nombre").value).toBe("Regulador X");
     expect(screen.getByLabelText("Categoría").value).toBe("2");
-    expect(screen.getByLabelText("Precio oferta (opcional)").value).toBe("");
+    expect(screen.getByLabelText("Oferta (opcional)").value).toBe("");
   });
 
   it("actualiza el estado al escribir (input controlado)", () => {
@@ -57,7 +69,7 @@ describe("<ProductForm />", () => {
         categoriaId: 2,
         stock: 15,
         stockCritico: 3,
-      })
+      }),
     );
   });
 });

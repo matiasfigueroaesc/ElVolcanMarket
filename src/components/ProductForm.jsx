@@ -141,7 +141,7 @@ export default function ProductForm({ producto, categorias, onGuardar, textoBoto
           </Campo>
         </div>
         <div className="col-6 col-md-3">
-          <Campo id="producto-oferta" label="Precio oferta (opcional)" error={errores.precioOferta}>
+          <Campo id="producto-oferta" label="Oferta (opcional)" error={errores.precioOferta}>
             <input
               id="producto-oferta"
               name="precioOferta"

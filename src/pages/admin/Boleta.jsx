@@ -50,7 +50,9 @@ export default function Boleta() {
               <p className="text-muted mb-0">Fecha: {formatearFecha(orden.fecha)}</p>
             </div>
             <div className="text-md-end">
-              <span className={`badge ${clasePago(orden.estadoPago)} me-1`}>Pago {orden.estadoPago}</span>
+              <span className={`badge ${clasePago(orden.estadoPago)} me-1`}>
+                {orden.estadoPago === "pagado" ? "Pagado" : "Pago rechazado"}
+              </span>
               <span className={`badge ${claseEstado(orden.estado)}`}>{orden.estado}</span>
             </div>
           </div>
