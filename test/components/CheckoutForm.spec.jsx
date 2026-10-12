@@ -26,6 +26,20 @@ describe("<CheckoutForm />", () => {
     expect(onSubmit).not.toHaveBeenCalled();
   });
 
+  it("rechaza un correo mal escrito pero acepta cualquier dominio", () => {
+    const onSubmit = jasmine.createSpy("onSubmit");
+    render(<CheckoutForm onSubmit={onSubmit} />);
+    llenar();
+    fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@" } });
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+    expect(screen.getByText("Ingresa un correo válido.")).toBeTruthy();
+    expect(onSubmit).not.toHaveBeenCalled();
+
+    fireEvent.change(screen.getByLabelText("Correo"), { target: { value: "ana@hotmail.com" } });
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+    expect(onSubmit).toHaveBeenCalled();
+  });
+
   it("actualiza el estado al escribir", () => {
     render(<CheckoutForm onSubmit={() => {}} />);
     fireEvent.change(screen.getByLabelText("Nombre"), { target: { value: "Ana" } });
