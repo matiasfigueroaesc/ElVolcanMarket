@@ -4,6 +4,8 @@ import { nombreEntrega } from "../utils/entrega.js";
 
 export default function OrderSummary({ orden }) {
   const { cliente, direccion } = orden;
+  // Órdenes guardadas antes del campo propio tenían la entrega dentro de direccion.
+  const entrega = orden.entrega ?? direccion.entrega;
   return (
     <div>
       <h2 className="h5">Orden {orden.numero}</h2>
@@ -15,7 +17,7 @@ export default function OrderSummary({ orden }) {
         {direccion.departamento && `, depto ${direccion.departamento}`},{" "}
         {nombreComuna(direccion.region, direccion.comuna)}, {nombreRegion(direccion.region)}
       </p>
-      {direccion.entrega && <p>Entrega: {nombreEntrega(direccion.entrega)}</p>}
+      {entrega && <p>Entrega: {nombreEntrega(entrega)}</p>}
       <table className="table">
         <tbody>
           {orden.items.map((i) => (
