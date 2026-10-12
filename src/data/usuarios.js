@@ -76,10 +76,25 @@ export function buscarPorCorreo(correo = "") {
   return listarUsuarios().find((u) => u.correo.toLowerCase() === c) ?? null;
 }
 
-// Lanza un Error si el correo ya está registrado.
+// Deja el RUN sin puntos, guion ni espacios y con K mayúscula,
+// para que "19.123.456-1" y "191234561" se reconozcan como el mismo.
+export function normalizarRun(run = "") {
+  return run.toString().replace(/[.\s-]/g, "").toUpperCase();
+}
+
+export function buscarPorRun(run = "") {
+  const r = normalizarRun(run);
+  if (!r) return null;
+  return listarUsuarios().find((u) => normalizarRun(u.run ?? "") === r) ?? null;
+}
+
+// Lanza un Error si el correo o el RUN ya están registrados.
 export function crearUsuario(datos) {
   if (buscarPorCorreo(datos.correo)) {
     throw new Error("Ya existe un usuario con ese correo.");
+  }
+  if (datos.run && buscarPorRun(datos.run)) {
+    throw new Error("Ya existe un usuario con ese RUN.");
   }
   return repo.crear({ tipo: "cliente", ...datos });
 }

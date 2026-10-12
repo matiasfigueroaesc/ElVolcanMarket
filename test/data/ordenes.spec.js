@@ -25,6 +25,16 @@ describe("data/ordenes.js", () => {
     expect(listarOrdenes().length).toBe(ORDENES_SEED.length + 1);
   });
 
+  it("guarda la opción de entrega como campo propio de la orden", () => {
+    const base = {
+      cliente: { nombre: "Ana", apellidos: "Pérez", correo: "ana@hotmail.com" },
+      direccion: { calle: "Calle 1", region: "nuble", comuna: "chillan" },
+      items: [{ id: 1, nombre: "Cilindro 5 kg", precio: 6500, cantidad: 1, imagen: "" }],
+    };
+    expect(crearOrden({ ...base, entrega: "express" }).entrega).toBe("express");
+    expect(crearOrden(base).entrega).toBeNull();
+  });
+
   it("filtra las órdenes de un usuario", () => {
     expect(listarPorUsuario(3).length).toBe(2);
     expect(listarPorUsuario(1).length).toBe(0);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { REGIONES, comunasDe } from "../data/regiones.js";
 import { OPCIONES_ENTREGA } from "../utils/entrega.js";
+import { validarNombre, validarApellidos, validarCorreo } from "../utils/validaciones.js";
 
 const VACIO = {
   nombre: "",
@@ -15,13 +16,16 @@ const VACIO = {
   simularRechazo: false,
 };
 
-// Provisoria: cuando validaciones.js llegue a eval2, el nombre y el correo pasan a
-// validarNombre(v.nombre) y validarCorreo(v.correo, { restringirDominio: false }).
+// Nombre, apellidos y correo usan las mismas reglas que el registro (validaciones.js).
+// En el checkout el correo acepta cualquier dominio (decisión de equipo).
 function validar(v) {
   const e = {};
-  if (!v.nombre.trim()) e.nombre = "El nombre es obligatorio";
-  if (!v.apellidos.trim()) e.apellidos = "Los apellidos son obligatorios";
-  if (!/^\S+@\S+\.\S+$/.test(v.correo.trim())) e.correo = "Ingresa un correo válido";
+  const errNombre = validarNombre(v.nombre);
+  const errApellidos = validarApellidos(v.apellidos);
+  const errCorreo = validarCorreo(v.correo, { restringirDominio: false });
+  if (errNombre) e.nombre = errNombre;
+  if (errApellidos) e.apellidos = errApellidos;
+  if (errCorreo) e.correo = errCorreo;
   if (!v.calle.trim()) e.calle = "La calle es obligatoria";
   if (!v.region) e.region = "Selecciona una región";
   if (!v.comuna) e.comuna = "Selecciona una comuna";

@@ -34,9 +34,15 @@ describe("<OrderSummary />", () => {
   });
 
   it("muestra la opción de entrega elegida", () => {
-    const conEntrega = { ...orden, direccion: { ...orden.direccion, entrega: "express" } };
+    const conEntrega = { ...orden, entrega: "express" };
     render(<OrderSummary orden={conEntrega} />);
     expect(screen.getByText(/Despacho express/)).toBeTruthy();
+  });
+
+  it("lee la entrega de órdenes antiguas guardadas dentro de direccion", () => {
+    const antigua = { ...orden, direccion: { ...orden.direccion, entrega: "normal" } };
+    render(<OrderSummary orden={antigua} />);
+    expect(screen.getByText(/Entrega:/)).toBeTruthy();
   });
 
   it("no muestra la línea de entrega si la orden no la tiene", () => {

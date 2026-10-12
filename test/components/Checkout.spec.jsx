@@ -82,7 +82,7 @@ describe("<Checkout />", () => {
     const ultima = ordenes[ordenes.length - 1];
     expect(ordenes.length).toBe(ordenesAntes + 1);
     expect(ultima.estadoPago).toBe("pagado");
-    expect(ultima.direccion.entrega).toBe("normal");
+    expect(ultima.entrega).toBe("normal");
     expect(obtenerProducto(2).stock).toBe(stockAntes - 2);
     expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY))).toEqual([]);
   });

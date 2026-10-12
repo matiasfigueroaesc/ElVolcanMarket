@@ -10,6 +10,7 @@
 //   usuarioId: number | null,
 //   cliente:   { nombre, apellidos, correo },
 //   direccion: { calle, departamento, region, comuna, indicaciones },
+//   entrega:   "normal" | "express" | null   (ver src/utils/entrega.js),
 //   items:     [{ id, nombre, precio, cantidad, imagen }],
 //   total,
 //   estadoPago: "pagado" | "rechazado",
@@ -75,13 +76,14 @@ export function calcularTotal(items) {
 }
 
 // Crea la orden a partir de los datos del checkout.
-export function crearOrden({ usuarioId = null, cliente, direccion, items, estadoPago = "pagado" }) {
+export function crearOrden({ usuarioId = null, cliente, direccion, entrega = null, items, estadoPago = "pagado" }) {
   const orden = repo.crear({
     numero: "",
     fecha: new Date().toISOString(),
     usuarioId,
     cliente,
     direccion,
+    entrega,
     items: items.map(({ id, nombre, precio, cantidad, imagen }) => ({ id, nombre, precio, cantidad, imagen })),
     total: calcularTotal(items),
     estadoPago,

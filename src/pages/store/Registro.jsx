@@ -8,7 +8,7 @@ export default function Registro() {
   const navigate = useNavigate();
   const [errorRegistro, setErrorRegistro] = useState("");
 
-  // registrar() viene de AuthContext y lanza Error si el correo ya existe
+  // registrar() viene de AuthContext y lanza Error si el correo o el RUN ya existen
   // (ver src/data/usuarios.js -> crearUsuario). El resto de la validación de
   // campos ya la hizo RegistroForm antes de llamar a onSubmit.
   function handleSubmit(valores) {
