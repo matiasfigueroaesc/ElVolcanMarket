@@ -41,6 +41,25 @@ describe("<Registro />", () => {
     expect(screen.getByRole("alert").textContent).toContain("Ya existe");
   });
 
+  it("muestra un error si el RUN ya está registrado", () => {
+    renderizar();
+
+    // RUN de Camila en el seed, escrito con puntos y guion
+    fireEvent.change(screen.getByLabelText(/run/i), { target: { value: "20.567.112-9" } });
+    fireEvent.change(screen.getByLabelText(/^nombre$/i), { target: { value: "Otra" } });
+    fireEvent.change(screen.getByLabelText(/apellidos/i), { target: { value: "Persona" } });
+    fireEvent.change(screen.getByLabelText(/correo/i), { target: { value: "otra.persona@gmail.com" } });
+    fireEvent.change(screen.getByLabelText(/^contraseña$/i), { target: { value: "nueva1234" } });
+    fireEvent.change(screen.getByLabelText(/confirmar contraseña/i), { target: { value: "nueva1234" } });
+    fireEvent.change(screen.getByLabelText(/región/i), { target: { value: "nuble" } });
+    fireEvent.change(screen.getByLabelText(/comuna/i), { target: { value: "chillan" } });
+    fireEvent.change(screen.getByLabelText(/dirección/i), { target: { value: "Calle Falsa 123" } });
+
+    fireEvent.click(screen.getByRole("button", { name: "Registrarse" }));
+
+    expect(screen.getByRole("alert").textContent).toContain("RUN");
+  });
+
   it("no guarda passwordConfirm al registrar un usuario nuevo", () => {
     renderizar();
 

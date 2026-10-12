@@ -1,6 +1,7 @@
 import {
   autenticar,
   crearUsuario,
+  buscarPorRun,
   guardarSesion,
   obtenerSesion,
   cerrarSesion,
@@ -30,6 +31,18 @@ describe("data/usuarios.js", () => {
     expect(() => crearUsuario({ nombre: "X", correo: "camila.toro@gmail.com", password: "123456" })).toThrowError(
       /Ya existe/
     );
+  });
+
+  it("no permite registrar dos usuarios con el mismo RUN, aunque cambie el formato", () => {
+    expect(() =>
+      crearUsuario({ nombre: "X", run: "19.123.456-1", correo: "otro@gmail.com", password: "123456" })
+    ).toThrowError(/RUN/);
+    expect(listarUsuarios().length).toBe(3);
+  });
+
+  it("buscarPorRun ignora puntos, guion y mayúsculas de la K", () => {
+    expect(buscarPorRun("17.894.567-k").nombre).toBe("Pedro");
+    expect(buscarPorRun("")).toBeNull();
   });
 
   it("registra clientes nuevos por defecto", () => {
