@@ -139,15 +139,15 @@ Leyenda: ✔ = el archivo tiene al menos una prueba de ese tipo.
 
 ## 4. Resultado de cobertura
 
-Completar después de fusionar los PR, con el resumen que imprime `npm test` al final ("Coverage summary"):
+Resultado de `npm test` sobre `eval2` con todos los PR fusionados (13-10-2026, resumen "Coverage summary" de Karma):
 
 | Métrica | Resultado |
 | --- | --- |
-| Pruebas ejecutadas | ___ / ___ SUCCESS |
-| Statements | ___ % |
-| Branches | ___ % |
-| Functions | ___ % |
-| Lines | ___ % |
+| Pruebas ejecutadas | 329 / 329 SUCCESS |
+| Statements | 96,41 % (967/1003) |
+| Branches | 91,33 % (590/646) |
+| Functions | 96,30 % (365/379) |
+| Lines | 97,58 % (808/828) |
 
 Referencia anterior: con solo las vistas de Mati y Fabián el equipo tenía 70/70 pruebas y una cobertura de ~87–90 %.
 Captura sugerida para el informe: `coverage/html/index.html` abierto en el navegador.
