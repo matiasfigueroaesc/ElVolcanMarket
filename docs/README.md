@@ -1,42 +1,9 @@
 # Documentos de gestión del proyecto
 
-Aquí van los documentos formales que se entregan junto al código:
+Documentos formales que se entregan junto al código:
 
-- **ERS-v1.docx** → Especificación de Requisitos del Software (versión 1, parcial).
-  Usar la plantilla del Anexo 4 (estándar IEEE 830) entregada por el docente.
-- **planilla-requerimientos.xlsx** → Basada en el Anexo 2, con el ejemplo de referencia del Anexo 3.
-
-Ambos documentos se van completando durante el semestre — no es necesario que estén
-100% terminados para la Evaluación 1, pero sí "parcialmente terminados" según las
-instrucciones (Anexo 1, sección "Instrucciones para la entrega I").
-
-Copia aquí los archivos `.docx` / `.xlsx` reales del equipo a medida que se vayan
-trabajando (no se versionan como binarios pesados si el equipo prefiere usar Google
-Docs/Sheets compartidos — en ese caso, dejar un archivo `enlaces.md` con los links).
-
-## Estructura de datos de productos
-
-Cada producto del catálogo compartido usa esta forma general:
-
-- `id`
-- `codigo`
-- `nombre`
-- `precio`
-- `stock`
-- `stockCritico`
-- `categoria`
-- `unidad`
-- `imagen`
-- `descripcion`
-
-Valores válidos para `categoria`:
-
-- `Cilindros de Gas`
-- `Reguladores`
-- `Mangueras y Conexiones`
-- `Accesorios`
-
-Valores válidos para `unidad`:
-
-- `Unidad`
-- `Kit`
+- **ERS-ElVolcanMarket-v2.docx** → Especificación de Requisitos del Software, versión 2.0
+  (Evaluación 2: frontend con React, Vite y Bootstrap). Basada en el estándar IEEE 830.
+- **ERS-ElVolcanMarket-v1.docx** → Versión 1 del ERS (Evaluación 1), se conserva como historial.
+- **Planilla-Requisitos-ElVolcanMarket.xlsx** → Planilla de requerimientos basada en el Anexo 2.
+- **COBERTURA-TESTING.md** → Pruebas unitarias y resultados de cobertura.
