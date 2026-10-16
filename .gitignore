@@ -14,3 +14,9 @@ npm-debug.log
 
 repomix-output.txt
 
+
+# Vite / tests
+dist/
+coverage/
+*.local
+.karma-build/
