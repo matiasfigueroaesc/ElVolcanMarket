@@ -3,18 +3,24 @@
 // con filtro por período. Los cálculos están en utils/reportes.js (funciones puras);
 // esta página solo lee los datos, guarda los filtros en el estado y dibuja.
 import { useState } from "react";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import StatCard from "../../components/StatCard.jsx";
-import { obtenerCategoria } from "../../data/categorias.js";
+import { categoriaPorId, listarCategorias } from "../../data/categorias.js";
 import { listarOrdenes } from "../../data/ordenes.js";
-import { obtenerProducto } from "../../data/productos.js";
+import { listarProductos } from "../../data/productos.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { formatearCLP } from "../../utils/formato.js";
 import { ordenesPagadas, resumenVentas, ventasPorCategoria, ventasPorProducto } from "../../utils/reportes.js";
 
-// Nombre de la categoría de un producto vendido. La orden solo guarda el id del producto,
-// así que se busca el producto y luego su categoría. Se usa ?. porque el producto (o la
-// categoría) pudo eliminarse después de la venta.
-function categoriaDe(idProducto) {
-  return obtenerCategoria(obtenerProducto(idProducto)?.categoriaId)?.nombre ?? "Sin categoría";
+// Crea la función "nombre de la categoría de un producto vendido". La orden solo guarda el
+// id del producto, así que se busca el producto y luego su categoría en las listas que
+// llegaron del backend. Se usa ?. porque el producto (o la categoría) pudo eliminarse
+// después de la venta.
+function crearCategoriaDe(productos, categorias) {
+  return (idProducto) => {
+    const producto = productos.find((p) => p.id === idProducto);
+    return categoriaPorId(categorias, producto?.categoriaId)?.nombre ?? "Sin categoría";
+  };
 }
 
 // Porcentaje con un decimal: 0.8166 -> "81,7 %"
@@ -27,6 +33,12 @@ export default function Reportes() {
   // Estado: filtros de período ("" = sin límite).
   const [desde, setDesde] = useState("");
   const [hasta, setHasta] = useState("");
+  // Productos y categorías del backend, para agrupar las ventas por categoría.
+  const { datos, cargando, error, recargar } = useCarga(() =>
+    Promise.all([listarProductos(), listarCategorias()])
+  );
+  const [productos, categorias] = datos ?? [[], []];
+  const categoriaDe = crearCategoriaDe(productos, categorias);
 
   const rangoInvalido = desde !== "" && hasta !== "" && desde > hasta;
 
@@ -46,6 +58,7 @@ export default function Reportes() {
     <div>
       <h1>Reportes</h1>
       <p className="text-muted">Ventas de la tienda (solo órdenes con pago aprobado).</p>
+      {(cargando || error) && <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />}
 
       <div className="row g-2 align-items-end mb-3">
         <div className="col-6 col-md-3">
