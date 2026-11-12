@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import Reportes from "../../src/pages/admin/Reportes.jsx";
 import { crearOrden } from "../../src/data/ordenes.js";
-import { eliminarProducto } from "../../src/data/productos.js";
+import { instalarApiFalsa } from "../helpers/apiFalsa.js";
+import { esperarCarga } from "../helpers/esperar.js";
 
 // Valores de las 4 tarjetas: [ventas totales, órdenes, ticket promedio, unidades].
 const tarjetas = () => screen.getAllByTestId("stat-valor").map((p) => p.textContent);
@@ -9,18 +10,29 @@ const escribir = (label, valor) => fireEvent.change(screen.getByLabelText(label)
 
 describe("pages/admin/Reportes", () => {
   // Datos de fábrica: ORD-000001 (2 x Cilindro 11 kg) y ORD-000002 (Cilindro 15 kg + Regulador).
-  beforeEach(() => localStorage.clear());
+  // Las órdenes siguen en localStorage; productos y categorías vienen del backend falso.
+  let api;
+  beforeEach(() => {
+    localStorage.clear();
+    api = instalarApiFalsa();
+  });
+
+  // Monta la página y espera a que lleguen productos y categorías.
+  const mostrar = async () => {
+    render(<Reportes />);
+    await esperarCarga();
+  };
 
   // Tipo: render
-  it("muestra el resumen de ventas pagadas", () => {
-    render(<Reportes />);
+  it("muestra el resumen de ventas pagadas", async () => {
+    await mostrar();
     expect(screen.getByRole("heading", { level: 1, name: "Reportes" })).toBeTruthy();
     expect(tarjetas()).toEqual(["$48.990", "2", "$24.495", "4"]);
   });
 
   // Tipo: render (lista)
-  it("lista los más vendidos empezando por el de más unidades", () => {
-    render(<Reportes />);
+  it("lista los más vendidos empezando por el de más unidades", async () => {
+    await mostrar();
     const items = within(screen.getByRole("region", { name: "Más vendidos" })).getAllByRole("listitem");
     expect(items.length).toBe(3);
     expect(items[0].textContent).toContain("Cilindro GLP 11 kg");
@@ -28,8 +40,8 @@ describe("pages/admin/Reportes", () => {
   });
 
   // Tipo: render
-  it("agrupa las ventas por categoría con su porcentaje", () => {
-    render(<Reportes />);
+  it("agrupa las ventas por categoría con su porcentaje", async () => {
+    await mostrar();
     const tabla = within(screen.getByRole("region", { name: "Ventas por categoría" }));
     const fila = tabla.getByText("Cilindros de Gas").closest("tr");
     expect(fila.textContent).toContain("$40.000");
@@ -38,7 +50,7 @@ describe("pages/admin/Reportes", () => {
   });
 
   // Tipo: render (condicional)
-  it("no cuenta las órdenes con pago rechazado", () => {
+  it("no cuenta las órdenes con pago rechazado", async () => {
     crearOrden({
       usuarioId: 3,
       cliente: { nombre: "Camila", apellidos: "Toro", correo: "camila.toro@gmail.com" },
@@ -46,15 +58,15 @@ describe("pages/admin/Reportes", () => {
       items: [{ id: 4, nombre: "Cilindro GLP 45 kg", precio: 39990, cantidad: 1, imagen: "" }],
       estadoPago: "rechazado",
     });
-    render(<Reportes />);
+    await mostrar();
     expect(tarjetas()[0]).toBe("$48.990");
     expect(screen.queryByText("Cilindro GLP 45 kg")).toBeNull();
   });
 
   // Tipo: render (condicional, producto eliminado)
-  it("si el producto vendido ya no existe lo agrupa en 'Sin categoría'", () => {
-    eliminarProducto(5); // Regulador doméstico estándar
-    render(<Reportes />);
+  it("si el producto vendido ya no existe lo agrupa en 'Sin categoría'", async () => {
+    api.db.productos = api.db.productos.filter((p) => p.id !== 5); // Regulador doméstico estándar
+    await mostrar();
     const tabla = within(screen.getByRole("region", { name: "Ventas por categoría" }));
     expect(tabla.getByText("Sin categoría")).toBeTruthy();
     // En la tabla por producto sigue apareciendo con el nombre guardado en la orden.
@@ -63,23 +75,23 @@ describe("pages/admin/Reportes", () => {
   });
 
   // Tipo: estado + eventos
-  it("filtra por período al cambiar la fecha Desde", () => {
-    render(<Reportes />);
+  it("filtra por período al cambiar la fecha Desde", async () => {
+    await mostrar();
     escribir("Desde", "2026-09-10");
     expect(tarjetas()).toEqual(["$24.990", "1", "$24.990", "2"]);
   });
 
   // Tipo: render (condicional)
-  it("avisa si no hay ventas en el período", () => {
-    render(<Reportes />);
+  it("avisa si no hay ventas en el período", async () => {
+    await mostrar();
     escribir("Desde", "2030-01-01");
     expect(screen.getByText("No hay ventas pagadas en el período seleccionado.")).toBeTruthy();
     expect(screen.queryByRole("table")).toBeNull();
   });
 
   // Tipo: render (condicional)
-  it("avisa si la fecha Desde es posterior a Hasta", () => {
-    render(<Reportes />);
+  it("avisa si la fecha Desde es posterior a Hasta", async () => {
+    await mostrar();
     escribir("Desde", "2026-09-20");
     escribir("Hasta", "2026-09-01");
     expect(screen.getByRole("alert").textContent).toContain("no puede ser posterior");
@@ -87,8 +99,8 @@ describe("pages/admin/Reportes", () => {
   });
 
   // Tipo: eventos
-  it("el botón Limpiar filtros vuelve a mostrar todo", () => {
-    render(<Reportes />);
+  it("el botón Limpiar filtros vuelve a mostrar todo", async () => {
+    await mostrar();
     escribir("Desde", "2026-09-10");
     fireEvent.click(screen.getByRole("button", { name: "Limpiar filtros" }));
     expect(screen.getByLabelText("Desde").value).toBe("");

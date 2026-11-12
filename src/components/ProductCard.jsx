@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
-import { obtenerCategoria } from "../data/categorias.js";
 import { estaEnOferta, precioFinal } from "../data/productos.js";
 import { formatearCLP } from "../utils/formato.js";
 
-export default function ProductCard({ producto, onAgregar, encabezado: Encabezado = "h2" }) {
-    
+// "categoria" llega por props (la página ya cargó las categorías del backend una sola vez,
+// en vez de que cada tarjeta haga su propia petición).
+export default function ProductCard({ producto, categoria, onAgregar, encabezado: Encabezado = "h2" }) {
   const sinStock = producto.stock <= 0;
-  const categoria = obtenerCategoria(producto.categoriaId);
 
   return (
     <article className="card h-100 shadow-sm">

@@ -2,12 +2,31 @@ import { Link, useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext.jsx";
 import { obtenerCategoriaPorSlug } from "../../data/categorias.js";
 import { listarPorCategoria } from "../../data/productos.js";
+import { useCarga } from "../../hooks/useCarga.js";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import ProductList from "../../components/ProductList.jsx";
+
+// Primero se busca la categoría por su slug y, si existe, se piden sus productos.
+async function cargarCategoria(slug) {
+  const categoria = await obtenerCategoriaPorSlug(slug);
+  const productos = categoria ? await listarPorCategoria(categoria.id) : [];
+  return { categoria, productos };
+}
 
 export default function CategoriaDetalle() {
   const { slug } = useParams();
-  const categoria = obtenerCategoriaPorSlug(slug);
   const { agregar } = useCart();
+  const { datos, cargando, error, recargar } = useCarga(() => cargarCategoria(slug), [slug]);
+
+  if (cargando || error) {
+    return (
+      <section className="container py-5">
+        <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />
+      </section>
+    );
+  }
+
+  const { categoria, productos } = datos;
 
   if (!categoria) {
     return (
@@ -17,8 +36,6 @@ export default function CategoriaDetalle() {
       </section>
     );
   }
-
-  const productos = listarPorCategoria(categoria.id);
 
   return (
     <section className="container py-5">
@@ -33,7 +50,7 @@ export default function CategoriaDetalle() {
       <h1 className="h3">{categoria.nombre}</h1>
       <p className="text-muted mb-4">{categoria.descripcion}</p>
 
-      <ProductList productos={productos} onAgregar={(p) => agregar(p, 1)} />
+      <ProductList productos={productos} categorias={[categoria]} onAgregar={(p) => agregar(p, 1)} />
     </section>
   );
 }

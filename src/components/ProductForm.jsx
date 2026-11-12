@@ -1,7 +1,9 @@
 // Formulario de producto (crear y editar).
 // Es un formulario controlado: cada input toma su valor del estado.
 // No guarda nada: si los datos son válidos llama a onGuardar(datos)
-// y la página decide si crea o actualiza.
+// y la página decide si crea o actualiza (en el backend).
+// erroresServidor: errores por campo que devolvió el backend ({ codigo: "..." }).
+// guardando: true mientras se espera la respuesta (deshabilita el botón).
 import { useState } from "react";
 import { hayErrores, validarProducto } from "../utils/validacionesAdmin.js";
 
@@ -45,7 +47,14 @@ function Campo({ id, label, error, children }) {
   );
 }
 
-export default function ProductForm({ producto, categorias, onGuardar, textoBoton = "Guardar" }) {
+export default function ProductForm({
+  producto,
+  categorias,
+  onGuardar,
+  textoBoton = "Guardar",
+  erroresServidor = {},
+  guardando = false,
+}) {
   const [valores, setValores] = useState(() => aValores(producto));
   const [errores, setErrores] = useState({});
 
@@ -76,19 +85,21 @@ export default function ProductForm({ producto, categorias, onGuardar, textoBoto
     });
   }
 
+  // Error de un campo: primero el de la validación local y, si no hay, el del backend.
+  const errorDe = (campo) => errores[campo] || erroresServidor[campo] || "";
   // Clase de Bootstrap para pintar el input en rojo si tiene error.
-  const clase = (campo, base = "form-control") => (errores[campo] ? `${base} is-invalid` : base);
+  const clase = (campo, base = "form-control") => (errorDe(campo) ? `${base} is-invalid` : base);
 
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="row">
         <div className="col-md-4">
-          <Campo id="producto-codigo" label="Código" error={errores.codigo}>
+          <Campo id="producto-codigo" label="Código" error={errorDe("codigo")}>
             <input id="producto-codigo" name="codigo" className={clase("codigo")} value={valores.codigo} onChange={handleChange} />
           </Campo>
         </div>
         <div className="col-md-8">
-          <Campo id="producto-nombre" label="Nombre" error={errores.nombre}>
+          <Campo id="producto-nombre" label="Nombre" error={errorDe("nombre")}>
             <input id="producto-nombre" name="nombre" className={clase("nombre")} value={valores.nombre} onChange={handleChange} />
           </Campo>
         </div>
@@ -107,7 +118,7 @@ export default function ProductForm({ producto, categorias, onGuardar, textoBoto
 
       <div className="row">
         <div className="col-md-6">
-          <Campo id="producto-categoria" label="Categoría" error={errores.categoriaId}>
+          <Campo id="producto-categoria" label="Categoría" error={errorDe("categoriaId")}>
             <select
               id="producto-categoria"
               name="categoriaId"
@@ -136,12 +147,12 @@ export default function ProductForm({ producto, categorias, onGuardar, textoBoto
 
       <div className="row">
         <div className="col-6 col-md-3">
-          <Campo id="producto-precio" label="Precio" error={errores.precio}>
+          <Campo id="producto-precio" label="Precio" error={errorDe("precio")}>
             <input id="producto-precio" name="precio" type="number" min="0" className={clase("precio")} value={valores.precio} onChange={handleChange} />
           </Campo>
         </div>
         <div className="col-6 col-md-3">
-          <Campo id="producto-oferta" label="Oferta (opcional)" error={errores.precioOferta}>
+          <Campo id="producto-oferta" label="Oferta (opcional)" error={errorDe("precioOferta")}>
             <input
               id="producto-oferta"
               name="precioOferta"
@@ -154,12 +165,12 @@ export default function ProductForm({ producto, categorias, onGuardar, textoBoto
           </Campo>
         </div>
         <div className="col-6 col-md-3">
-          <Campo id="producto-stock" label="Stock" error={errores.stock}>
+          <Campo id="producto-stock" label="Stock" error={errorDe("stock")}>
             <input id="producto-stock" name="stock" type="number" min="0" className={clase("stock")} value={valores.stock} onChange={handleChange} />
           </Campo>
         </div>
         <div className="col-6 col-md-3">
-          <Campo id="producto-critico" label="Stock crítico" error={errores.stockCritico}>
+          <Campo id="producto-critico" label="Stock crítico" error={errorDe("stockCritico")}>
             <input
               id="producto-critico"
               name="stockCritico"
@@ -184,8 +195,8 @@ export default function ProductForm({ producto, categorias, onGuardar, textoBoto
         />
       </Campo>
 
-      <button type="submit" className="btn btn-primary">
-        {textoBoton}
+      <button type="submit" className="btn btn-primary" disabled={guardando}>
+        {guardando ? "Guardando..." : textoBoton}
       </button>
     </form>
   );

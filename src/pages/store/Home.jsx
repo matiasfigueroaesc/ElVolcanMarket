@@ -4,6 +4,8 @@ import Carousel from "bootstrap/js/dist/carousel";
 import { listarCategorias } from "../../data/categorias.js";
 import { listarProductos } from "../../data/productos.js";
 import { useCart } from "../../context/CartContext.jsx";
+import { useCarga } from "../../hooks/useCarga.js";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import ProductList from "../../components/ProductList.jsx";
 
 const BANNERS = [
@@ -35,7 +37,12 @@ const BANNERS = [
 
 export default function Home() {
   const { agregar } = useCart();
-  const destacados = listarProductos().slice(0, 6);
+  // Productos y categorías se piden al backend en paralelo.
+  const { datos, cargando, error, recargar } = useCarga(() =>
+    Promise.all([listarProductos(), listarCategorias()])
+  );
+  const [productos, categorias] = datos ?? [[], []];
+  const destacados = productos.slice(0, 6);
   const carruselRef = useRef(null);
 
   // Bootstrap solo inicia el avance automático al cargar la página; en React hay que iniciarlo a mano.
@@ -92,10 +99,16 @@ export default function Home() {
         </button>
       </div>
 
+      {(cargando || error) && (
+        <section className="container pt-5">
+          <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />
+        </section>
+      )}
+
       <section className="container py-5">
         <h2 className="mb-4">Categorías</h2>
         <div className="row g-4">
-          {listarCategorias().map((c) => (
+          {categorias.map((c) => (
             <div key={c.id} className="col-6 col-lg-3">
               <Link to={`/categorias/${c.slug}`} className="text-decoration-none">
                 <div className="card h-100 shadow-sm text-center">
@@ -112,11 +125,14 @@ export default function Home() {
 
       <section className="container pb-5">
         <h2 className="mb-4">Productos destacados</h2>
-        <ProductList
-          productos={destacados}
-          onAgregar={(p) => agregar(p, 1)}
-          encabezado="h3"
-        />
+        {!cargando && !error && (
+          <ProductList
+            productos={destacados}
+            categorias={categorias}
+            onAgregar={(p) => agregar(p, 1)}
+            encabezado="h3"
+          />
+        )}
       </section>
     </>
   );

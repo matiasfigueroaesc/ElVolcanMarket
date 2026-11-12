@@ -2,8 +2,11 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { AuthProvider } from "../../src/context/AuthContext.jsx";
 import { CartProvider } from "../../src/context/CartContext.jsx";
-import { listarOfertas } from "../../src/data/productos.js";
 import Ofertas from "../../src/pages/store/Ofertas.jsx";
+import { instalarApiFalsa } from "../helpers/apiFalsa.js";
+
+// En los datos de fábrica hay 3 productos en oferta (CL004, MG004 y AC003).
+const OFERTAS = 3;
 
 const mostrar = () =>
   render(
@@ -17,20 +20,34 @@ const mostrar = () =>
   );
 
 describe("<Ofertas />", () => {
-  beforeEach(() => localStorage.clear());
-
-  it("muestra un producto por cada oferta", () => {
-    mostrar();
-    expect(screen.getAllByRole("button", { name: /agregar/i }).length).toBe(listarOfertas().length);
+  let api;
+  beforeEach(() => {
+    localStorage.clear();
+    api = instalarApiFalsa();
   });
 
-  it("muestra el precio normal tachado en cada oferta", () => {
+  it("pide solo las ofertas al backend (?oferta=true)", async () => {
     mostrar();
-    expect(document.querySelectorAll("del").length).toBe(listarOfertas().length);
+    await screen.findAllByRole("button", { name: /agregar/i });
+    expect(api.db.peticiones.some((p) => p.ruta === "/productos")).toBeTrue();
+    const [url] = window.fetch.calls.all().map((c) => c.args[0]).filter((u) => u.startsWith("/api/v1/productos"));
+    expect(url).toBe("/api/v1/productos?oferta=true");
   });
 
-  it("no muestra productos que no están en oferta", () => {
+  it("muestra un producto por cada oferta", async () => {
     mostrar();
+    expect((await screen.findAllByRole("button", { name: /agregar/i })).length).toBe(OFERTAS);
+  });
+
+  it("muestra el precio normal tachado en cada oferta", async () => {
+    mostrar();
+    await screen.findAllByRole("button", { name: /agregar/i });
+    expect(document.querySelectorAll("del").length).toBe(OFERTAS);
+  });
+
+  it("no muestra productos que no están en oferta", async () => {
+    mostrar();
+    await screen.findAllByRole("button", { name: /agregar/i });
     expect(screen.queryByText("Cilindro GLP 11 kg")).toBeNull();
   });
 });

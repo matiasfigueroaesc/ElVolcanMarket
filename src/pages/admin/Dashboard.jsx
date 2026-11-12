@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import StatCard from "../../components/StatCard.jsx";
 import { ADMIN_NAV_ITEMS } from "../../components/AdminSidebar.jsx";
 import { listarOrdenes } from "../../data/ordenes.js";
 import { listarCriticos, listarProductos } from "../../data/productos.js";
 import { listarUsuarios } from "../../data/usuarios.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { formatearCLP } from "../../utils/formato.js";
 
 const DESCRIPCIONES = {
@@ -17,10 +19,13 @@ const DESCRIPCIONES = {
 };
 
 export default function Dashboard() {
+  // Las órdenes siguen en el navegador hasta que exista el servicio ventas.
   const ordenes = listarOrdenes().filter((o) => o.estadoPago === "pagado");
-  const productos = listarProductos();
-  const criticos = listarCriticos();
-  const usuarios = listarUsuarios();
+  // Productos, críticos y usuarios vienen del backend (en paralelo).
+  const { datos, cargando, error, recargar } = useCarga(() =>
+    Promise.all([listarProductos(), listarCriticos(), listarUsuarios()])
+  );
+  const [productos, criticos, usuarios] = datos ?? [[], [], []];
   const ventas = ordenes.reduce((acc, o) => acc + o.total, 0);
   const stockTotal = productos.reduce((acc, p) => acc + p.stock, 0);
 
@@ -28,6 +33,8 @@ export default function Dashboard() {
     <>
       <h1 className="h3">Dashboard</h1>
       <p className="text-muted">Resumen de la actividad de la tienda.</p>
+
+      {(cargando || error) && <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />}
 
       <section className="row g-3 mb-4" aria-label="Métricas">
         <div className="col-sm-6 col-xl-3">

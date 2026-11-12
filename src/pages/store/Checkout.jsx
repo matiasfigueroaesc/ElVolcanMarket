@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 import { crearOrden } from "../../data/ordenes.js";
-import { descontarStock } from "../../data/productos.js";
 import CheckoutForm from "../../components/CheckoutForm.jsx";
 import { formatearCLP } from "../../utils/formato.js";
 
@@ -42,8 +41,9 @@ export default function Checkout() {
       estadoPago: aprobado ? "pagado" : "rechazado",
     });
 
+    // El stock ya no se descuenta en el navegador: lo hará el backend (servicio ventas
+    // → catálogo) cuando se conecte la boleta. Mientras tanto la orden sigue siendo local.
     if (aprobado) {
-      descontarStock(items);
       vaciar();
       navigate("/pago/exito/" + orden.id);
     } else {

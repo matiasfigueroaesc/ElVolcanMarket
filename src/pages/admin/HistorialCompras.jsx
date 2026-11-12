@@ -2,14 +2,19 @@
 // Vista nueva de la Eval 2. Reutiliza OrderTable (la tabla de /admin/ordenes),
 // así cada compra muestra su estado de pago, su estado de despacho y el enlace a la boleta.
 import { Link, useParams } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import OrderTable from "../../components/OrderTable.jsx";
 import { listarPorUsuario } from "../../data/ordenes.js";
 import { obtenerUsuario } from "../../data/usuarios.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { formatearCLP } from "../../utils/formato.js";
 
 export default function HistorialCompras() {
-  const { id } = useParams(); // string: obtenerUsuario y listarPorUsuario lo convierten con Number()
-  const usuario = obtenerUsuario(id);
+  const { id } = useParams(); // string: listarPorUsuario lo convierte con Number()
+  // El usuario viene del backend; sus órdenes, del navegador (hasta que exista el servicio ventas).
+  const { datos: usuario, cargando, error, recargar } = useCarga(() => obtenerUsuario(id), [id]);
+
+  if (cargando || error) return <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />;
 
   if (!usuario) {
     return (
