@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import StoreNavbar from "../../src/components/StoreNavbar.jsx";
 import { AuthProvider } from "../../src/context/AuthContext.jsx";
 import { CartProvider, useCart } from "../../src/context/CartContext.jsx";
-import { guardarSesion } from "../../src/data/usuarios.js";
+import { instalarApiFalsa } from "../helpers/apiFalsa.js";
 
 // Botón auxiliar para agregar al carrito desde la prueba.
 function BotonAgregar() {
@@ -29,7 +29,10 @@ function renderNavbar() {
 }
 
 describe("<StoreNavbar />", () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => {
+    localStorage.clear();
+    instalarApiFalsa();
+  });
 
   it("muestra login y registro cuando no hay sesión", () => {
     renderNavbar();
@@ -37,11 +40,18 @@ describe("<StoreNavbar />", () => {
     expect(screen.queryByRole("link", { name: "Panel admin" })).toBeNull();
   });
 
-  it("muestra el acceso al panel solo a administradores", () => {
-    guardarSesion({ id: 1, nombre: "Javiera", correo: "j@x.cl", tipo: "administrador" });
+  it("muestra el acceso al panel solo a administradores (sesión recuperada del backend)", async () => {
+    instalarApiFalsa({ sesion: "admin" });
     renderNavbar();
-    expect(screen.getByText("Hola, Javiera")).toBeTruthy();
+    expect(await screen.findByText("Hola, Javiera")).toBeTruthy();
     expect(screen.getByRole("link", { name: "Panel admin" })).toBeTruthy();
+  });
+
+  it("un cliente con sesión no ve el panel", async () => {
+    instalarApiFalsa({ sesion: "cliente" });
+    renderNavbar();
+    expect(await screen.findByText("Hola, Camila")).toBeTruthy();
+    expect(screen.queryByRole("link", { name: "Panel admin" })).toBeNull();
   });
 
   it("actualiza el contador del carrito al agregar un producto", () => {

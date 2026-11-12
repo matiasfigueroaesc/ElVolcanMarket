@@ -4,9 +4,8 @@ import { AuthProvider } from "../../src/context/AuthContext.jsx";
 import { CartProvider } from "../../src/context/CartContext.jsx";
 import { CARRITO_STORAGE_KEY } from "../../src/data/carrito.js";
 import { listarOrdenes } from "../../src/data/ordenes.js";
-import { obtenerProducto } from "../../src/data/productos.js";
-import { guardarSesion } from "../../src/data/usuarios.js";
 import Checkout from "../../src/pages/store/Checkout.jsx";
+import { instalarApiFalsa } from "../helpers/apiFalsa.js";
 
 const item = {
   id: 2,
@@ -43,9 +42,11 @@ function llenar() {
 }
 
 describe("<Checkout />", () => {
+  let api;
   beforeEach(() => {
     localStorage.clear();
     localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify([item]));
+    api = instalarApiFalsa();
   });
 
   it("muestra un mensaje si el carrito está vacío", () => {
@@ -54,25 +55,17 @@ describe("<Checkout />", () => {
     expect(screen.getByText(/carrito está vacío/i)).toBeTruthy();
   });
 
-  it("autocompleta el formulario con el usuario en sesión", () => {
-    guardarSesion({
-      id: 3,
-      nombre: "Camila",
-      apellidos: "Toro Pizarro",
-      correo: "camila.toro@gmail.com",
-      direccion: "Camino a Chillán Viejo 789",
-      region: "nuble",
-      comuna: "chillan-viejo",
-      tipo: "cliente",
-    });
+  it("autocompleta el formulario con el usuario en sesión", async () => {
+    instalarApiFalsa({ sesion: "cliente" }); // Camila
     mostrar();
+    // La sesión llega del backend después de montar; el formulario se reinicia con sus datos.
+    expect((await screen.findByDisplayValue("Camila")).id).toBeTruthy();
     expect(screen.getByLabelText("Nombre").value).toBe("Camila");
     expect(screen.getByLabelText("Calle y número").value).toBe("Camino a Chillán Viejo 789");
   });
 
-  it("con pago aprobado crea la orden, descuenta stock y vacía el carrito", () => {
+  it("con pago aprobado crea la orden y vacía el carrito (el stock lo descontará el backend)", () => {
     const ordenesAntes = listarOrdenes().length;
-    const stockAntes = obtenerProducto(2).stock;
     mostrar();
     llenar();
     fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
@@ -83,13 +76,13 @@ describe("<Checkout />", () => {
     expect(ordenes.length).toBe(ordenesAntes + 1);
     expect(ultima.estadoPago).toBe("pagado");
     expect(ultima.entrega).toBe("normal");
-    expect(obtenerProducto(2).stock).toBe(stockAntes - 2);
+    // Mientras no exista el servicio ventas, el navegador no toca el stock del catálogo.
+    expect(api.db.peticiones.some((p) => p.metodo !== "GET" && p.ruta.startsWith("/productos"))).toBeFalse();
     expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY))).toEqual([]);
   });
 
   it("con pago rechazado crea la orden rechazada y conserva el carrito", () => {
     const ordenesAntes = listarOrdenes().length;
-    const stockAntes = obtenerProducto(2).stock;
     mostrar();
     llenar();
     fireEvent.click(screen.getByLabelText("Simular pago rechazado"));
@@ -99,7 +92,6 @@ describe("<Checkout />", () => {
     const ordenes = listarOrdenes();
     expect(ordenes.length).toBe(ordenesAntes + 1);
     expect(ordenes[ordenes.length - 1].estadoPago).toBe("rechazado");
-    expect(obtenerProducto(2).stock).toBe(stockAntes);
     expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY)).length).toBe(1);
   });
 });

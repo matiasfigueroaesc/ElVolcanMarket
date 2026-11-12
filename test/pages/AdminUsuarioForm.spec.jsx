@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import UsuarioForm from "../../src/pages/admin/UsuarioForm.jsx";
-import { USUARIOS_SEED, autenticar, listarUsuarios, obtenerUsuario } from "../../src/data/usuarios.js";
+import { USUARIOS_SEED, conToken, instalarApiFalsa } from "../helpers/apiFalsa.js";
 
 // Mismas rutas que App.jsx; el detalle se reemplaza por un texto para ver a dónde navega.
 const mostrar = (ruta) =>
@@ -30,55 +30,63 @@ function llenarNuevo(correo) {
 }
 
 describe("pages/admin/UsuarioForm", () => {
-  beforeEach(() => localStorage.clear());
+  let api;
+  beforeEach(() => {
+    api = instalarApiFalsa();
+    conToken("admin");
+  });
 
   // Tipo: eventos
-  it("crea un usuario nuevo y navega a su detalle", () => {
+  it("crea un usuario nuevo en el backend y navega a su detalle", async () => {
     mostrar("/admin/usuarios/nuevo");
-    expect(screen.getByRole("heading", { name: "Nuevo usuario" })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: "Nuevo usuario" })).toBeTruthy();
     llenarNuevo("ana.perez@gmail.com");
     fireEvent.click(screen.getByRole("button", { name: "Crear usuario" }));
 
-    expect(screen.getByText("Detalle mostrado")).toBeTruthy();
-    expect(listarUsuarios().length).toBe(USUARIOS_SEED.length + 1);
-    expect(obtenerUsuario(4).tipo).toBe("vendedor");
+    expect(await screen.findByText("Detalle mostrado")).toBeTruthy();
+    expect(api.db.usuarios.length).toBe(USUARIOS_SEED.length + 1);
+    expect(api.db.usuarios.find((u) => u.id === 4).tipo).toBe("vendedor");
   });
 
   // Tipo: render (condicional)
-  it("muestra un error si el correo ya existe y no crea nada", () => {
+  it("muestra el error del backend si el correo ya existe (409) y no crea nada", async () => {
     mostrar("/admin/usuarios/nuevo");
+    await screen.findByRole("heading", { name: "Nuevo usuario" });
     llenarNuevo("camila.toro@gmail.com");
     fireEvent.click(screen.getByRole("button", { name: "Crear usuario" }));
-    expect(screen.getByRole("alert").textContent).toContain("Ya existe un usuario con ese correo.");
-    expect(listarUsuarios().length).toBe(USUARIOS_SEED.length);
+    expect((await screen.findByRole("alert")).textContent).toContain("Ya existe un usuario con ese correo.");
+    expect(api.db.usuarios.length).toBe(USUARIOS_SEED.length);
   });
 
   // Tipo: eventos + props
-  it("al editar carga el usuario y guarda los cambios sin tocar la contraseña", () => {
+  it("al editar carga el usuario y guarda los cambios sin enviar contraseña", async () => {
     mostrar("/admin/usuarios/3/editar");
-    expect(screen.getByRole("heading", { name: "Editar Camila Toro Pizarro" })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: "Editar Camila Toro Pizarro" })).toBeTruthy();
     expect(screen.getByLabelText("Correo").value).toBe("camila.toro@gmail.com");
     escribir("Dirección", "Av. Collín 200");
     fireEvent.click(screen.getByRole("button", { name: "Guardar cambios" }));
 
-    expect(screen.getByText("Detalle mostrado")).toBeTruthy();
-    expect(obtenerUsuario(3).direccion).toBe("Av. Collín 200");
-    expect(listarUsuarios().length).toBe(USUARIOS_SEED.length); // no se creó uno nuevo
-    expect(autenticar("camila.toro@gmail.com", "cliente1234")).not.toBeNull(); // misma contraseña
+    expect(await screen.findByText("Detalle mostrado")).toBeTruthy();
+    const camila = api.db.usuarios.find((u) => u.id === 3);
+    expect(camila.direccion).toBe("Av. Collín 200");
+    expect(api.db.usuarios.length).toBe(USUARIOS_SEED.length); // no se creó uno nuevo
+    expect(camila.password).toBe("cliente1234"); // misma contraseña
+    expect(api.db.peticiones.find((p) => p.metodo === "PUT").cuerpo.password).toBeUndefined();
   });
 
   // Tipo: render (condicional)
-  it("al editar no permite usar el correo de otro usuario", () => {
+  it("al editar no permite usar el correo de otro usuario (409)", async () => {
     mostrar("/admin/usuarios/3/editar");
+    await screen.findByRole("heading", { name: "Editar Camila Toro Pizarro" });
     escribir("Correo", "pedro.salinas@duoc.cl");
     fireEvent.click(screen.getByRole("button", { name: "Guardar cambios" }));
-    expect(screen.getByRole("alert").textContent).toContain("Ya existe un usuario con ese correo.");
-    expect(obtenerUsuario(3).correo).toBe("camila.toro@gmail.com");
+    expect((await screen.findByRole("alert")).textContent).toContain("Ya existe un usuario con ese correo.");
+    expect(api.db.usuarios.find((u) => u.id === 3).correo).toBe("camila.toro@gmail.com");
   });
 
   // Tipo: render (condicional)
-  it("muestra un aviso si el usuario a editar no existe", () => {
+  it("muestra un aviso si el usuario a editar no existe", async () => {
     mostrar("/admin/usuarios/999/editar");
-    expect(screen.getByText(/Usuario no encontrado/)).toBeTruthy();
+    expect(await screen.findByText(/Usuario no encontrado/)).toBeTruthy();
   });
 });
