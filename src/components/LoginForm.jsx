@@ -1,7 +1,8 @@
 // Formulario de inicio de sesión (controlado).
-// Recibe onLogin(correo, password) -> boolean y muestra un error solo si falla.
+// Recibe onLogin(correo, password) -> Promise<boolean> y muestra un error solo si falla.
 // Validaciones de campo (formato) vienen de utils/validaciones.js; el error de
-// "credenciales incorrectas" lo decide onLogin (AuthContext), no este componente.
+// "credenciales incorrectas" lo decide onLogin (AuthContext + backend), no este componente.
+// Si el backend no responde, onLogin lanza un error y se muestra su mensaje.
 import { useState } from "react";
 import { validarCorreo, validarPassword } from "../utils/validaciones.js";
 
@@ -10,6 +11,8 @@ export default function LoginForm({ onLogin }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [erroresCampo, setErroresCampo] = useState({ correo: "", password: "" });
+  // true mientras se espera la respuesta del backend (evita enviar dos veces).
+  const [enviando, setEnviando] = useState(false);
 
   function cambiarCorreo(e) {
     const valor = e.target.value;
@@ -23,7 +26,7 @@ export default function LoginForm({ onLogin }) {
     setErroresCampo((prev) => ({ ...prev, password: validarPassword(valor) }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const errores = {
@@ -37,8 +40,15 @@ export default function LoginForm({ onLogin }) {
       return;
     }
 
-    const ok = onLogin(correo, password);
-    setError(ok ? "" : "Correo o contraseña incorrectos.");
+    setEnviando(true);
+    setError("");
+    try {
+      const ok = await onLogin(correo, password);
+      if (!ok) setError("Correo o contraseña incorrectos.");
+    } catch (err) {
+      setError(err.message);
+    }
+    setEnviando(false);
   }
 
   return (
@@ -78,8 +88,8 @@ export default function LoginForm({ onLogin }) {
           {error}
         </div>
       )}
-      <button type="submit" className="btn btn-primary w-100">
-        Iniciar sesión
+      <button type="submit" className="btn btn-primary w-100" disabled={enviando}>
+        {enviando ? "Ingresando..." : "Iniciar sesión"}
       </button>
     </form>
   );
