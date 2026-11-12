@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+.karma-build
+.git
+legacy-eval1
+docs
+*.log
+.env*
+!.env.example
