@@ -2,11 +2,14 @@
 // Vista nueva de la Eval 2 (en la Eval 1 solo existía el listado y el formulario).
 // Mismo esquema que ProductoDetalle: datos del registro, mensaje que llega desde el
 // formulario y acciones (editar, ver compras, eliminar).
+import { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { listarPorUsuario } from "../../data/ordenes.js";
 import { nombreComuna, nombreRegion } from "../../data/regiones.js";
 import { eliminarUsuario, obtenerUsuario } from "../../data/usuarios.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { formatearCLP } from "../../utils/formato.js";
 import { claseTipo, nombreTipo } from "../../utils/tiposUsuario.js";
 
@@ -15,12 +18,15 @@ import { claseTipo, nombreTipo } from "../../utils/tiposUsuario.js";
 const fechaCorta = (valor) => valor.split("-").reverse().join("/");
 
 export default function UsuarioDetalle() {
-  const { id } = useParams(); // string: obtenerUsuario lo convierte con Number()
+  const { id } = useParams();
   const navigate = useNavigate();
   const { usuario: actual } = useAuth();
   // Mensaje que manda UsuarioForm al guardar (si se llegó desde ahí).
   const mensaje = useLocation().state?.mensaje;
-  const usuario = obtenerUsuario(id);
+  const [errorEliminar, setErrorEliminar] = useState("");
+  const { datos: usuario, cargando, error, recargar } = useCarga(() => obtenerUsuario(id), [id]);
+
+  if (cargando || error) return <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />;
 
   if (!usuario) {
     return (
@@ -31,16 +37,22 @@ export default function UsuarioDetalle() {
   }
 
   // Resumen de compras: solo cuentan las pagadas (las rechazadas no son ventas).
+  // Las órdenes siguen en el navegador hasta que exista el servicio ventas.
   const pagadas = listarPorUsuario(usuario.id).filter((o) => o.estadoPago === "pagado");
   const totalComprado = pagadas.reduce((acc, o) => acc + o.total, 0);
   const esActual = usuario.id === actual?.id;
 
-  function handleEliminar() {
+  async function handleEliminar() {
     if (!window.confirm(`¿Eliminar a "${usuario.nombre} ${usuario.apellidos}"? Esta acción no se puede deshacer.`)) {
       return;
     }
-    eliminarUsuario(usuario.id);
-    navigate("/admin/usuarios");
+    try {
+      await eliminarUsuario(usuario.id);
+      navigate("/admin/usuarios");
+    } catch (e) {
+      // Ej.: 409 "No puedes eliminar el último administrador."
+      setErrorEliminar(e.message);
+    }
   }
 
   return (
@@ -48,6 +60,11 @@ export default function UsuarioDetalle() {
       {mensaje && (
         <div className="alert alert-success" role="status">
           {mensaje}
+        </div>
+      )}
+      {errorEliminar && (
+        <div className="alert alert-danger" role="alert">
+          {errorEliminar}
         </div>
       )}
       <p>
