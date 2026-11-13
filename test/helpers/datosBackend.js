@@ -1,4 +1,4 @@
-// Datos de fábrica del backend (los mismos de Seed.java de catalogo y usuarios).
+// Datos de fábrica del backend (los mismos de Seed.java de catalogo, usuarios, ventas y despacho).
 // Solo para las pruebas: el backend falso (apiFalsa.js) parte de estas listas.
 // Son los mismos datos que usaba el frontend en la Eval 2 (src/data/*_SEED).
 
@@ -263,4 +263,123 @@ export const USUARIOS_SEED = [
     comuna: "chillan-viejo",
     direccion: "Camino a Chillán Viejo 789"
   }
+];
+
+// ---------- Ventas y despacho ----------
+const camila = { nombre: "Camila", apellidos: "Toro Pizarro", correo: "camila.toro@gmail.com" };
+const direccionCamila = {
+  calle: "Camino a Chillán Viejo 789",
+  departamento: "",
+  region: "nuble",
+  comuna: "chillan-viejo",
+  indicaciones: "",
+};
+
+// Boletas (BoletaResponse del servicio ventas, sin "estado": ese lo agrega despacho).
+export const BOLETAS_SEED = [
+  {
+    id: 1,
+    numero: "ORD-000001",
+    fecha: "2026-09-02T14:10:00Z",
+    usuarioId: 3,
+    cliente: camila,
+    direccion: direccionCamila,
+    entrega: "normal",
+    items: [
+      { id: 2, codigo: "CL002", nombre: "Cilindro GLP 11 kg", precio: 12000, cantidad: 2, subtotal: 24000, imagen: "/img/cilindro-11kg.png" },
+    ],
+    total: 24000,
+    estadoPago: "pagado",
+  },
+  {
+    id: 2,
+    numero: "ORD-000002",
+    fecha: "2026-09-15T19:45:00Z",
+    usuarioId: 3,
+    cliente: camila,
+    direccion: direccionCamila,
+    entrega: "express",
+    items: [
+      { id: 3, codigo: "CL003", nombre: "Cilindro GLP 15 kg", precio: 16000, cantidad: 1, subtotal: 16000, imagen: "/img/cilindro-15kg.png" },
+      { id: 5, codigo: "RG001", nombre: "Regulador doméstico estándar", precio: 8990, cantidad: 1, subtotal: 8990, imagen: "/img/regulador-estandar.png" },
+    ],
+    total: 24990,
+    estadoPago: "pagado",
+  },
+];
+
+// Despachos (servicio despacho): uno por boleta pagada.
+export const DESPACHOS_SEED = [
+  {
+    boletaId: 1,
+    numero: "ORD-000001",
+    entrega: "normal",
+    zona: "Zona Oriente",
+    tiempo: "2 – 4 horas",
+    estado: "entregado",
+    historial: [
+      { estado: "recibido", fecha: "2026-09-02T14:10:00Z" },
+      { estado: "preparando", fecha: "2026-09-02T15:10:00Z" },
+      { estado: "en camino", fecha: "2026-09-02T16:10:00Z" },
+      { estado: "entregado", fecha: "2026-09-02T17:10:00Z" },
+    ],
+  },
+  {
+    boletaId: 2,
+    numero: "ORD-000002",
+    entrega: "express",
+    zona: "Zona Oriente",
+    tiempo: "2 – 4 horas",
+    estado: "en camino",
+    historial: [
+      { estado: "recibido", fecha: "2026-09-15T19:45:00Z" },
+      { estado: "preparando", fecha: "2026-09-15T20:45:00Z" },
+      { estado: "en camino", fecha: "2026-09-15T21:45:00Z" },
+    ],
+  },
+];
+
+// Zonas de despacho (las 5 de la Eval 1).
+export const ZONAS_SEED = [
+  {
+    id: "centro",
+    nombre: "Zona Centro",
+    cobertura: [{ comuna: "chillan", sector: "sectores centro, norte y sur" }],
+    dias: "Lunes a Sábado",
+    horario: "08:00 – 20:00",
+    tiempo: "1 – 3 horas",
+  },
+  {
+    id: "oriente",
+    nombre: "Zona Oriente",
+    cobertura: [{ comuna: "chillan", sector: "sector oriente" }, { comuna: "chillan-viejo" }],
+    dias: "Lunes a Viernes",
+    horario: "08:00 – 18:00",
+    tiempo: "2 – 4 horas",
+  },
+  {
+    id: "rural",
+    nombre: "Zona Rural",
+    cobertura: [{ comuna: "el-carmen" }, { comuna: "pinto" }, { comuna: "san-ignacio" }],
+    dias: "Martes y Jueves",
+    horario: "08:00 – 16:00",
+    tiempo: "3 – 6 horas",
+  },
+  {
+    id: "sur",
+    nombre: "Zona Sur",
+    cobertura: [{ comuna: "bulnes" }, { comuna: "quillon" }],
+    dias: "Miércoles",
+    horario: "08:00 – 16:00",
+    tiempo: "4 – 6 horas",
+  },
+  {
+    id: "comercial",
+    nombre: "Zona Comercial",
+    cobertura: [],
+    detalle: "Parques industriales y locales comerciales",
+    dias: "Lunes a Viernes",
+    horario: "07:00 – 17:00",
+    tiempo: "Según agenda",
+  },
 ];

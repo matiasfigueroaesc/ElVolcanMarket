@@ -33,7 +33,7 @@ function validar(v) {
   return e;
 }
 
-export default function CheckoutForm({ inicial = {}, onSubmit }) {
+export default function CheckoutForm({ inicial = {}, onSubmit, enviando = false }) {
   const [valores, setValores] = useState({ ...VACIO, ...inicial });
   const [errores, setErrores] = useState({});
 
@@ -50,7 +50,7 @@ export default function CheckoutForm({ inicial = {}, onSubmit }) {
     e.preventDefault();
     const errs = validar(valores);
     setErrores(errs);
-    if (Object.keys(errs).length === 0) onSubmit(valores);
+    if (Object.keys(errs).length === 0 && !enviando) onSubmit(valores);
   }
 
   const campo = (name, label, props = {}) => (
@@ -150,7 +150,9 @@ export default function CheckoutForm({ inicial = {}, onSubmit }) {
       </div>
 
       <div className="col-12">
-        <button type="submit" className="btn btn-success">Pagar</button>
+        <button type="submit" className="btn btn-success" disabled={enviando}>
+          {enviando ? "Procesando pago..." : "Pagar"}
+        </button>
       </div>
     </form>
   );

@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { esperarQue } from "../helpers/esperar.js";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../../src/context/AuthContext.jsx";
 import { CartProvider } from "../../src/context/CartContext.jsx";
 import { CARRITO_STORAGE_KEY } from "../../src/data/carrito.js";
-import { listarOrdenes } from "../../src/data/ordenes.js";
 import Checkout from "../../src/pages/store/Checkout.jsx";
 import { instalarApiFalsa } from "../helpers/apiFalsa.js";
 
@@ -64,34 +64,63 @@ describe("<Checkout />", () => {
     expect(screen.getByLabelText("Calle y número").value).toBe("Camino a Chillán Viejo 789");
   });
 
-  it("con pago aprobado crea la orden y vacía el carrito (el stock lo descontará el backend)", () => {
-    const ordenesAntes = listarOrdenes().length;
+  it("con pago aprobado crea la boleta en el backend y vacía el carrito", async () => {
     mostrar();
     llenar();
     fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
 
-    expect(screen.getByText("pantalla exito")).toBeTruthy();
-    const ordenes = listarOrdenes();
-    const ultima = ordenes[ordenes.length - 1];
-    expect(ordenes.length).toBe(ordenesAntes + 1);
+    expect(await screen.findByText("pantalla exito")).toBeTruthy();
+    const ultima = api.db.boletas[api.db.boletas.length - 1];
+    expect(api.db.boletas.length).toBe(3);
     expect(ultima.estadoPago).toBe("pagado");
     expect(ultima.entrega).toBe("normal");
-    // Mientras no exista el servicio ventas, el navegador no toca el stock del catálogo.
-    expect(api.db.peticiones.some((p) => p.metodo !== "GET" && p.ruta.startsWith("/productos"))).toBeFalse();
-    expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY))).toEqual([]);
+    expect(ultima.usuarioId).toBeNull(); // compra como invitado
+    // Solo viajan id y cantidad; el stock lo descuenta el backend.
+    expect(api.db.peticiones.find((p) => p.ruta === "/boletas").cuerpo.items).toEqual([{ id: 2, cantidad: 2 }]);
+    expect(api.db.productos.find((p) => p.id === 2).stock).toBe(198);
+    await esperarQue(() => JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY)).length === 0, "el carrito vacío");
   });
 
-  it("con pago rechazado crea la orden rechazada y conserva el carrito", () => {
-    const ordenesAntes = listarOrdenes().length;
+  it("con sesión la boleta queda a nombre del usuario", async () => {
+    api = instalarApiFalsa({ sesion: "cliente" });
+    mostrar();
+    await screen.findByDisplayValue("Camila");
+    fireEvent.change(screen.getByLabelText("Opción de entrega"), { target: { value: "normal" } });
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+    expect(await screen.findByText("pantalla exito")).toBeTruthy();
+    expect(api.db.boletas[2].usuarioId).toBe(3);
+  });
+
+  it("con pago rechazado crea la boleta rechazada y conserva el carrito", async () => {
     mostrar();
     llenar();
     fireEvent.click(screen.getByLabelText("Simular pago rechazado"));
     fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
 
-    expect(screen.getByText("pantalla error")).toBeTruthy();
-    const ordenes = listarOrdenes();
-    expect(ordenes.length).toBe(ordenesAntes + 1);
-    expect(ordenes[ordenes.length - 1].estadoPago).toBe("rechazado");
+    expect(await screen.findByText("pantalla error")).toBeTruthy();
+    expect(api.db.boletas[2].estadoPago).toBe("rechazado");
+    expect(api.db.productos.find((p) => p.id === 2).stock).toBe(200);
+    expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY)).length).toBe(1);
+  });
+
+  it("si no hay stock muestra el error del backend y no navega", async () => {
+    api.db.productos.find((p) => p.id === 2).stock = 1;
+    mostrar();
+    llenar();
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+
+    expect((await screen.findByRole("alert")).textContent).toContain("Stock insuficiente de Cilindro GLP 11 kg");
+    expect(screen.queryByText("pantalla exito")).toBeNull();
+    expect(screen.getByRole("button", { name: "Pagar" }).disabled).toBeFalse();
+    expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY)).length).toBe(1);
+  });
+
+  it("si el backend está apagado avisa sin perder el carrito", async () => {
+    api.db.caido = true;
+    mostrar();
+    llenar();
+    fireEvent.click(screen.getByRole("button", { name: "Pagar" }));
+    expect(await screen.findByRole("alert")).toBeTruthy();
     expect(JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY)).length).toBe(1);
   });
 });

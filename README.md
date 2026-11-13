@@ -16,7 +16,8 @@ https://github.com/matiasfigueroaesc/elvolcanmarket-backend
 | --- | --- |
 | Productos, categorías, stock | Backend — servicio `catalogo` |
 | Usuarios, login y sesión (JWT) | Backend — servicio `usuarios` |
-| Órdenes / boletas | localStorage (hasta que esté el servicio `ventas`) |
+| Órdenes / boletas (checkout, panel, reportes) | Backend — servicio `ventas` |
+| Estado del despacho, seguimiento, zonas | Backend — servicio `despacho` |
 | Carrito | localStorage (es del navegador de cada cliente) |
 
 ## Requisitos
@@ -61,8 +62,8 @@ Guía de despliegue en AWS: `elvolcanmarket-backend/docs/DESPLIEGUE_AWS.md`.
 | Cliente | camila.toro@gmail.com | cliente1234 |
 
 Los usuarios y sus contraseñas viven en el backend (con BCrypt). Para volver a los datos de
-fábrica del catálogo y los usuarios, borra la carpeta `data/` del backend y reinicia los servicios.
-Las órdenes y el carrito se reinician borrando las claves `volcan_*` de Local Storage.
+fábrica (catálogo, usuarios, boletas y despachos), borra la carpeta `data/` del backend y reinicia
+los servicios. El carrito se reinicia borrando la clave `volcan_*` del carrito en Local Storage.
 
 ## Conexión con el backend
 
@@ -86,8 +87,8 @@ Las órdenes y el carrito se reinician borrando las claves `volcan_*` de Local S
 ```
 src/
   api/         cliente.js: único punto de contacto con el backend (fetch + JWT + errores)
-  data/        Un módulo por entidad con funciones CRUD. productos, categorias y usuarios
-               llaman a la API; ordenes y carrito siguen en localStorage (storage.js).
+  data/        Un módulo por entidad. productos, categorias, usuarios, ordenes y zonas llaman
+               a la API; solo el carrito sigue en localStorage (storage.js).
   hooks/       useCarga: carga datos del backend con estados de carga y error
   context/     AuthContext (sesión) y CartContext (carrito) para toda la app
   components/  Componentes reutilizables (StoreNavbar, Footer, AdminSidebar, StatCard, LoginForm...)

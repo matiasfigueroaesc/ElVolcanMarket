@@ -1,10 +1,18 @@
-import { Link, useParams } from "react-router-dom";
-import { obtenerOrden } from "../../data/ordenes.js";
+import { Link } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
+import { useOrdenDelPago } from "../../hooks/useOrdenDelPago.js";
 import OrderSummary from "../../components/OrderSummary.jsx";
 
 export default function PagoError() {
-  const { ordenId } = useParams();
-  const orden = obtenerOrden(Number(ordenId));
+  const { datos: orden, cargando, error, recargar } = useOrdenDelPago();
+
+  if (cargando || error) {
+    return (
+      <section className="container py-5">
+        <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />
+      </section>
+    );
+  }
 
   if (!orden) {
     return (

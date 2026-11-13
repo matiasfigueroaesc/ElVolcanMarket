@@ -1,15 +1,19 @@
 // Listado de órdenes: /admin/ordenes
 import { useState } from "react";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import OrderTable from "../../components/OrderTable.jsx";
 import { ESTADOS_ORDEN, listarOrdenes } from "../../data/ordenes.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { formatearCLP } from "../../utils/formato.js";
 
 export default function Ordenes() {
-  // Las órdenes solo se leen aquí (no se eliminan), así que basta con leerlas una vez.
-  const [ordenes] = useState(() => listarOrdenes());
+  // Las órdenes vienen del servicio ventas (ya ordenadas: las más nuevas primero) con el
+  // estado de despacho que informa el servicio despacho. Los filtros se aplican aquí.
+  const { datos, cargando, error, recargar } = useCarga(() => listarOrdenes());
+  const ordenes = datos ?? [];
   const [busqueda, setBusqueda] = useState("");
   const [estado, setEstado] = useState("");
-  // Los pagos rechazados también crean una orden (el checkout la guarda para poder reintentar).
+  // Los pagos rechazados también crean una orden (el backend la guarda como "rechazado").
   // Por defecto se ocultan para que no se confundan con pedidos reales.
   const [verRechazadas, setVerRechazadas] = useState(false);
 
@@ -20,9 +24,7 @@ export default function Ordenes() {
     .filter((o) => estado === "" || o.estado === estado)
     .filter((o) =>
       `${o.numero} ${o.cliente.nombre} ${o.cliente.apellidos} ${o.cliente.correo}`.toLowerCase().includes(texto)
-    )
-    // Las más nuevas primero.
-    .sort((a, b) => b.fecha.localeCompare(a.fecha));
+    );
 
   const totalVendido = filtradas.filter((o) => o.estadoPago === "pagado").reduce((acc, o) => acc + o.total, 0);
 
@@ -73,6 +75,8 @@ export default function Ordenes() {
           </div>
         </div>
       </div>
+
+      {(cargando || error) && <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />}
 
       <p className="small">
         Mostrando {filtradas.length} orden(es) · Total vendido: <strong>{formatearCLP(totalVendido)}</strong>

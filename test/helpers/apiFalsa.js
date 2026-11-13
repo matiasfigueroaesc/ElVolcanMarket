@@ -15,9 +15,18 @@
 // del refresh: AuthProvider recupera esa sesión al montar.
 // ============================================
 import { establecerToken } from "../../src/api/cliente.js";
-import { CATEGORIAS_SEED, PRODUCTOS_SEED, USUARIOS_SEED } from "./datosBackend.js";
+import {
+  BOLETAS_SEED,
+  CATEGORIAS_SEED,
+  DESPACHOS_SEED,
+  PRODUCTOS_SEED,
+  USUARIOS_SEED,
+  ZONAS_SEED,
+} from "./datosBackend.js";
 
-export { CATEGORIAS_SEED, PRODUCTOS_SEED, USUARIOS_SEED };
+export { BOLETAS_SEED, CATEGORIAS_SEED, DESPACHOS_SEED, PRODUCTOS_SEED, USUARIOS_SEED, ZONAS_SEED };
+
+const ESTADOS = ["recibido", "preparando", "en camino", "entregado"];
 
 const CORREOS = {
   admin: "javiera.munoz@gmail.com",
@@ -44,6 +53,9 @@ export function instalarApiFalsa({ sesion = null } = {}) {
     productos: structuredClone(PRODUCTOS_SEED),
     categorias: structuredClone(CATEGORIAS_SEED),
     usuarios: structuredClone(USUARIOS_SEED),
+    boletas: structuredClone(BOLETAS_SEED),
+    despachos: structuredClone(DESPACHOS_SEED),
+    zonas: structuredClone(ZONAS_SEED),
     // "Cookie" del refresh: id del usuario con sesión, o null.
     cookieRefresh: null,
     // true = el backend está apagado (fetch falla como sin red).
@@ -222,6 +234,94 @@ export function instalarApiFalsa({ sesion = null } = {}) {
         }
       }
     }
+
+    // ---------- Ventas (boletas) ----------
+    // La boleta sale con el "estado" del despacho, como la arma el servicio ventas.
+    const conEstado = (b) => ({
+      ...b,
+      estado: db.despachos.find((d) => d.boletaId === b.id)?.estado ?? null,
+    });
+    const masNuevas = (lista) => [...lista].sort((a, b) => b.id - a.id).map(conEstado);
+
+    if (ruta === "/boletas" && metodo === "POST") {
+      if (!cuerpo.items?.length) return error(400, "Revisa los campos del formulario.", { items: "El carrito está vacío." });
+      const lineas = [];
+      for (const { id, cantidad } of cuerpo.items) {
+        const p = db.productos.find((x) => x.id === id);
+        if (!p) return error(409, "Un producto ya no está disponible.");
+        if (!cuerpo.simularRechazo && p.stock < cantidad)
+          return error(409, `Stock insuficiente de ${p.nombre} (disponible: ${p.stock}).`);
+        const precio = p.precioOferta ?? p.precio; // el precio lo fija el catálogo
+        lineas.push({ p, id, codigo: p.codigo, nombre: p.nombre, precio, cantidad, subtotal: precio * cantidad, imagen: p.imagen });
+      }
+      const pagada = !cuerpo.simularRechazo;
+      if (pagada) lineas.forEach((l) => (l.p.stock -= l.cantidad)); // todo o nada
+      const id = siguienteId(db.boletas);
+      const boleta = {
+        id,
+        numero: `ORD-${String(id).padStart(6, "0")}`,
+        fecha: new Date().toISOString(),
+        usuarioId: actual?.id ?? null,
+        cliente: cuerpo.cliente,
+        direccion: cuerpo.direccion,
+        entrega: cuerpo.entrega,
+        items: lineas.map(({ p: _p, ...l }) => l),
+        total: lineas.reduce((acc, l) => acc + l.subtotal, 0),
+        estadoPago: pagada ? "pagado" : "rechazado",
+      };
+      db.boletas.push(boleta);
+      if (pagada) {
+        db.despachos.push({
+          boletaId: id,
+          numero: boleta.numero,
+          entrega: boleta.entrega,
+          zona: null,
+          tiempo: null,
+          estado: "recibido",
+          historial: [{ estado: "recibido", fecha: boleta.fecha }],
+        });
+      }
+      return json(201, conEstado(boleta));
+    }
+    if (ruta === "/boletas" && metodo === "GET") {
+      const negado = exigir(actual, "ADMIN", "VENDEDOR");
+      if (negado) return negado;
+      let lista = db.boletas;
+      if (query.get("estadoPago")) lista = lista.filter((b) => b.estadoPago === query.get("estadoPago"));
+      if (query.get("usuarioId")) lista = lista.filter((b) => b.usuarioId === Number(query.get("usuarioId")));
+      return json(200, masNuevas(lista));
+    }
+    if (ruta === "/boletas/mias" && metodo === "GET") {
+      if (!actual) return error(401, "Debes iniciar sesión o renovar tu sesión.");
+      return json(200, masNuevas(db.boletas.filter((b) => b.usuarioId === actual.id)));
+    }
+    if ((m = ruta.match(/^\/boletas\/(\d+)$/)) && metodo === "GET") {
+      if (!actual) return error(401, "Debes iniciar sesión o renovar tu sesión.");
+      const personal = ["ADMIN", "VENDEDOR"].includes(ROL[actual.tipo]);
+      const b = db.boletas.find((x) => x.id === Number(m[1]) && (personal || x.usuarioId === actual.id));
+      return b ? json(200, conEstado(b)) : error(404, "Boleta no encontrada.");
+    }
+
+    // ---------- Despacho ----------
+    if ((m = ruta.match(/^\/despachos\/seguimiento\/(.+)$/)) && metodo === "GET") {
+      const d = db.despachos.find((x) => x.numero === decodeURIComponent(m[1]).trim().toUpperCase());
+      if (!d) return error(404, "Pedido no encontrado. Verifica el número (ej: ORD-000001).");
+      const { boletaId: _b, ...publico } = d;
+      return json(200, { ...publico, etapas: ESTADOS });
+    }
+    if ((m = ruta.match(/^\/despachos\/(\d+)\/estado$/)) && metodo === "PATCH") {
+      const negado = exigir(actual, "ADMIN");
+      if (negado) return negado;
+      const d = db.despachos.find((x) => x.boletaId === Number(m[1]));
+      if (!d) return error(404, "Despacho no encontrado.");
+      if (d.estado === "entregado") return error(409, "El pedido ya fue entregado.");
+      if (ESTADOS.indexOf(cuerpo.estado) <= ESTADOS.indexOf(d.estado))
+        return error(409, `El pedido está "${d.estado}": solo puede avanzar a una etapa siguiente.`);
+      d.estado = cuerpo.estado;
+      d.historial.push({ estado: cuerpo.estado, fecha: new Date().toISOString() });
+      return json(200, d);
+    }
+    if (ruta === "/zonas" && metodo === "GET") return json(200, db.zonas);
 
     return error(404, `Ruta no simulada: ${metodo} ${ruta}`);
   }

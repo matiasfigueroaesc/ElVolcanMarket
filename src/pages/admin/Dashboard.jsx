@@ -19,13 +19,11 @@ const DESCRIPCIONES = {
 };
 
 export default function Dashboard() {
-  // Las órdenes siguen en el navegador hasta que exista el servicio ventas.
-  const ordenes = listarOrdenes().filter((o) => o.estadoPago === "pagado");
-  // Productos, críticos y usuarios vienen del backend (en paralelo).
+  // Órdenes pagadas, productos, críticos y usuarios vienen del backend (en paralelo).
   const { datos, cargando, error, recargar } = useCarga(() =>
-    Promise.all([listarProductos(), listarCriticos(), listarUsuarios()])
+    Promise.all([listarOrdenes({ estadoPago: "pagado" }), listarProductos(), listarCriticos(), listarUsuarios()])
   );
-  const [productos, criticos, usuarios] = datos ?? [[], [], []];
+  const [ordenes, productos, criticos, usuarios] = datos ?? [[], [], [], []];
   const ventas = ordenes.reduce((acc, o) => acc + o.total, 0);
   const stockTotal = productos.reduce((acc, p) => acc + p.stock, 0);
 

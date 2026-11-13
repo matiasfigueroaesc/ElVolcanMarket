@@ -24,7 +24,12 @@ export default function UsuarioDetalle() {
   // Mensaje que manda UsuarioForm al guardar (si se llegó desde ahí).
   const mensaje = useLocation().state?.mensaje;
   const [errorEliminar, setErrorEliminar] = useState("");
-  const { datos: usuario, cargando, error, recargar } = useCarga(() => obtenerUsuario(id), [id]);
+  // El usuario (servicio usuarios) y sus compras pagadas (servicio ventas), en paralelo.
+  const { datos, cargando, error, recargar } = useCarga(
+    () => Promise.all([obtenerUsuario(id), listarPorUsuario(id)]),
+    [id]
+  );
+  const [usuario, compras] = datos ?? [null, []];
 
   if (cargando || error) return <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />;
 
@@ -37,8 +42,7 @@ export default function UsuarioDetalle() {
   }
 
   // Resumen de compras: solo cuentan las pagadas (las rechazadas no son ventas).
-  // Las órdenes siguen en el navegador hasta que exista el servicio ventas.
-  const pagadas = listarPorUsuario(usuario.id).filter((o) => o.estadoPago === "pagado");
+  const pagadas = compras.filter((o) => o.estadoPago === "pagado");
   const totalComprado = pagadas.reduce((acc, o) => acc + o.total, 0);
   const esActual = usuario.id === actual?.id;
 

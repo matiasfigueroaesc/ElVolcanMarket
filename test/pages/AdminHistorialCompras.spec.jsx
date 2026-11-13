@@ -1,8 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import HistorialCompras from "../../src/pages/admin/HistorialCompras.jsx";
-import { crearOrden } from "../../src/data/ordenes.js";
-import { conToken, instalarApiFalsa } from "../helpers/apiFalsa.js";
+import { BOLETAS_SEED, conToken, instalarApiFalsa } from "../helpers/apiFalsa.js";
 import { esperarCarga } from "../helpers/esperar.js";
 
 const mostrar = async (ruta) => {
@@ -18,22 +17,19 @@ const mostrar = async (ruta) => {
 
 const filasDeDatos = () => screen.getAllByRole("row").length - 1;
 
-// Orden de prueba (como las que crea el checkout).
+// Boleta de prueba agregada directo al backend falso (como las que crea el checkout).
+let api;
 function crear({ usuarioId, estadoPago }) {
-  return crearOrden({
-    usuarioId,
-    cliente: { nombre: "Camila", apellidos: "Toro Pizarro", correo: "camila.toro@gmail.com" },
-    direccion: { calle: "Libertad 100", departamento: "", region: "nuble", comuna: "chillan", indicaciones: "" },
-    items: [{ id: 1, nombre: "Cilindro GLP 5 kg", precio: 6500, cantidad: 1, imagen: "" }],
-    estadoPago,
-  });
+  const id = api.db.boletas.length + 1;
+  const boleta = { ...structuredClone(BOLETAS_SEED[0]), id, numero: `ORD-00000${id}`, usuarioId, estadoPago };
+  api.db.boletas.push(boleta);
+  return boleta;
 }
 
 describe("pages/admin/HistorialCompras", () => {
-  // El usuario viene del backend falso; las órdenes, de localStorage.
+  // El usuario y sus órdenes vienen del backend falso (servicios usuarios y ventas).
   beforeEach(() => {
-    localStorage.clear();
-    instalarApiFalsa();
+    api = instalarApiFalsa();
     conToken("admin");
   });
 

@@ -28,16 +28,15 @@ const porcentaje = (parte, total) =>
   `${(total ? (parte / total) * 100 : 0).toLocaleString("es-CL", { maximumFractionDigits: 1 })} %`;
 
 export default function Reportes() {
-  // Las órdenes solo se leen (no se modifican aquí): basta con leerlas una vez.
-  const [ordenes] = useState(() => listarOrdenes());
   // Estado: filtros de período ("" = sin límite).
   const [desde, setDesde] = useState("");
   const [hasta, setHasta] = useState("");
-  // Productos y categorías del backend, para agrupar las ventas por categoría.
+  // Órdenes pagadas (servicio ventas) + productos y categorías (catálogo), para agrupar
+  // las ventas por categoría. El filtro de fechas se aplica aquí, sin volver a pedirlas.
   const { datos, cargando, error, recargar } = useCarga(() =>
-    Promise.all([listarProductos(), listarCategorias()])
+    Promise.all([listarOrdenes({ estadoPago: "pagado" }), listarProductos(), listarCategorias()])
   );
-  const [productos, categorias] = datos ?? [[], []];
+  const [ordenes, productos, categorias] = datos ?? [[], [], []];
   const categoriaDe = crearCategoriaDe(productos, categorias);
 
   const rangoInvalido = desde !== "" && hasta !== "" && desde > hasta;

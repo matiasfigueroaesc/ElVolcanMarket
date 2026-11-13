@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import Reportes from "../../src/pages/admin/Reportes.jsx";
-import { crearOrden } from "../../src/data/ordenes.js";
-import { instalarApiFalsa } from "../helpers/apiFalsa.js";
+import { BOLETAS_SEED, conToken, instalarApiFalsa } from "../helpers/apiFalsa.js";
 import { esperarCarga } from "../helpers/esperar.js";
 
 // Valores de las 4 tarjetas: [ventas totales, órdenes, ticket promedio, unidades].
@@ -10,14 +9,14 @@ const escribir = (label, valor) => fireEvent.change(screen.getByLabelText(label)
 
 describe("pages/admin/Reportes", () => {
   // Datos de fábrica: ORD-000001 (2 x Cilindro 11 kg) y ORD-000002 (Cilindro 15 kg + Regulador).
-  // Las órdenes siguen en localStorage; productos y categorías vienen del backend falso.
+  // Órdenes, productos y categorías vienen del backend falso.
   let api;
   beforeEach(() => {
-    localStorage.clear();
     api = instalarApiFalsa();
+    conToken("admin");
   });
 
-  // Monta la página y espera a que lleguen productos y categorías.
+  // Monta la página y espera a que lleguen las órdenes, los productos y las categorías.
   const mostrar = async () => {
     render(<Reportes />);
     await esperarCarga();
@@ -51,11 +50,12 @@ describe("pages/admin/Reportes", () => {
 
   // Tipo: render (condicional)
   it("no cuenta las órdenes con pago rechazado", async () => {
-    crearOrden({
-      usuarioId: 3,
-      cliente: { nombre: "Camila", apellidos: "Toro", correo: "camila.toro@gmail.com" },
-      direccion: { calle: "Libertad 100", departamento: "", region: "nuble", comuna: "chillan", indicaciones: "" },
-      items: [{ id: 4, nombre: "Cilindro GLP 45 kg", precio: 39990, cantidad: 1, imagen: "" }],
+    api.db.boletas.push({
+      ...structuredClone(BOLETAS_SEED[0]),
+      id: 3,
+      numero: "ORD-000003",
+      items: [{ id: 4, codigo: "CL004", nombre: "Cilindro GLP 45 kg", precio: 39990, cantidad: 1, subtotal: 39990, imagen: "" }],
+      total: 39990,
       estadoPago: "rechazado",
     });
     await mostrar();

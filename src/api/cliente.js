@@ -142,6 +142,7 @@ export const api = {
   get: (ruta, params) => solicitar("GET", ruta, { params }),
   post: (ruta, body) => solicitar("POST", ruta, { body }),
   put: (ruta, body) => solicitar("PUT", ruta, { body }),
+  patch: (ruta, body) => solicitar("PATCH", ruta, { body }),
   delete: (ruta) => solicitar("DELETE", ruta),
   // Login, registro y logout: llevan el encabezado de sesión y no intentan renovar.
   sesion: (ruta, body) =>
