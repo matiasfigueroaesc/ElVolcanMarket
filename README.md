@@ -39,6 +39,19 @@ npm run build      # build de producción en dist/
 
 El reporte de cobertura queda en `coverage/html/index.html`.
 
+### Con Docker (como en la presentación y en AWS)
+
+El frontend se construye y se sirve con nginx (`Dockerfile`, `docker/nginx.conf`), y nginx
+reenvía `/api` y Swagger al Gateway. No se levanta desde aquí, sino desde el repo del backend,
+que debe estar clonado al lado de este:
+
+```bash
+cd ../elvolcanmarket-backend
+docker compose --profile web up -d --build     # tienda en http://localhost
+```
+
+Guía de despliegue en AWS: `elvolcanmarket-backend/docs/DESPLIEGUE_AWS.md`.
+
 ## Credenciales de prueba
 
 | Rol | Correo | Contraseña |
