@@ -39,7 +39,8 @@ export default function OrderTable({ ordenes }) {
                 <span className={`badge ${clasePago(o.estadoPago)}`}>{o.estadoPago}</span>
               </td>
               <td>
-                <span className={`badge ${claseEstado(o.estado)}`}>{o.estado}</span>
+                {/* null = pago rechazado (no se despacha) o despacho no respondió */}
+                {o.estado ? <span className={`badge ${claseEstado(o.estado)}`}>{o.estado}</span> : "—"}
               </td>
               <td>
                 <Link

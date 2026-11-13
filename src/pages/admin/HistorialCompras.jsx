@@ -11,8 +11,12 @@ import { formatearCLP } from "../../utils/formato.js";
 
 export default function HistorialCompras() {
   const { id } = useParams(); // string: listarPorUsuario lo convierte con Number()
-  // El usuario viene del backend; sus órdenes, del navegador (hasta que exista el servicio ventas).
-  const { datos: usuario, cargando, error, recargar } = useCarga(() => obtenerUsuario(id), [id]);
+  // El usuario viene del servicio usuarios y sus órdenes del servicio ventas (en paralelo).
+  const { datos, cargando, error, recargar } = useCarga(
+    () => Promise.all([obtenerUsuario(id), listarPorUsuario(id)]),
+    [id]
+  );
+  const [usuario, ordenes] = datos ?? [null, []];
 
   if (cargando || error) return <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />;
 
@@ -25,9 +29,8 @@ export default function HistorialCompras() {
   }
 
   // Todas las órdenes del usuario, incluidas las de pago rechazado (la tabla muestra el estado
-  // de pago de cada una). Las más nuevas primero. Las compras como invitado (usuarioId null)
-  // no quedan asociadas a ninguna cuenta, por eso no aparecen aquí.
-  const ordenes = listarPorUsuario(usuario.id).sort((a, b) => b.fecha.localeCompare(a.fecha));
+  // de pago de cada una). Las más nuevas primero (así las entrega el backend). Las compras
+  // como invitado (usuarioId null) no quedan asociadas a ninguna cuenta, por eso no aparecen.
   const pagadas = ordenes.filter((o) => o.estadoPago === "pagado");
   const rechazadas = ordenes.length - pagadas.length;
   const totalComprado = pagadas.reduce((acc, o) => acc + o.total, 0);
