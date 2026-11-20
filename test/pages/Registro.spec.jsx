@@ -1,7 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { esperarQue } from "../helpers/esperar.js";
 import { MemoryRouter } from "react-router-dom";
 import { AuthProvider } from "../../src/context/AuthContext.jsx";
 import Registro from "../../src/pages/store/Registro.jsx";
+import { instalarApiFalsa } from "../helpers/apiFalsa.js";
 
 function renderizar() {
   return render(
@@ -14,7 +16,11 @@ function renderizar() {
 }
 
 describe("<Registro />", () => {
-  beforeEach(() => localStorage.clear());
+  let api;
+  beforeEach(() => {
+    localStorage.clear();
+    api = instalarApiFalsa();
+  });
 
   it("muestra el formulario de registro", () => {
     renderizar();
@@ -22,7 +28,7 @@ describe("<Registro />", () => {
     expect(screen.getByRole("button", { name: "Registrarse" })).toBeTruthy();
   });
 
-  it("muestra un error si el correo ya está registrado", () => {
+  it("muestra el error del backend si el correo ya está registrado (409)", async () => {
     renderizar();
 
     fireEvent.change(screen.getByLabelText(/run/i), { target: { value: "111111111" } });
@@ -38,10 +44,10 @@ describe("<Registro />", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Registrarse" }));
 
-    expect(screen.getByRole("alert").textContent).toContain("Ya existe");
+    expect((await screen.findByRole("alert")).textContent).toContain("Ya existe un usuario con ese correo.");
   });
 
-  it("muestra un error si el RUN ya está registrado", () => {
+  it("muestra el error del backend si el RUN ya está registrado, aunque tenga puntos y guion", async () => {
     renderizar();
 
     // RUN de Camila en el seed, escrito con puntos y guion
@@ -57,10 +63,10 @@ describe("<Registro />", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Registrarse" }));
 
-    expect(screen.getByRole("alert").textContent).toContain("RUN");
+    expect((await screen.findByRole("alert")).textContent).toContain("RUN");
   });
 
-  it("no guarda passwordConfirm al registrar un usuario nuevo", () => {
+  it("registra al cliente en el backend sin enviar passwordConfirm y deja la sesión iniciada", async () => {
     renderizar();
 
     fireEvent.change(screen.getByLabelText(/run/i), { target: { value: "111111111" } });
@@ -75,8 +81,12 @@ describe("<Registro />", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Registrarse" }));
 
-    const guardado = Object.keys(localStorage).map((k) => localStorage.getItem(k)).join("|");
-    expect(guardado).toContain("ana.nueva@gmail.com");
-    expect(guardado).not.toContain("passwordConfirm");
+    await esperarQue(() => api.db.cookieRefresh === 4); // registro + login automático
+    const registro = api.db.peticiones.find((p) => p.ruta === "/auth/registro");
+    expect(registro.cuerpo.correo).toBe("ana.nueva@gmail.com");
+    expect("passwordConfirm" in registro.cuerpo).toBeFalse();
+    expect(api.db.usuarios.find((u) => u.id === 4).tipo).toBe("cliente");
+    // Nada del usuario queda en localStorage (ni la contraseña).
+    expect(Object.values({ ...localStorage }).join("|")).not.toContain("nueva1234");
   });
 });

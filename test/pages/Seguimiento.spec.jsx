@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Seguimiento from "../../src/pages/store/Seguimiento.jsx";
-import { crearOrden } from "../../src/data/ordenes.js";
+import { instalarApiFalsa } from "../helpers/apiFalsa.js";
 
 const mostrar = () =>
   render(
@@ -17,8 +17,11 @@ function buscar(numero) {
 }
 
 describe("pages/store/Seguimiento", () => {
-  // Cada prueba parte con las órdenes de fábrica (ORD-000001 y ORD-000002 de Camila).
-  beforeEach(() => localStorage.clear());
+  // Cada prueba parte con los despachos de fábrica (ORD-000001 entregado, ORD-000002 en camino).
+  let api;
+  beforeEach(() => {
+    api = instalarApiFalsa();
+  });
 
   // Tipo: render
   it("muestra el buscador y todavía no muestra ningún pedido", () => {
@@ -38,65 +41,72 @@ describe("pages/store/Seguimiento", () => {
   });
 
   // Tipo: eventos
-  it("al buscar un pedido existente muestra su resumen", () => {
+  it("al buscar un pedido existente lo consulta al servicio despacho", async () => {
     mostrar();
     buscar("ORD-000002");
-    expect(screen.getByRole("heading", { name: "Orden ORD-000002" })).toBeTruthy();
-    expect(screen.getByText("Regulador doméstico estándar")).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: "Pedido ORD-000002" })).toBeTruthy();
+    expect(api.db.peticiones.some((p) => p.ruta === "/despachos/seguimiento/ORD-000002")).toBeTrue();
+    expect(screen.getByText(/Despacho express · Zona Oriente/)).toBeTruthy();
+  });
+
+  // Tipo: render (sin datos personales: el seguimiento es público)
+  it("no muestra los datos del comprador ni los productos", async () => {
+    mostrar();
+    buscar("ORD-000002");
+    await screen.findByRole("heading", { name: "Pedido ORD-000002" });
+    expect(screen.queryByText(/Camila/)).toBeNull();
+    expect(screen.queryByText("Regulador doméstico estándar")).toBeNull();
   });
 
   // Tipo: eventos
-  it("encuentra el pedido aunque se escriba en minúsculas y con espacios", () => {
+  it("encuentra el pedido aunque se escriba en minúsculas y con espacios", async () => {
     mostrar();
     buscar("  ord-000001 ");
-    expect(screen.getByRole("heading", { name: "Orden ORD-000001" })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: "Pedido ORD-000001" })).toBeTruthy();
   });
 
   // Tipo: render (condicional)
-  it("marca la etapa actual del despacho en la línea de tiempo", () => {
+  it("marca la etapa actual del despacho y muestra el historial", async () => {
     mostrar();
     buscar("ORD-000002"); // está "en camino"
-    expect(screen.getByText("En camino").getAttribute("aria-current")).toBe("step");
-    expect(screen.getByText("Recibido").className).toContain("text-bg-primary");
-    expect(screen.getByText("Entregado").className).toContain("text-bg-secondary");
+    const actual = await screen.findByText("En camino", { selector: "span" });
+    expect(actual.getAttribute("aria-current")).toBe("step");
+    expect(screen.getByText("Recibido", { selector: "span" }).className).toContain("text-bg-primary");
+    expect(screen.getByText("Entregado", { selector: "span" }).className).toContain("text-bg-secondary");
+    expect(screen.getByRole("heading", { name: "Historial" })).toBeTruthy();
   });
 
   // Tipo: render (condicional)
-  it("muestra un error si el pedido no existe", () => {
+  it("muestra un error si el pedido no existe (o su pago fue rechazado)", async () => {
     mostrar();
     buscar("ORD-999999");
-    expect(screen.getByRole("alert").textContent).toContain("Pedido no encontrado");
+    expect((await screen.findByRole("alert")).textContent).toContain("Pedido no encontrado");
     expect(screen.queryByLabelText("Estado del pedido")).toBeNull();
   });
 
   // Tipo: render (condicional)
-  it("pide el número si se busca con el campo vacío", () => {
+  it("pide el número si se busca con el campo vacío, sin llamar al backend", () => {
     mostrar();
     buscar("   ");
     expect(screen.getByRole("alert").textContent).toBe("Ingresa el número de tu pedido.");
+    expect(api.db.peticiones.length).toBe(0);
   });
 
   // Tipo: render (condicional)
-  it("en un pago rechazado avisa que no se despacha y no muestra la línea de tiempo", () => {
-    const orden = crearOrden({
-      cliente: { nombre: "Ana", apellidos: "Soto", correo: "ana@gmail.com" },
-      direccion: { calle: "Libertad 100", departamento: "", region: "nuble", comuna: "chillan", indicaciones: "" },
-      items: [{ id: 1, nombre: "Cilindro GLP 5 kg", precio: 6500, cantidad: 1, imagen: "" }],
-      estadoPago: "rechazado",
-    });
+  it("avisa si el backend no responde", async () => {
+    api.db.caido = true;
     mostrar();
-    buscar(orden.numero);
-    expect(screen.getByRole("alert").textContent).toContain("rechazado");
-    expect(screen.queryByLabelText("Estado del pedido")).toBeNull();
+    buscar("ORD-000001");
+    expect(await screen.findByRole("alert")).toBeTruthy();
   });
 
   // Tipo: estado
-  it("una búsqueda fallida borra el pedido que se mostraba antes", () => {
+  it("una búsqueda fallida borra el pedido que se mostraba antes", async () => {
     mostrar();
     buscar("ORD-000001");
-    expect(screen.getByRole("heading", { name: "Orden ORD-000001" })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: "Pedido ORD-000001" })).toBeTruthy();
     buscar("ORD-123456");
-    expect(screen.queryByRole("heading", { name: "Orden ORD-000001" })).toBeNull();
-    expect(screen.getByRole("alert")).toBeTruthy();
+    expect(await screen.findByRole("alert")).toBeTruthy();
+    expect(screen.queryByRole("heading", { name: "Pedido ORD-000001" })).toBeNull();
   });
 });

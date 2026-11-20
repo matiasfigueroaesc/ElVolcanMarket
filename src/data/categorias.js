@@ -1,59 +1,29 @@
 // ============================================
 // El Volcán Market — categorias.js
-// Categorías del catálogo. Antes (Eval 1) eran solo un texto
-// dentro de cada producto; ahora son una entidad propia para
-// poder administrarlas (CRUD en /admin/categorias) y navegar
-// la tienda por categoría (/categorias/:slug).
+// Categorías del catálogo. Desde la Eval 3 vienen del microservicio catalogo:
+// /api/v1/categorias. Mismos nombres de funciones que en la Eval 2, ahora
+// asíncronas. El backend genera el slug y no permite nombres repetidos ni
+// eliminar una categoría con productos.
+//
+// Categoría: { id, nombre, slug, descripcion, imagen }
 // ============================================
-import { crearRepositorio } from "./storage.js";
+import { api, nuloSi404 } from "../api/cliente.js";
 
-export const CATEGORIAS_STORAGE_KEY = "volcan_categories";
+export const listarCategorias = () => api.get("/categorias");
+export const obtenerCategoria = (id) => nuloSi404(api.get(`/categorias/${Number(id)}`));
+export const obtenerCategoriaPorSlug = (slug) =>
+  nuloSi404(api.get(`/categorias/slug/${encodeURIComponent(slug)}`));
+export const crearCategoria = (datos) => api.post("/categorias", datos);
+export const actualizarCategoria = (id, datos) => api.put(`/categorias/${Number(id)}`, datos);
+export const eliminarCategoria = (id) => api.delete(`/categorias/${Number(id)}`);
 
-export const CATEGORIAS_SEED = [
-  {
-    id: 1,
-    nombre: "Cilindros de Gas",
-    slug: "cilindros",
-    descripcion: "Cilindros de gas licuado de 5, 11, 15 y 45 kg.",
-    imagen: "/img/cilindro-11kg.png",
-  },
-  {
-    id: 2,
-    nombre: "Reguladores",
-    slug: "reguladores",
-    descripcion: "Reguladores de presión para uso doméstico e industrial.",
-    imagen: "/img/regulador-estandar.png",
-  },
-  {
-    id: 3,
-    nombre: "Mangueras y Conexiones",
-    slug: "mangueras-conexiones",
-    descripcion: "Mangueras homologadas, abrazaderas y kits de conexión.",
-    imagen: "/img/kit-conexion.png",
-  },
-  {
-    id: 4,
-    nombre: "Accesorios",
-    slug: "accesorios",
-    descripcion: "Carros, tapas protectoras y detectores de gas.",
-    imagen: "/img/detector-gas.png",
-  },
-];
-
-const repo = crearRepositorio(CATEGORIAS_STORAGE_KEY, CATEGORIAS_SEED);
-
-export const listarCategorias = () => repo.listar();
-export const obtenerCategoria = (id) => repo.obtenerPorId(id);
-export const crearCategoria = (datos) => repo.crear({ ...datos, slug: datos.slug || slugify(datos.nombre) });
-export const actualizarCategoria = (id, cambios) => repo.actualizar(id, cambios);
-export const eliminarCategoria = (id) => repo.eliminar(id);
-export const reiniciarCategorias = () => repo.reiniciar();
-
-export function obtenerCategoriaPorSlug(slug) {
-  return listarCategorias().find((c) => c.slug === slug) ?? null;
+// Busca una categoría en una lista ya cargada (para mostrar su nombre en una tarjeta o tabla).
+export function categoriaPorId(categorias = [], id) {
+  return categorias.find((c) => c.id === Number(id)) ?? null;
 }
 
 // "Mangueras y Conexiones" -> "mangueras-y-conexiones"
+// Solo para mostrar la URL en el formulario: el slug real lo calcula el backend.
 export function slugify(texto = "") {
   return texto
     .toLowerCase()

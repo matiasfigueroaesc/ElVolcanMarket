@@ -4,17 +4,19 @@
 // UserTable solo dibuja.
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import UserTable from "../../components/UserTable.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { TIPOS_USUARIO, eliminarUsuario, listarUsuarios } from "../../data/usuarios.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { nombreTipo } from "../../utils/tiposUsuario.js";
 
 export default function Usuarios() {
   // Admin con sesión iniciada (para no dejar que se elimine a sí mismo).
   const { usuario: actual } = useAuth();
 
-  // Estado: la lista de usuarios (cambia al eliminar).
-  const [usuarios, setUsuarios] = useState(() => listarUsuarios());
+  // Datos: la lista de usuarios viene del backend (solo ADMIN). recargar() la vuelve a pedir.
+  const { datos: usuarios, cargando, error, recargar } = useCarga(() => listarUsuarios());
   // Estado: filtros.
   const [busqueda, setBusqueda] = useState("");
   const [tipo, setTipo] = useState("");
@@ -23,20 +25,24 @@ export default function Usuarios() {
 
   // Valor derivado: se recalcula en cada render a partir de los filtros.
   const texto = busqueda.trim().toLowerCase();
-  const filtrados = usuarios
+  const filtrados = (usuarios ?? [])
     .filter((u) => tipo === "" || u.tipo === tipo)
     .filter((u) => `${u.run} ${u.nombre} ${u.apellidos} ${u.correo}`.toLowerCase().includes(texto));
 
-  function handleEliminar(u) {
+  async function handleEliminar(u) {
     // Segunda barrera (el botón ya viene deshabilitado en la tabla).
     if (u.id === actual?.id) {
       setAviso({ tipo: "danger", texto: "No puedes eliminar tu propia cuenta." });
       return;
     }
     if (!window.confirm(`¿Eliminar a "${u.nombre} ${u.apellidos}"? Esta acción no se puede deshacer.`)) return;
-    eliminarUsuario(u.id); // 1) lo borra de los datos guardados
-    setUsuarios(listarUsuarios()); // 2) actualiza el estado -> React vuelve a dibujar
-    setAviso({ tipo: "success", texto: `Usuario "${u.nombre} ${u.apellidos}" eliminado.` });
+    try {
+      await eliminarUsuario(u.id); // 1) lo borra en el backend (409 si es el último admin)
+      recargar(); // 2) se vuelve a pedir la lista -> React vuelve a dibujar
+      setAviso({ tipo: "success", texto: `Usuario "${u.nombre} ${u.apellidos}" eliminado.` });
+    } catch (e) {
+      setAviso({ tipo: "danger", texto: e.message });
+    }
   }
 
   return (
@@ -83,9 +89,14 @@ export default function Usuarios() {
         </div>
       </div>
 
-      <p className="small">Mostrando {filtrados.length} usuario(s)</p>
-
-      <UserTable usuarios={filtrados} onEliminar={handleEliminar} idActual={actual?.id ?? null} />
+      {usuarios === null ? (
+        <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />
+      ) : (
+        <>
+          <p className="small">Mostrando {filtrados.length} usuario(s)</p>
+          <UserTable usuarios={filtrados} onEliminar={handleEliminar} idActual={actual?.id ?? null} />
+        </>
+      )}
     </div>
   );
 }

@@ -3,14 +3,33 @@ import { Link, useParams } from "react-router-dom";
 import { obtenerCategoria } from "../../data/categorias.js";
 import { estaEnOferta, obtenerProducto, precioFinal } from "../../data/productos.js";
 import { useCart } from "../../context/CartContext.jsx";
+import { useCarga } from "../../hooks/useCarga.js";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import { formatearCLP } from "../../utils/formato.js";
+
+// El producto y luego su categoría (null si no existe).
+async function cargarProducto(id) {
+  const producto = await obtenerProducto(id);
+  const categoria = producto?.categoriaId ? await obtenerCategoria(producto.categoriaId) : null;
+  return { producto, categoria };
+}
 
 export default function DetalleProducto() {
   const { id } = useParams();
-  const producto = obtenerProducto(Number(id));
   const { agregar } = useCart();
   const [cantidad, setCantidad] = useState(1);
   const [agregado, setAgregado] = useState(false);
+  const { datos, cargando, error, recargar } = useCarga(() => cargarProducto(id), [id]);
+
+  if (cargando || error) {
+    return (
+      <section className="container py-5">
+        <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />
+      </section>
+    );
+  }
+
+  const { producto, categoria } = datos;
 
   if (!producto) {
     return (
@@ -21,7 +40,6 @@ export default function DetalleProducto() {
     );
   }
 
-  const categoria = obtenerCategoria(producto.categoriaId);
   const sinStock = producto.stock <= 0;
 
   function cambiarCantidad(e) {

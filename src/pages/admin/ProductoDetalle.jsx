@@ -1,15 +1,30 @@
 // Detalle de un producto en el panel: /admin/productos/:id
+import { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import { obtenerCategoria } from "../../data/categorias.js";
 import { eliminarProducto, estaEnOferta, obtenerProducto } from "../../data/productos.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { formatearCLP } from "../../utils/formato.js";
+
+// El producto y luego su categoría (null si no existe).
+async function cargarProducto(id) {
+  const producto = await obtenerProducto(id);
+  const categoria = producto?.categoriaId ? await obtenerCategoria(producto.categoriaId) : null;
+  return { producto, categoria };
+}
 
 export default function ProductoDetalle() {
   const { id } = useParams();
   const navigate = useNavigate();
   // Mensaje que manda ProductoForm al guardar (si se llegó desde ahí).
   const mensaje = useLocation().state?.mensaje;
-  const producto = obtenerProducto(id);
+  const [errorEliminar, setErrorEliminar] = useState("");
+  const { datos, cargando, error, recargar } = useCarga(() => cargarProducto(id), [id]);
+
+  if (cargando || error) return <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />;
+
+  const { producto, categoria } = datos;
 
   if (!producto) {
     return (
@@ -19,13 +34,16 @@ export default function ProductoDetalle() {
     );
   }
 
-  const categoria = obtenerCategoria(producto.categoriaId);
   const critico = producto.stock <= producto.stockCritico;
 
-  function handleEliminar() {
+  async function handleEliminar() {
     if (!window.confirm(`¿Eliminar "${producto.nombre}"?`)) return;
-    eliminarProducto(producto.id);
-    navigate("/admin/productos");
+    try {
+      await eliminarProducto(producto.id);
+      navigate("/admin/productos");
+    } catch (e) {
+      setErrorEliminar(e.message);
+    }
   }
 
   return (
@@ -33,6 +51,11 @@ export default function ProductoDetalle() {
       {mensaje && (
         <div className="alert alert-success" role="status">
           {mensaje}
+        </div>
+      )}
+      {errorEliminar && (
+        <div className="alert alert-danger" role="alert">
+          {errorEliminar}
         </div>
       )}
       <p>

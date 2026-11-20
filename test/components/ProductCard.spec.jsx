@@ -25,6 +25,11 @@ describe("<ProductCard />", () => {
     expect(onAgregar).toHaveBeenCalledWith(producto);
   });
 
+  it("muestra el nombre de la categoría que recibe por props", () => {
+    mostrar(<ProductCard producto={producto} categoria={{ id: 1, nombre: "Cilindros de Gas" }} onAgregar={() => {}} />);
+    expect(screen.getByText("Cilindros de Gas").className).toContain("badge");
+  });
+
   it("deshabilita el botón cuando no hay stock", () => {
     mostrar(<ProductCard producto={{ ...producto, stock: 0 }} onAgregar={() => {}} />);
     const boton = screen.getByRole("button", { name: /sin stock/i });

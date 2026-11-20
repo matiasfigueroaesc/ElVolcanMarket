@@ -1,43 +1,52 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import ZonasDespacho from "../../src/pages/store/ZonasDespacho.jsx";
-import { ZONAS_DESPACHO } from "../../src/utils/zonasDespacho.js";
+import { ZONAS_SEED, instalarApiFalsa } from "../helpers/apiFalsa.js";
+import { esperarCarga } from "../helpers/esperar.js";
 
-const mostrar = () =>
+// Monta la página y espera a que lleguen las zonas del servicio despacho.
+const mostrar = async () => {
   render(
     <MemoryRouter>
       <ZonasDespacho />
     </MemoryRouter>
   );
+  await esperarCarga();
+};
 
 // Filas de datos de la tabla (sin contar el encabezado).
 const filasDeDatos = () => within(screen.getByRole("table")).getAllByRole("row").length - 1;
 
 describe("pages/store/ZonasDespacho", () => {
+  let api;
+  beforeEach(() => {
+    api = instalarApiFalsa();
+  });
+
   // Tipo: render (lista)
-  it("renderiza una fila por cada zona de despacho", () => {
-    mostrar();
+  it("renderiza una fila por cada zona de despacho", async () => {
+    await mostrar();
     expect(screen.getByRole("heading", { level: 1, name: "Zonas de despacho" })).toBeTruthy();
-    expect(filasDeDatos()).toBe(ZONAS_DESPACHO.length);
+    expect(filasDeDatos()).toBe(ZONAS_SEED.length);
   });
 
   // Tipo: render
-  it("muestra las comunas con su nombre y no con el value guardado", () => {
-    mostrar();
+  it("muestra las comunas con su nombre y no con el value guardado", async () => {
+    await mostrar();
     const fila = screen.getByText("Zona Oriente").closest("tr");
     expect(within(fila).getByText("Chillán (sector oriente), Chillán Viejo")).toBeTruthy();
     expect(screen.queryByText(/chillan-viejo/)).toBeNull();
   });
 
   // Tipo: render (condicional)
-  it("no muestra resultado hasta que se elige una comuna", () => {
-    mostrar();
+  it("no muestra resultado hasta que se elige una comuna", async () => {
+    await mostrar();
     expect(screen.queryByRole("status")).toBeNull();
   });
 
   // Tipo: eventos + estado
-  it("al elegir una comuna muestra las zonas que llegan a ella", () => {
-    mostrar();
+  it("al elegir una comuna muestra las zonas que llegan a ella", async () => {
+    await mostrar();
     fireEvent.change(screen.getByLabelText("Comuna"), { target: { value: "bulnes" } });
     const resultado = screen.getByRole("status");
     expect(resultado.textContent).toContain("Bulnes");
@@ -46,15 +55,34 @@ describe("pages/store/ZonasDespacho", () => {
   });
 
   // Tipo: eventos + estado
-  it("Chillán aparece en dos zonas", () => {
-    mostrar();
+  it("Chillán aparece en dos zonas", async () => {
+    await mostrar();
     fireEvent.change(screen.getByLabelText("Comuna"), { target: { value: "chillan" } });
     expect(within(screen.getByRole("status")).getAllByRole("listitem").length).toBe(2);
   });
 
+  // Tipo: render (condicional)
+  it("avisa si la comuna no tiene cobertura", async () => {
+    api.db.zonas = api.db.zonas.filter((z) => z.id !== "sur");
+    await mostrar();
+    fireEvent.change(screen.getByLabelText("Comuna"), { target: { value: "bulnes" } });
+    expect(screen.getByRole("status").textContent).toContain("no despachamos a Bulnes");
+  });
+
+  // Tipo: render (condicional)
+  it("muestra el error si el backend no responde", async () => {
+    api.db.caido = true;
+    render(
+      <MemoryRouter>
+        <ZonasDespacho />
+      </MemoryRouter>
+    );
+    expect(await screen.findByRole("button", { name: "Reintentar" })).toBeTruthy();
+  });
+
   // Tipo: props / navegación
-  it("enlaza al seguimiento de pedidos", () => {
-    mostrar();
+  it("enlaza al seguimiento de pedidos", async () => {
+    await mostrar();
     expect(screen.getByRole("link", { name: "Revisa en qué etapa va" }).getAttribute("href")).toBe("/seguimiento");
   });
 });

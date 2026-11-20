@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import ProductosCriticos from "../../src/pages/admin/ProductosCriticos.jsx";
-import { actualizarProducto, obtenerProducto } from "../../src/data/productos.js";
+import { conToken, instalarApiFalsa } from "../helpers/apiFalsa.js";
 
 const mostrar = () =>
   render(
@@ -11,32 +11,43 @@ const mostrar = () =>
   );
 
 describe("pages/admin/ProductosCriticos", () => {
-  beforeEach(() => localStorage.clear());
+  let api;
+  beforeEach(() => {
+    api = instalarApiFalsa();
+    conToken("admin");
+  });
 
-  it("lista solo los productos con stock crítico", () => {
+  it("lista solo los productos con stock crítico que calcula el backend", async () => {
     mostrar();
     // En los datos de fábrica solo el detector (stock 4, crítico 5) está crítico.
-    expect(screen.getByText("Detector de gas a batería")).toBeTruthy();
+    expect(await screen.findByText("Detector de gas a batería")).toBeTruthy();
     expect(screen.queryByText("Cilindro GLP 11 kg")).toBeNull();
+    expect(api.db.peticiones[0].ruta).toBe("/productos/criticos");
   });
 
-  it("incluye un producto apenas su stock baja al crítico", () => {
-    actualizarProducto(2, { stock: 10 }); // crítico del 11 kg = 10
+  it("incluye un producto apenas su stock baja al crítico", async () => {
+    api.db.productos.find((p) => p.id === 2).stock = 10; // crítico del 11 kg = 10
     mostrar();
-    expect(screen.getByText("Cilindro GLP 11 kg")).toBeTruthy();
+    expect(await screen.findByText("Cilindro GLP 11 kg")).toBeTruthy();
   });
 
-  it("muestra el aviso de tabla vacía si no hay críticos", () => {
-    actualizarProducto(14, { stock: 50 });
+  it("muestra el aviso de tabla vacía si no hay críticos", async () => {
+    api.db.productos.find((p) => p.id === 14).stock = 50;
     mostrar();
-    expect(screen.getByText("No hay productos que mostrar.")).toBeTruthy();
+    expect(await screen.findByText("No hay productos que mostrar.")).toBeTruthy();
   });
 
-  it("elimina desde la lista y la actualiza", () => {
+  it("elimina desde la lista y la vuelve a pedir", async () => {
     spyOn(window, "confirm").and.returnValue(true);
     mostrar();
-    fireEvent.click(screen.getByRole("button", { name: "Eliminar Detector de gas a batería" }));
-    expect(obtenerProducto(14)).toBeNull();
-    expect(screen.getByText("No hay productos que mostrar.")).toBeTruthy();
+    fireEvent.click(await screen.findByRole("button", { name: "Eliminar Detector de gas a batería" }));
+    expect(await screen.findByText("No hay productos que mostrar.")).toBeTruthy();
+    expect(api.db.productos.find((p) => p.id === 14)).toBeUndefined();
+  });
+
+  it("sin permisos muestra el error del backend (403)", async () => {
+    conToken("cliente");
+    mostrar();
+    expect((await screen.findByRole("alert")).textContent).toContain("No tienes permisos");
   });
 });

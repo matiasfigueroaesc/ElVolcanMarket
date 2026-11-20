@@ -7,8 +7,9 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  function handleLogin(correo, password) {
-    const ok = login(correo, password);
+  // login() consulta al backend: devuelve true/false (o lanza si el servidor no responde).
+  async function handleLogin(correo, password) {
+    const ok = await login(correo, password);
     if (ok) navigate(location.state?.desde ?? "/");
     return ok;
   }

@@ -1,18 +1,30 @@
 // Perfil del administrador conectado: /admin/perfil
-// Vista nueva de la Eval 2. Reutiliza UserForm (el mismo formulario y las mismas
-// validaciones de crear/editar usuario), pero sin el tipo de usuario: el admin no
-// puede cambiar su propio rol desde aquí.
+// Reutiliza UserForm (el mismo formulario y las mismas validaciones de crear/editar
+// usuario), pero sin el tipo de usuario: el admin no puede cambiar su propio rol desde aquí.
+// Los datos se leen con GET /auth/me y se guardan con PUT /usuarios/{id} en el backend.
 import { useState } from "react";
+import { textoError } from "../../api/cliente.js";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import UserForm from "../../components/UserForm.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { actualizarUsuario, buscarPorCorreo, guardarSesion, obtenerUsuario } from "../../data/usuarios.js";
+import { actualizarUsuario, obtenerMiUsuario } from "../../data/usuarios.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { claseTipo, nombreTipo } from "../../utils/tiposUsuario.js";
 
 export default function Perfil() {
-  // La sesión no guarda la contraseña (datosPublicos), por eso se lee el usuario completo.
-  const { usuario: sesion } = useAuth();
+  const { actualizarUsuarioSesion } = useAuth();
+  const carga = useCarga(() => obtenerMiUsuario());
+
+  if (carga.cargando || carga.error) {
+    return <EstadoCarga cargando={carga.cargando} error={carga.error} onReintentar={carga.recargar} />;
+  }
+
+  return <FormularioPerfil inicial={carga.datos} onGuardado={actualizarUsuarioSesion} />;
+}
+
+function FormularioPerfil({ inicial, onGuardado }) {
   // Estado: datos del usuario (cambian al guardar, y la tarjeta se vuelve a dibujar).
-  const [usuario, setUsuario] = useState(() => obtenerUsuario(sesion?.id));
+  const [usuario, setUsuario] = useState(inicial);
   // Estado: resultado del guardado.
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
@@ -20,30 +32,21 @@ export default function Perfil() {
   // y que el campo de contraseña quede vacío otra vez.
   const [guardados, setGuardados] = useState(0);
 
-  if (!usuario) {
-    return (
-      <div className="alert alert-warning" role="status">
-        No se encontró tu usuario. Cierra sesión y vuelve a ingresar.
-      </div>
-    );
-  }
-
-  function handleGuardar(datos) {
+  async function handleGuardar(datos) {
     setMensaje("");
-    // Mismo control que en UsuarioForm: el correo no puede ser de otra cuenta.
-    const duenoCorreo = buscarPorCorreo(datos.correo);
-    if (duenoCorreo && duenoCorreo.id !== usuario.id) {
-      setError("Ya existe un usuario con ese correo.");
-      return;
-    }
     setError("");
-    const actualizado = actualizarUsuario(usuario.id, datos);
-    // Se actualiza también la sesión guardada (sin contraseña: guardarSesion usa datosPublicos)
-    // para que al recargar la página se vean los datos nuevos.
-    guardarSesion(actualizado);
-    setUsuario(actualizado);
-    setGuardados((n) => n + 1);
-    setMensaje("Perfil actualizado.");
+    try {
+      // El formulario no muestra el tipo, pero el backend lo pide: se envía el actual.
+      const actualizado = await actualizarUsuario(usuario.id, { ...datos, tipo: usuario.tipo });
+      // Se actualiza también la sesión, para que el menú muestre los datos nuevos.
+      onGuardado(actualizado);
+      setUsuario(actualizado);
+      setGuardados((n) => n + 1);
+      setMensaje("Perfil actualizado.");
+    } catch (e) {
+      // Ej.: 409 "Ya existe un usuario con ese correo."
+      setError(textoError(e));
+    }
   }
 
   return (

@@ -1,18 +1,23 @@
 // Zonas de despacho: /zonas-despacho
 // Migrado de legacy-eval1/store/delivery-zones.html.
-// La tabla se arma desde el arreglo ZONAS_DESPACHO (utils/zonasDespacho.js) con .map(),
+// Las zonas vienen del servicio despacho (GET /api/v1/zonas). La tabla se arma con .map(),
 // y se agrega un selector para que el cliente revise si llegamos a su comuna.
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import { comunasDe, nombreComuna, nombreRegion } from "../../data/regiones.js";
-import { REGION_DESPACHO, ZONAS_DESPACHO, textoCobertura, zonasDeComuna } from "../../utils/zonasDespacho.js";
+import { listarZonas } from "../../data/zonas.js";
+import { useCarga } from "../../hooks/useCarga.js";
+import { REGION_DESPACHO, textoCobertura, zonasDeComuna } from "../../utils/zonasDespacho.js";
 
 export default function ZonasDespacho() {
   // Estado: comuna elegida en el selector ("" = todavía no elige).
   const [comuna, setComuna] = useState("");
+  const { datos, cargando, error, recargar } = useCarga(() => listarZonas());
+  const zonas = datos ?? [];
 
   // Valor derivado: se recalcula en cada render a partir de la comuna elegida.
-  const zonasDeLaComuna = comuna ? zonasDeComuna(comuna) : [];
+  const zonasDeLaComuna = comuna ? zonasDeComuna(zonas, comuna) : [];
 
   return (
     <section className="container py-5">
@@ -38,7 +43,13 @@ export default function ZonasDespacho() {
           </select>
 
           {/* Renderizado condicional: el resultado aparece solo después de elegir una comuna. */}
-          {comuna && (
+          {comuna && !cargando && !error && zonasDeLaComuna.length === 0 && (
+            <div className="alert alert-warning mt-3 mb-0" role="status">
+              Por ahora no despachamos a <strong>{nombreComuna(REGION_DESPACHO, comuna)}</strong>.{" "}
+              <Link to="/contacto">Escríbenos</Link> y te avisamos cuando lleguemos.
+            </div>
+          )}
+          {zonasDeLaComuna.length > 0 && (
             <div className="alert alert-success mt-3 mb-0" role="status">
               <p className="mb-1">
                 Sí, despachamos a <strong>{nombreComuna(REGION_DESPACHO, comuna)}</strong>:
@@ -55,6 +66,8 @@ export default function ZonasDespacho() {
         </div>
       </div>
 
+      {(cargando || error) && <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />}
+
       <div className="table-responsive">
         <table className="table table-striped align-middle">
           <thead className="table-dark">
@@ -67,7 +80,7 @@ export default function ZonasDespacho() {
             </tr>
           </thead>
           <tbody>
-            {ZONAS_DESPACHO.map((z) => (
+            {zonas.map((z) => (
               <tr key={z.id}>
                 <td className="fw-semibold">{z.nombre}</td>
                 <td>{textoCobertura(z)}</td>

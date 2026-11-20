@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { esperarQue } from "../helpers/esperar.js";
 import LoginForm from "../../src/components/LoginForm.jsx";
 
 describe("<LoginForm />", () => {
@@ -19,20 +20,38 @@ describe("<LoginForm />", () => {
     expect(screen.getByLabelText("Contraseña").value).toBe("cliente1234");
   });
 
-  it("llama a onLogin con correo y contraseña al enviar", () => {
-    const onLogin = jasmine.createSpy("onLogin").and.returnValue(true);
+  it("llama a onLogin con correo y contraseña al enviar", async () => {
+    const onLogin = jasmine.createSpy("onLogin").and.resolveTo(true);
     render(<LoginForm onLogin={onLogin} />);
     llenar("camila.toro@gmail.com", "cliente1234");
     fireEvent.click(screen.getByRole("button", { name: "Iniciar sesión" }));
     expect(onLogin).toHaveBeenCalledWith("camila.toro@gmail.com", "cliente1234");
+    await esperarQue(() => !screen.getByRole("button").disabled);
     expect(screen.queryByRole("alert")).toBeNull();
   });
 
-  it("muestra error solo cuando las credenciales son inválidas", () => {
-    render(<LoginForm onLogin={() => false} />);
+  it("muestra error solo cuando las credenciales son inválidas", async () => {
+    render(<LoginForm onLogin={async () => false} />);
     llenar("camila.toro@gmail.com", "mala");
     fireEvent.click(screen.getByRole("button", { name: "Iniciar sesión" }));
-    expect(screen.getByRole("alert").textContent).toContain("incorrectos");
+    expect((await screen.findByRole("alert")).textContent).toContain("incorrectos");
+  });
+
+  it("deshabilita el botón mientras espera al backend", async () => {
+    let responder;
+    render(<LoginForm onLogin={() => new Promise((r) => (responder = r))} />);
+    llenar("camila.toro@gmail.com", "cliente1234");
+    fireEvent.click(screen.getByRole("button", { name: "Iniciar sesión" }));
+    expect(screen.getByRole("button", { name: "Ingresando..." }).disabled).toBeTrue();
+    responder(true);
+    await esperarQue(() => screen.queryByRole("button", { name: "Iniciar sesión" })?.disabled === false);
+  });
+
+  it("si el backend no responde muestra el mensaje del error", async () => {
+    render(<LoginForm onLogin={() => Promise.reject(new Error("No se pudo conectar con el servidor."))} />);
+    llenar("camila.toro@gmail.com", "cliente1234");
+    fireEvent.click(screen.getByRole("button", { name: "Iniciar sesión" }));
+    expect((await screen.findByRole("alert")).textContent).toBe("No se pudo conectar con el servidor.");
   });
 
   it("no llama a onLogin si faltan datos", () => {

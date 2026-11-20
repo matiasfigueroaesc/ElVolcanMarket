@@ -1,28 +1,34 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import ProductTable from "../../components/ProductTable.jsx";
 import { buscarProductos, eliminarProducto, listarProductos } from "../../data/productos.js";
+import { useCarga } from "../../hooks/useCarga.js";
 
 export default function Productos() {
-  // Estado: la lista de productos. Es estado porque cambia al eliminar.
-  // La función dentro de useState se ejecuta solo la primera vez.
-  const [productos, setProductos] = useState(() => listarProductos());
+  // Datos: la lista de productos viene del backend. recargar() la vuelve a pedir
+  // (por ejemplo, después de eliminar).
+  const { datos: productos, cargando, error, recargar } = useCarga(() => listarProductos());
 
   // Estado: lo que el usuario escribió en el buscador.
   const [busqueda, setBusqueda] = useState("");
 
-  // Estado: mensaje de confirmación después de eliminar.
-  const [mensaje, setMensaje] = useState("");
+  // Estado: mensaje de resultado { tipo: "success" | "danger", texto }.
+  const [aviso, setAviso] = useState(null);
 
   // Se recalcula en cada render a partir de la búsqueda (no necesita su propio estado).
-  const filtrados = buscarProductos(busqueda, productos);
+  const filtrados = buscarProductos(busqueda, productos ?? []);
 
   // La tabla llama a esta función con el producto clickeado.
-  function handleEliminar(producto) {
+  async function handleEliminar(producto) {
     if (!window.confirm(`¿Eliminar "${producto.nombre}"?`)) return;
-    eliminarProducto(producto.id); // 1) lo borra de los datos guardados
-    setProductos(listarProductos()); // 2) actualiza el estado -> React vuelve a dibujar
-    setMensaje(`Producto "${producto.nombre}" eliminado.`);
+    try {
+      await eliminarProducto(producto.id); // 1) lo borra en el backend
+      recargar(); // 2) se vuelve a pedir la lista -> React vuelve a dibujar
+      setAviso({ tipo: "success", texto: `Producto "${producto.nombre}" eliminado.` });
+    } catch (e) {
+      setAviso({ tipo: "danger", texto: e.message });
+    }
   }
 
   return (
@@ -39,9 +45,9 @@ export default function Productos() {
         </div>
       </div>
 
-      {mensaje && (
-        <div className="alert alert-success" role="status">
-          {mensaje}
+      {aviso && (
+        <div className={`alert alert-${aviso.tipo}`} role="status">
+          {aviso.texto}
         </div>
       )}
 
@@ -57,7 +63,11 @@ export default function Productos() {
         onChange={(e) => setBusqueda(e.target.value)}
       />
 
-      <ProductTable productos={filtrados} onEliminar={handleEliminar} />
+      {productos === null ? (
+        <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />
+      ) : (
+        <ProductTable productos={filtrados} onEliminar={handleEliminar} />
+      )}
     </div>
   );
 }

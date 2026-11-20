@@ -4,6 +4,7 @@ import { AuthProvider } from "../../src/context/AuthContext.jsx";
 import { CartProvider } from "../../src/context/CartContext.jsx";
 import { CARRITO_STORAGE_KEY } from "../../src/data/carrito.js";
 import Carrito from "../../src/pages/store/Carrito.jsx";
+import { instalarApiFalsa } from "../helpers/apiFalsa.js";
 
 const item = { id: 2, nombre: "Cilindro GLP 11 kg", precio: 12000, imagen: "", cantidad: 2, stock: 10 };
 
@@ -19,7 +20,11 @@ const mostrar = () =>
   );
 
 describe("<Carrito />", () => {
-  beforeEach(() => localStorage.clear());
+  // El carrito sigue en localStorage; AuthProvider consulta la sesión al backend falso.
+  beforeEach(() => {
+    localStorage.clear();
+    instalarApiFalsa();
+  });
 
   it("muestra un mensaje si el carrito está vacío", () => {
     mostrar();

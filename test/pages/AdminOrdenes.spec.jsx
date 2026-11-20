@@ -1,51 +1,56 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "../../src/context/AuthContext.jsx";
 import Ordenes from "../../src/pages/admin/Ordenes.jsx";
 import Boleta from "../../src/pages/admin/Boleta.jsx";
-import { crearOrden, obtenerOrden } from "../../src/data/ordenes.js";
+import { BOLETAS_SEED, conToken, instalarApiFalsa } from "../helpers/apiFalsa.js";
+import { esperarCarga, esperarQue } from "../helpers/esperar.js";
 
-const mostrar = (ruta) =>
+// sesion: "admin" o "vendedor". conToken deja el token listo antes de montar,
+// como pasa en la app real (AdminLayout espera la sesión antes de mostrar la página).
+// preparar(db): cambia los datos del backend falso ANTES de montar (la página pide al montar).
+function mostrar(ruta, { sesion = "admin", preparar } = {}) {
+  const api = instalarApiFalsa({ sesion });
+  preparar?.(api.db);
+  conToken(sesion);
   render(
     <MemoryRouter initialEntries={[ruta]}>
-      <Routes>
-        <Route path="/admin/ordenes" element={<Ordenes />} />
-        <Route path="/admin/ordenes/:id" element={<Boleta />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/admin/ordenes" element={<Ordenes />} />
+          <Route path="/admin/ordenes/:id" element={<Boleta />} />
+        </Routes>
+      </AuthProvider>
     </MemoryRouter>
   );
+  return api;
+}
 
 const filasDeDatos = () => screen.getAllByRole("row").length - 1;
 
-// Orden con pago rechazado, como la que crea el checkout al simular un rechazo.
-function crearRechazada() {
-  return crearOrden({
-    cliente: { nombre: "Ana", apellidos: "Soto", correo: "ana@gmail.com" },
-    direccion: { calle: "Libertad 100", departamento: "", region: "nuble", comuna: "chillan", indicaciones: "" },
-    items: [{ id: 1, nombre: "Cilindro GLP 5 kg", precio: 6500, cantidad: 1, imagen: "" }],
-    estadoPago: "rechazado",
-  });
-}
+// Boleta con pago rechazado, como la que crea el backend al simular un rechazo (sin despacho).
+const RECHAZADA = { ...BOLETAS_SEED[0], id: 3, numero: "ORD-000003", usuarioId: null, estadoPago: "rechazado" };
 
 describe("pages/admin/Ordenes", () => {
-  beforeEach(() => localStorage.clear());
-
-  it("lista las órdenes pagadas y suma el total vendido", () => {
+  it("lista las órdenes pagadas y suma el total vendido", async () => {
     mostrar("/admin/ordenes");
+    await esperarCarga();
     expect(filasDeDatos()).toBe(2);
     expect(screen.getByText(/Total vendido/).textContent).toContain("$48.990");
   });
 
-  it("oculta los pagos rechazados hasta marcar la casilla (estado)", () => {
-    crearRechazada();
-    mostrar("/admin/ordenes");
+  it("oculta los pagos rechazados hasta marcar la casilla (estado)", async () => {
+    mostrar("/admin/ordenes", { preparar: (db) => db.boletas.push(structuredClone(RECHAZADA)) });
+    await esperarCarga();
     expect(filasDeDatos()).toBe(2);
     fireEvent.click(screen.getByLabelText("Ver pagos rechazados"));
     expect(filasDeDatos()).toBe(3);
     expect(screen.getByText("ORD-000003")).toBeTruthy();
   });
 
-  it("filtra por estado y por texto", () => {
+  it("filtra por estado y por texto", async () => {
     mostrar("/admin/ordenes");
+    await esperarCarga();
     fireEvent.change(screen.getByLabelText("Filtrar por estado"), { target: { value: "en camino" } });
     expect(filasDeDatos()).toBe(1);
     expect(screen.getByText("ORD-000002")).toBeTruthy();
@@ -57,41 +62,75 @@ describe("pages/admin/Ordenes", () => {
     fireEvent.change(screen.getByLabelText("Buscar orden"), { target: { value: "nadie" } });
     expect(screen.getByText("No hay órdenes que mostrar.")).toBeTruthy();
   });
+
+  it("el vendedor también puede ver las órdenes", async () => {
+    mostrar("/admin/ordenes", { sesion: "vendedor" });
+    await esperarCarga();
+    expect(filasDeDatos()).toBe(2);
+  });
+
+  it("muestra el error si el backend no responde", async () => {
+    mostrar("/admin/ordenes", { preparar: (db) => (db.caido = true) });
+    expect(await screen.findByRole("button", { name: "Reintentar" })).toBeTruthy();
+  });
 });
 
 describe("pages/admin/Boleta", () => {
-  beforeEach(() => localStorage.clear());
-
-  it("muestra la boleta de la orden de la URL", () => {
+  it("muestra la boleta de la orden de la URL", async () => {
     mostrar("/admin/ordenes/2");
-    expect(screen.getByRole("heading", { name: "Boleta ORD-000002" })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: "Boleta ORD-000002" })).toBeTruthy();
     expect(screen.getByText("Regulador doméstico estándar")).toBeTruthy();
     expect(screen.getByText("$24.990")).toBeTruthy();
   });
 
-  it("cambia el estado del despacho y lo guarda", () => {
-    mostrar("/admin/ordenes/2");
-    fireEvent.change(screen.getByLabelText("Estado del despacho"), { target: { value: "entregado" } });
-    expect(screen.getByText('Estado actualizado a "entregado".')).toBeTruthy();
-    expect(obtenerOrden(2).estado).toBe("entregado");
-  });
+  it("avanza el estado del despacho en el backend", async () => {
+    const api = mostrar("/admin/ordenes/2");
+    await screen.findByRole("heading", { name: "Boleta ORD-000002" });
+    const select = screen.getByLabelText("Estado del despacho");
+    await esperarQue(() => !select.disabled, "que se habilite el selector (sesión de admin)");
+    // Solo se ofrecen las etapas siguientes a "en camino".
+    expect([...select.options].map((o) => o.value)).toEqual(["", "entregado"]);
 
-  it("en un pago rechazado avisa y bloquea el cambio de estado", () => {
-    const orden = crearRechazada();
-    mostrar(`/admin/ordenes/${orden.id}`);
-    expect(screen.getByRole("alert").textContent).toContain("rechazado");
+    fireEvent.change(select, { target: { value: "entregado" } });
+    expect(await screen.findByText('Estado actualizado a "entregado".')).toBeTruthy();
+    expect(api.db.despachos.find((d) => d.boletaId === 2).estado).toBe("entregado");
+    expect(api.db.peticiones.some((p) => p.metodo === "PATCH" && p.ruta === "/despachos/2/estado")).toBeTrue();
+    // Ya entregado: no queda a dónde avanzar.
     expect(screen.getByLabelText("Estado del despacho").disabled).toBeTrue();
   });
 
-  it("el botón imprimir llama a window.print", () => {
+  it("si el backend rechaza el cambio muestra el motivo", async () => {
+    const api = mostrar("/admin/ordenes/2");
+    await screen.findByRole("heading", { name: "Boleta ORD-000002" });
+    const select = screen.getByLabelText("Estado del despacho");
+    await esperarQue(() => !select.disabled, "que se habilite el selector");
+    api.db.despachos.find((d) => d.boletaId === 2).estado = "entregado"; // otro admin lo entregó
+    fireEvent.change(select, { target: { value: "entregado" } });
+    expect((await screen.findByRole("alert")).textContent).toContain("ya fue entregado");
+  });
+
+  it("el vendedor ve la boleta pero no puede cambiar el estado", async () => {
+    mostrar("/admin/ordenes/2", { sesion: "vendedor" });
+    await screen.findByRole("heading", { name: "Boleta ORD-000002" });
+    await screen.findByText("Solo un administrador puede cambiar el estado.");
+    expect(screen.getByLabelText("Estado del despacho").disabled).toBeTrue();
+  });
+
+  it("en un pago rechazado avisa y bloquea el cambio de estado", async () => {
+    mostrar("/admin/ordenes/3", { preparar: (db) => db.boletas.push(structuredClone(RECHAZADA)) });
+    expect((await screen.findByRole("alert")).textContent).toContain("rechazado");
+    expect(screen.getByLabelText("Estado del despacho").disabled).toBeTrue();
+  });
+
+  it("el botón imprimir llama a window.print", async () => {
     spyOn(window, "print");
     mostrar("/admin/ordenes/1");
-    fireEvent.click(screen.getByRole("button", { name: "Imprimir boleta" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Imprimir boleta" }));
     expect(window.print).toHaveBeenCalled();
   });
 
-  it("muestra un aviso si la orden no existe", () => {
+  it("muestra un aviso si la orden no existe", async () => {
     mostrar("/admin/ordenes/999");
-    expect(screen.getByText(/Orden no encontrada/)).toBeTruthy();
+    expect(await screen.findByText(/Orden no encontrada/)).toBeTruthy();
   });
 });

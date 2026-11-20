@@ -2,14 +2,23 @@
 // Vista nueva de la Eval 2. Reutiliza OrderTable (la tabla de /admin/ordenes),
 // así cada compra muestra su estado de pago, su estado de despacho y el enlace a la boleta.
 import { Link, useParams } from "react-router-dom";
+import EstadoCarga from "../../components/EstadoCarga.jsx";
 import OrderTable from "../../components/OrderTable.jsx";
 import { listarPorUsuario } from "../../data/ordenes.js";
 import { obtenerUsuario } from "../../data/usuarios.js";
+import { useCarga } from "../../hooks/useCarga.js";
 import { formatearCLP } from "../../utils/formato.js";
 
 export default function HistorialCompras() {
-  const { id } = useParams(); // string: obtenerUsuario y listarPorUsuario lo convierten con Number()
-  const usuario = obtenerUsuario(id);
+  const { id } = useParams(); // string: listarPorUsuario lo convierte con Number()
+  // El usuario viene del servicio usuarios y sus órdenes del servicio ventas (en paralelo).
+  const { datos, cargando, error, recargar } = useCarga(
+    () => Promise.all([obtenerUsuario(id), listarPorUsuario(id)]),
+    [id]
+  );
+  const [usuario, ordenes] = datos ?? [null, []];
+
+  if (cargando || error) return <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />;
 
   if (!usuario) {
     return (
@@ -20,9 +29,8 @@ export default function HistorialCompras() {
   }
 
   // Todas las órdenes del usuario, incluidas las de pago rechazado (la tabla muestra el estado
-  // de pago de cada una). Las más nuevas primero. Las compras como invitado (usuarioId null)
-  // no quedan asociadas a ninguna cuenta, por eso no aparecen aquí.
-  const ordenes = listarPorUsuario(usuario.id).sort((a, b) => b.fecha.localeCompare(a.fecha));
+  // de pago de cada una). Las más nuevas primero (así las entrega el backend). Las compras
+  // como invitado (usuarioId null) no quedan asociadas a ninguna cuenta, por eso no aparecen.
   const pagadas = ordenes.filter((o) => o.estadoPago === "pagado");
   const rechazadas = ordenes.length - pagadas.length;
   const totalComprado = pagadas.reduce((acc, o) => acc + o.total, 0);
