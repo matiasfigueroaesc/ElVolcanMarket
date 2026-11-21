@@ -14,7 +14,7 @@ export const STORE_NAV_ITEMS = [
 ];
 
 export default function StoreNavbar() {
-  const { usuario, esAdmin, logout } = useAuth();
+  const { usuario, esAdmin, esVendedor, logout } = useAuth();
   const { unidades, total } = useCart();
   const navigate = useNavigate();
 
@@ -54,7 +54,8 @@ export default function StoreNavbar() {
             {usuario ? (
               <>
                 <span className="navbar-text text-nowrap d-lg-none d-xxl-inline">Hola, {usuario.nombre}</span>
-                {esAdmin && (
+                {/* El panel es para el personal: administrador y vendedor. */}
+                {(esAdmin || esVendedor) && (
                   <Link to="/admin" className="btn btn-dark btn-sm text-nowrap">
                     Panel admin
                   </Link>
