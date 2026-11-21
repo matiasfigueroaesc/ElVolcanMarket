@@ -47,6 +47,13 @@ describe("<StoreNavbar />", () => {
     expect(screen.getByRole("link", { name: "Panel admin" })).toBeTruthy();
   });
 
+  it("el vendedor también ve el acceso al panel", async () => {
+    instalarApiFalsa({ sesion: "vendedor" });
+    renderNavbar();
+    expect(await screen.findByText("Hola, Pedro")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Panel admin" })).toBeTruthy();
+  });
+
   it("un cliente con sesión no ve el panel", async () => {
     instalarApiFalsa({ sesion: "cliente" });
     renderNavbar();

@@ -35,6 +35,13 @@ describe("<ProductTable />", () => {
     expect(onEliminar).toHaveBeenCalledOnceWith(PRODUCTOS[1]);
   });
 
+  it("en modo solo lectura (vendedor) muestra Ver, pero no Editar ni Eliminar", () => {
+    mostrar(<ProductTable productos={PRODUCTOS} onEliminar={() => {}} soloLectura />);
+    expect(screen.getAllByRole("link", { name: "Ver" }).length).toBe(2);
+    expect(screen.queryByRole("link", { name: "Editar" })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Eliminar/ })).toBeNull();
+  });
+
   it("tiene enlaces Ver y Editar con la URL de cada producto", () => {
     mostrar(<ProductTable productos={PRODUCTOS} onEliminar={() => {}} />);
     const fila = screen.getByText("Detector de gas").closest("tr");
