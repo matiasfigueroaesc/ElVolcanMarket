@@ -1,19 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-
-export const ADMIN_NAV_ITEMS = [
-  { label: "Dashboard", to: "/admin", icono: "📊" },
-  { label: "Órdenes", to: "/admin/ordenes", icono: "🧾" },
-  { label: "Productos", to: "/admin/productos", icono: "📦" },
-  { label: "Categorías", to: "/admin/categorias", icono: "🏷️" },
-  { label: "Usuarios", to: "/admin/usuarios", icono: "👥" },
-  { label: "Reportes", to: "/admin/reportes", icono: "📈" },
-  { label: "Perfil", to: "/admin/perfil", icono: "👤" },
-];
-
-// El vendedor solo consulta órdenes y productos.
-export const VENDEDOR_NAV_ITEMS = ADMIN_NAV_ITEMS.filter((item) =>
-  ["/admin/ordenes", "/admin/productos"].includes(item.to)
-);
+import { ADMIN_NAV_ITEMS } from "../utils/permisos.js";
 
 // En escritorio es una barra lateral fija; en celular el menú se pliega bajo un botón.
 // items: opciones del menú según el rol (por defecto, las del administrador).

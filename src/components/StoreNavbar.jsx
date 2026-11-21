@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext.jsx";
 import { useCart } from "../context/CartContext.jsx";
 import { formatearCLP } from "../utils/formato.js";
 
-export const STORE_NAV_ITEMS = [
+const STORE_NAV_ITEMS = [
   { label: "Inicio", to: "/" },
   { label: "Productos", to: "/productos" },
   { label: "Categorías", to: "/categorias" },
@@ -57,7 +57,7 @@ export default function StoreNavbar() {
                 {/* El panel es para el personal: administrador y vendedor. */}
                 {(esAdmin || esVendedor) && (
                   <Link to="/admin" className="btn btn-dark btn-sm text-nowrap">
-                    Panel admin
+                    {esAdmin ? "Panel admin" : "Panel vendedor"}
                   </Link>
                 )}
                 <button type="button" className="btn btn-outline-secondary btn-sm text-nowrap" onClick={handleLogout}>

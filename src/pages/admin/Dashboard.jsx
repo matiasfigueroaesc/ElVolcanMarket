@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import EstadoCarga from "../../components/EstadoCarga.jsx";
 import StatCard from "../../components/StatCard.jsx";
-import { ADMIN_NAV_ITEMS } from "../../components/AdminSidebar.jsx";
+import { ADMIN_NAV_ITEMS } from "../../utils/permisos.js";
 import { listarOrdenes } from "../../data/ordenes.js";
 import { listarCriticos, listarProductos } from "../../data/productos.js";
 import { listarUsuarios } from "../../data/usuarios.js";

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Outlet, Route, Routes } from "react-router-dom";
 import ProductosCriticos from "../../src/pages/admin/ProductosCriticos.jsx";
 import { conToken, instalarApiFalsa } from "../helpers/apiFalsa.js";
 
@@ -7,6 +7,18 @@ const mostrar = () =>
   render(
     <MemoryRouter>
       <ProductosCriticos />
+    </MemoryRouter>
+  );
+
+// Como la deja AdminLayout para el vendedor: la página recibe soloLectura por el Outlet.
+const mostrarSoloLectura = () =>
+  render(
+    <MemoryRouter>
+      <Routes>
+        <Route element={<Outlet context={{ soloLectura: true }} />}>
+          <Route path="/" element={<ProductosCriticos />} />
+        </Route>
+      </Routes>
     </MemoryRouter>
   );
 
@@ -43,6 +55,15 @@ describe("pages/admin/ProductosCriticos", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Eliminar Detector de gas a batería" }));
     expect(await screen.findByText("No hay productos que mostrar.")).toBeTruthy();
     expect(api.db.productos.find((p) => p.id === 14)).toBeUndefined();
+  });
+
+  it("en solo lectura (vendedor) lista los críticos sin Editar ni Eliminar", async () => {
+    conToken("vendedor");
+    mostrarSoloLectura();
+    expect(await screen.findByText("Detector de gas a batería")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Ver" })).toBeTruthy();
+    expect(screen.queryByRole("link", { name: "Editar" })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Eliminar/ })).toBeNull();
   });
 
   it("sin permisos muestra el error del backend (403)", async () => {

@@ -3,9 +3,9 @@
 // refresh) se muestra "Cargando..." en vez de mandar al login antes de tiempo.
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import AdminSidebar, { ADMIN_NAV_ITEMS, VENDEDOR_NAV_ITEMS } from "../components/AdminSidebar.jsx";
+import AdminSidebar from "../components/AdminSidebar.jsx";
 import EstadoCarga from "../components/EstadoCarga.jsx";
-import { INICIO_VENDEDOR, vendedorPuedeVer } from "../utils/permisos.js";
+import { ADMIN_NAV_ITEMS, INICIO_VENDEDOR, VENDEDOR_NAV_ITEMS, vendedorPuedeVer } from "../utils/permisos.js";
 
 export default function AdminLayout() {
   const { usuario, esAdmin, esVendedor, cargandoSesion, logout } = useAuth();

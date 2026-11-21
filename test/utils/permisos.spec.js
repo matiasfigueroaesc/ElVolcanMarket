@@ -1,4 +1,4 @@
-import { INICIO_VENDEDOR, vendedorPuedeVer } from "../../src/utils/permisos.js";
+import { ADMIN_NAV_ITEMS, INICIO_VENDEDOR, VENDEDOR_NAV_ITEMS, vendedorPuedeVer } from "../../src/utils/permisos.js";
 
 describe("utils/permisos", () => {
   it("el vendedor puede ver listas y detalles de órdenes y productos", () => {
@@ -22,5 +22,10 @@ describe("utils/permisos", () => {
 
   it("la página de inicio del vendedor está permitida", () => {
     expect(vendedorPuedeVer(INICIO_VENDEDOR)).toBeTrue();
+  });
+
+  it("el menú del vendedor solo tiene Órdenes y Productos", () => {
+    expect(VENDEDOR_NAV_ITEMS.map((i) => i.label)).toEqual(["Órdenes", "Productos"]);
+    expect(ADMIN_NAV_ITEMS.length).toBe(7);
   });
 });

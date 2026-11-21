@@ -37,7 +37,7 @@ describe("<StoreNavbar />", () => {
   it("muestra login y registro cuando no hay sesión", () => {
     renderNavbar();
     expect(screen.getByRole("link", { name: "Iniciar sesión" })).toBeTruthy();
-    expect(screen.queryByRole("link", { name: "Panel admin" })).toBeNull();
+    expect(screen.queryByRole("link", { name: /^Panel/ })).toBeNull();
   });
 
   it("muestra el acceso al panel solo a administradores (sesión recuperada del backend)", async () => {
@@ -51,14 +51,14 @@ describe("<StoreNavbar />", () => {
     instalarApiFalsa({ sesion: "vendedor" });
     renderNavbar();
     expect(await screen.findByText("Hola, Pedro")).toBeTruthy();
-    expect(screen.getByRole("link", { name: "Panel admin" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Panel vendedor" })).toBeTruthy();
   });
 
   it("un cliente con sesión no ve el panel", async () => {
     instalarApiFalsa({ sesion: "cliente" });
     renderNavbar();
     expect(await screen.findByText("Hola, Camila")).toBeTruthy();
-    expect(screen.queryByRole("link", { name: "Panel admin" })).toBeNull();
+    expect(screen.queryByRole("link", { name: /^Panel/ })).toBeNull();
   });
 
   it("actualiza el contador del carrito al agregar un producto", () => {
