@@ -1,17 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
-
-export const ADMIN_NAV_ITEMS = [
-  { label: "Dashboard", to: "/admin", icono: "📊" },
-  { label: "Órdenes", to: "/admin/ordenes", icono: "🧾" },
-  { label: "Productos", to: "/admin/productos", icono: "📦" },
-  { label: "Categorías", to: "/admin/categorias", icono: "🏷️" },
-  { label: "Usuarios", to: "/admin/usuarios", icono: "👥" },
-  { label: "Reportes", to: "/admin/reportes", icono: "📈" },
-  { label: "Perfil", to: "/admin/perfil", icono: "👤" },
-];
+import { ADMIN_NAV_ITEMS } from "../utils/permisos.js";
 
 // En escritorio es una barra lateral fija; en celular el menú se pliega bajo un botón.
-export default function AdminSidebar({ usuario, onLogout }) {
+// items: opciones del menú según el rol (por defecto, las del administrador).
+export default function AdminSidebar({ usuario, onLogout, items = ADMIN_NAV_ITEMS }) {
   return (
     <aside className="admin-sidebar bg-dark text-white p-3 d-print-none">
       <div className="d-flex align-items-center justify-content-between mb-md-4">
@@ -32,7 +24,7 @@ export default function AdminSidebar({ usuario, onLogout }) {
       <div className="collapse d-md-flex flex-column admin-menu" id="adminMenu">
         <nav aria-label="Menú administrador" className="mt-3 mt-md-0">
           <ul className="nav nav-pills flex-column gap-1">
-            {ADMIN_NAV_ITEMS.map((item) => (
+            {items.map((item) => (
               <li className="nav-item" key={item.to}>
                 <NavLink to={item.to} end={item.to === "/admin"} className="nav-link text-white">
                   <span aria-hidden="true">{item.icono}</span> {item.label}

@@ -2,13 +2,15 @@
 // Reutiliza ProductTable: la tabla es la misma, solo cambia la lista que se le pasa.
 // El backend calcula cuáles son críticos (GET /productos/criticos, ADMIN y VENDEDOR).
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import EstadoCarga from "../../components/EstadoCarga.jsx";
 import ProductTable from "../../components/ProductTable.jsx";
 import { eliminarProducto, listarCriticos } from "../../data/productos.js";
 import { useCarga } from "../../hooks/useCarga.js";
 
 export default function ProductosCriticos() {
+  // El vendedor entra en modo solo lectura (lo indica AdminLayout).
+  const { soloLectura = false } = useOutletContext() ?? {};
   const { datos: criticos, cargando, error, recargar } = useCarga(() => listarCriticos());
   const [aviso, setAviso] = useState(null);
 
@@ -48,7 +50,7 @@ export default function ProductosCriticos() {
               <span className="badge text-bg-danger">{criticos.length}</span> producto(s) por reponer
             </p>
           )}
-          <ProductTable productos={criticos} onEliminar={handleEliminar} />
+          <ProductTable productos={criticos} onEliminar={handleEliminar} soloLectura={soloLectura} />
         </>
       )}
     </div>
