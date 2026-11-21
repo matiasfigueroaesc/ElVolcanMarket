@@ -1,6 +1,6 @@
 // Detalle de un producto en el panel: /admin/productos/:id
 import { useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import EstadoCarga from "../../components/EstadoCarga.jsx";
 import { obtenerCategoria } from "../../data/categorias.js";
 import { eliminarProducto, estaEnOferta, obtenerProducto } from "../../data/productos.js";
@@ -17,6 +17,8 @@ async function cargarProducto(id) {
 export default function ProductoDetalle() {
   const { id } = useParams();
   const navigate = useNavigate();
+  // El vendedor entra en modo solo lectura (lo indica AdminLayout).
+  const { soloLectura = false } = useOutletContext() ?? {};
   // Mensaje que manda ProductoForm al guardar (si se llegó desde ahí).
   const mensaje = useLocation().state?.mensaje;
   const [errorEliminar, setErrorEliminar] = useState("");
@@ -106,14 +108,16 @@ export default function ProductoDetalle() {
                 </dd>
               </dl>
 
-              <div className="d-flex flex-wrap gap-2 mt-3">
-                <Link to={`/admin/productos/${producto.id}/editar`} className="btn btn-primary">
-                  Editar
-                </Link>
-                <button type="button" className="btn btn-outline-danger" onClick={handleEliminar}>
-                  Eliminar
-                </button>
-              </div>
+              {!soloLectura && (
+                <div className="d-flex flex-wrap gap-2 mt-3">
+                  <Link to={`/admin/productos/${producto.id}/editar`} className="btn btn-primary">
+                    Editar
+                  </Link>
+                  <button type="button" className="btn btn-outline-danger" onClick={handleEliminar}>
+                    Eliminar
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -3,7 +3,8 @@
 import { Link } from "react-router-dom";
 import { formatearCLP } from "../utils/formato.js";
 
-export default function ProductTable({ productos, onEliminar }) {
+// soloLectura (vendedor): solo se muestra el botón Ver.
+export default function ProductTable({ productos, onEliminar, soloLectura = false }) {
   // Renderizado condicional: si no hay nada que mostrar, un aviso en vez de una tabla vacía.
   if (productos.length === 0) {
     return (
@@ -43,18 +44,22 @@ export default function ProductTable({ productos, onEliminar }) {
                   <Link to={`/admin/productos/${p.id}`} className="btn btn-sm btn-outline-secondary me-1">
                     Ver
                   </Link>
-                  <Link to={`/admin/productos/${p.id}/editar`} className="btn btn-sm btn-outline-primary me-1">
-                    Editar
-                  </Link>
-                  {/* La tabla no elimina: solo avisa a la página qué producto se clickeó. */}
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-danger"
-                    aria-label={`Eliminar ${p.nombre}`}
-                    onClick={() => onEliminar(p)}
-                  >
-                    Eliminar
-                  </button>
+                  {!soloLectura && (
+                    <>
+                      <Link to={`/admin/productos/${p.id}/editar`} className="btn btn-sm btn-outline-primary me-1">
+                        Editar
+                      </Link>
+                      {/* La tabla no elimina: solo avisa a la página qué producto se clickeó. */}
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-danger"
+                        aria-label={`Eliminar ${p.nombre}`}
+                        onClick={() => onEliminar(p)}
+                      >
+                        Eliminar
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             );

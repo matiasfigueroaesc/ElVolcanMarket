@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import EstadoCarga from "../../components/EstadoCarga.jsx";
 import ProductTable from "../../components/ProductTable.jsx";
 import { buscarProductos, eliminarProducto, listarProductos } from "../../data/productos.js";
 import { useCarga } from "../../hooks/useCarga.js";
 
 export default function Productos() {
+  // El vendedor entra en modo solo lectura (lo indica AdminLayout).
+  const { soloLectura = false } = useOutletContext() ?? {};
+
   // Datos: la lista de productos viene del backend. recargar() la vuelve a pedir
   // (por ejemplo, después de eliminar).
   const { datos: productos, cargando, error, recargar } = useCarga(() => listarProductos());
@@ -39,9 +42,11 @@ export default function Productos() {
           <Link to="/admin/productos/criticos" className="btn btn-outline-danger">
             Ver críticos
           </Link>
-          <Link to="/admin/productos/nuevo" className="btn btn-primary">
-            Nuevo producto
-          </Link>
+          {!soloLectura && (
+            <Link to="/admin/productos/nuevo" className="btn btn-primary">
+              Nuevo producto
+            </Link>
+          )}
         </div>
       </div>
 
@@ -66,7 +71,7 @@ export default function Productos() {
       {productos === null ? (
         <EstadoCarga cargando={cargando} error={error} onReintentar={recargar} />
       ) : (
-        <ProductTable productos={filtrados} onEliminar={handleEliminar} />
+        <ProductTable productos={filtrados} onEliminar={handleEliminar} soloLectura={soloLectura} />
       )}
     </div>
   );
